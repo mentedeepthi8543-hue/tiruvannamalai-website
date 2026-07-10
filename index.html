@@ -372,135 +372,6 @@
       font-size:14px;
     }
 
-    /* =========================
-   WEATHER CARD
-========================= */
-
-.weather-card{
-  transition:transform 0.3s ease;
-}
-
-.weather-card:hover{
-  transform:translateY(-5px);
-}
-
-.weather-temperature{
-  color:var(--orange) !important;
-  font-size:25px !important;
-  font-weight:800;
-  margin:3px 0;
-}
-
-.weather-extra{
-  margin-top:5px;
-  font-size:12px !important;
-}
-
-/* =========================
-   WEATHER TOUR SUGGESTION
-========================= */
-
-.weather-guide-section{
-  padding:65px 0 20px;
-}
-
-.weather-guide-card{
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  border-left:6px solid var(--orange);
-  box-shadow:var(--shadow);
-}
-
-.weather-guide-heading{
-  display:flex;
-  align-items:center;
-  gap:18px;
-  margin-bottom:20px;
-}
-
-.weather-guide-icon{
-  width:62px;
-  height:62px;
-  min-width:62px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--cream);
-  border-radius:50%;
-  font-size:30px;
-}
-
-.weather-guide-heading span{
-  color:var(--orange);
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:1.3px;
-}
-
-.weather-guide-heading h2{
-  color:var(--green);
-  font-size:27px;
-  margin-top:3px;
-}
-
-#weatherSuggestion{
-  background:var(--cream);
-  padding:22px;
-  border-radius:14px;
-}
-
-#weatherSuggestion h3{
-  color:var(--green);
-  margin-bottom:8px;
-}
-
-#weatherSuggestion p{
-  color:#555;
-  margin-bottom:14px;
-}
-
-.tour-suggestion-list{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-
-.tour-suggestion-item{
-  background:white;
-  padding:14px;
-  border-radius:10px;
-  border-left:4px solid var(--gold);
-  font-size:14px;
-}
-
-.weather-warning{
-  color:#777;
-  font-size:13px;
-  margin-top:15px;
-}
-
-@media(max-width:650px){
-  .weather-guide-section{
-    padding:45px 0 10px;
-  }
-
-  .weather-guide-card{
-    padding:20px;
-  }
-
-  .weather-guide-heading{
-    align-items:flex-start;
-  }
-
-  .weather-guide-heading h2{
-    font-size:21px;
-  }
-
-  .tour-suggestion-list{
-    grid-template-columns:1fr;
-  }
-}
     /* COMMON SECTIONS */
     section{
       padding:80px 0;
@@ -1036,36 +907,7 @@
         </div>
       </div>
     </div>
-<!-- SMART WEATHER TOUR SUGGESTION -->
-<section class="weather-guide-section">
-  <div class="container">
 
-    <div class="weather-guide-card">
-
-      <div class="weather-guide-heading">
-        <div class="weather-guide-icon" id="suggestionIcon">🧭</div>
-
-        <div>
-          <span>SMART TOUR ASSISTANCE</span>
-          <h2>Today's Tiruvannamalai Tour Suggestion</h2>
-        </div>
-      </div>
-
-      <div id="weatherSuggestion">
-        <p>
-          Loading today's temperature and recommended tour plan...
-        </p>
-      </div>
-
-      <p class="weather-warning">
-        Weather conditions may change. Check local safety announcements
-        before beginning Girivalam or visiting hill routes.
-      </p>
-
-    </div>
-
-  </div>
-</section>
 
     <section id="services">
       <div class="container">
@@ -1381,8 +1223,30 @@
       </div>
     </div>
   </footer>
-  
-  <script src="script.js"></script>
+
+<script>
+    const heroSlides = document.querySelectorAll(".hero-slide");
+    const sliderDots = document.querySelectorAll(".slider-dot");
+
+    let currentSlide = 0;
+
+    function showNextHeroSlide() {
+
+        heroSlides[currentSlide].classList.remove("active");
+        sliderDots[currentSlide].classList.remove("active");
+
+        currentSlide++;
+
+        if(currentSlide >= heroSlides.length){
+            currentSlide = 0;
+        }
+
+        heroSlides[currentSlide].classList.add("active");
+        sliderDots[currentSlide].classList.add("active");
+    }
+
+    setInterval(showNextHeroSlide, 4000);
+</script>
 
 </body>
 </html>

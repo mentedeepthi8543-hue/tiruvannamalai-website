@@ -1,8 +1,9 @@
 /* =====================================================
-   SMART SPIRITUAL NAVIGATION SYSTEM
-   1. Hero image slider
-   2. Live Tiruvannamalai weather
-   3. Weather-based tour suggestions
+   TIRUVANNAMALAI GUIDE
+   - Hero image slider
+   - Live temperature
+   - Sunny / Cloudy / Rainy status
+   - Weather-based place suggestions
 ===================================================== */
 
 
@@ -48,6 +49,9 @@ if (heroSlides.length > 0) {
    WEATHER HTML ELEMENTS
 ===================================================== */
 
+const weatherIcon =
+    document.getElementById("weatherIcon");
+
 const weatherTemperature =
     document.getElementById("weatherTemperature");
 
@@ -57,18 +61,15 @@ const weatherCondition =
 const weatherExtra =
     document.getElementById("weatherExtra");
 
-const weatherIcon =
-    document.getElementById("weatherIcon");
+const suggestionIcon =
+    document.getElementById("suggestionIcon");
 
 const weatherSuggestion =
     document.getElementById("weatherSuggestion");
 
-const suggestionIcon =
-    document.getElementById("suggestionIcon");
-
 
 /* =====================================================
-   OPEN-METEO WEATHER API
+   OPEN-METEO API
 
    Tiruvannamalai:
    Latitude: 12.2253
@@ -79,224 +80,600 @@ const weatherApiUrl =
     "https://api.open-meteo.com/v1/forecast" +
     "?latitude=12.2253" +
     "&longitude=79.0747" +
-    "&current=temperature_2m,apparent_temperature," +
-    "precipitation,rain,weather_code,wind_speed_10m" +
-    "&daily=precipitation_probability_max," +
-    "temperature_2m_max,temperature_2m_min" +
-    "&timezone=Asia%2FKolkata" +
-    "&forecast_days=1";
+    "&current=temperature_2m,weather_code" +
+    "&timezone=Asia%2FKolkata";
 
 
 /* =====================================================
-   CONVERT WEATHER CODE INTO CONDITION
+   WEATHER CONDITION
 ===================================================== */
 
-function getWeatherDetails(weatherCode) {
+function getWeatherDetails(code) {
 
-    if (weatherCode === 0) {
+    if (code === 0) {
         return {
-            condition: "Clear and Sunny",
-            icon: "☀️"
+            name: "Sunny",
+            icon: "☀️",
+            type: "sunny"
         };
     }
 
-    if (weatherCode === 1 || weatherCode === 2) {
+    if (code === 1 || code === 2) {
         return {
-            condition: "Partly Sunny",
-            icon: "🌤️"
+            name: "Partly Sunny",
+            icon: "🌤️",
+            type: "sunny"
         };
     }
 
-    if (weatherCode === 3) {
+    if (code === 3) {
         return {
-            condition: "Cloudy",
-            icon: "☁️"
+            name: "Cloudy",
+            icon: "☁️",
+            type: "cloudy"
         };
     }
 
-    if (weatherCode === 45 || weatherCode === 48) {
+    if (code === 45 || code === 48) {
         return {
-            condition: "Foggy",
-            icon: "🌫️"
+            name: "Foggy",
+            icon: "🌫️",
+            type: "cloudy"
         };
     }
 
-    if (weatherCode >= 51 && weatherCode <= 57) {
+    if (code >= 51 && code <= 57) {
         return {
-            condition: "Light Drizzle",
-            icon: "🌦️"
+            name: "Light Drizzle",
+            icon: "🌦️",
+            type: "rainy"
         };
     }
 
-    if (weatherCode >= 61 && weatherCode <= 67) {
+    if (
+        (code >= 61 && code <= 67) ||
+        (code >= 80 && code <= 82)
+    ) {
         return {
-            condition: "Rainy",
-            icon: "🌧️"
+            name: "Rainy",
+            icon: "🌧️",
+            type: "rainy"
         };
     }
 
-    if (weatherCode >= 80 && weatherCode <= 82) {
+    if (code >= 95) {
         return {
-            condition: "Rain Showers",
-            icon: "🌧️"
-        };
-    }
-
-    if (weatherCode >= 95) {
-        return {
-            condition: "Thunderstorm",
-            icon: "⛈️"
+            name: "Thunderstorm",
+            icon: "⛈️",
+            type: "storm"
         };
     }
 
     return {
-        condition: "Current Weather",
-        icon: "🌤️"
+        name: "Current Weather",
+        icon: "🌤️",
+        type: "normal"
     };
 }
 
+
 /* =====================================================
-   LOAD LIVE TIRUVANNAMALAI WEATHER
+   PLACES AND RECOMMENDED VISITING TIMES
+
+   These are suggested travel windows,
+   not official opening timings.
 ===================================================== */
 
-async function loadTiruvannamalaiWeather() {
+const places = [
 
-    if (
-        !weatherTemperature ||
-        !weatherCondition ||
-        !weatherExtra ||
-        !weatherIcon
-    ) {
-        console.error(
-            "Weather card elements are missing from index.html"
-        );
+    {
+        name: "Arunachaleswarar Temple",
+        icon: "🛕",
+        time: "5:00 AM–10:00 AM or 4:00 PM–8:30 PM",
+        category: "indoor"
+    },
 
-        return;
+    {
+        name: "Sri Ramana Ashram",
+        icon: "🧘",
+        time: "8:00 AM–11:30 AM or 2:00 PM–5:30 PM",
+        category: "indoor"
+    },
+
+    {
+        name: "Sri Seshadri Swamigal Ashram",
+        icon: "🙏",
+        time: "8:00 AM–12:00 PM or 3:00 PM–6:00 PM",
+        category: "indoor"
+    },
+
+    {
+        name: "Yogi Ramsuratkumar Ashram",
+        icon: "🧘",
+        time: "8:00 AM–12:00 PM or 3:00 PM–6:00 PM",
+        category: "indoor"
+    },
+
+    {
+        name: "Girivalam Route",
+        icon: "🚶",
+        time: "5:00 AM–8:00 AM or after 5:00 PM",
+        category: "outdoor"
+    },
+
+    {
+        name: "Virupaksha Cave",
+        icon: "🪨",
+        time: "6:00 AM–9:30 AM",
+        category: "trek"
+    },
+
+    {
+        name: "Skandashramam",
+        icon: "🕉️",
+        time: "6:00 AM–9:30 AM",
+        category: "trek"
+    },
+
+    {
+        name: "Arunachala Mountain",
+        icon: "🏔️",
+        time: "5:30 AM–9:00 AM",
+        category: "trek"
+    },
+
+    {
+        name: "Parvathamalai Hills",
+        icon: "⛰️",
+        time: "5:00 AM–9:00 AM",
+        category: "trek"
+    },
+
+    {
+        name: "Annamalaiyar Temple View Point",
+        icon: "🌄",
+        time: "6:00 AM–8:00 AM or 4:30 PM–6:30 PM",
+        category: "outdoor"
+    },
+
+    {
+        name: "Javadhu Hills",
+        icon: "🌿",
+        time: "6:00 AM–11:00 AM",
+        category: "outdoor"
+    },
+
+    {
+        name: "Sathanur Reservoir",
+        icon: "🌊",
+        time: "7:00 AM–11:00 AM or 3:30 PM–6:00 PM",
+        category: "outdoor"
     }
 
+];
+
+
+/* =====================================================
+   PLACE CARD
+===================================================== */
+
+function createRecommendedCard(place) {
+
+    return `
+        <div class="tour-suggestion-item">
+
+            <strong>
+                ${place.icon} ${place.name}
+            </strong>
+
+            <br>
+
+            <span>
+                Best time: ${place.time}
+            </span>
+
+        </div>
+    `;
+}
+
+
+function createAvoidCard(place, reason) {
+
+    return `
+        <div
+            class="tour-suggestion-item"
+            style="border-left-color:#c0392b;"
+        >
+
+            <strong>
+                ❌ ${place.name}
+            </strong>
+
+            <br>
+
+            <span>
+                Suggested time: ${place.time}
+            </span>
+
+            <br>
+
+            <small>
+                ${reason}
+            </small>
+
+        </div>
+    `;
+}
+
+
+/* =====================================================
+   WEATHER-BASED SUGGESTIONS
+===================================================== */
+
+function displaySuggestions(
+    temperature,
+    weather
+) {
+
+    const recommended = [];
+    const avoid = [];
+
+    let advice = "";
+
+
+    /* THUNDERSTORM */
+
+    if (weather.type === "storm") {
+
+        advice =
+            "Thunderstorm conditions are unsafe for outdoor travel. Prefer temples and ashrams.";
+
+        places.forEach(function (place) {
+
+            if (place.category === "indoor") {
+
+                recommended.push(place);
+
+            } else {
+
+                avoid.push({
+                    place: place,
+                    reason:
+                        "Avoid during thunderstorms."
+                });
+
+            }
+
+        });
+
+    }
+
+
+    /* RAINY */
+
+    else if (weather.type === "rainy") {
+
+        advice =
+            "Rainy weather. Visit temples and ashrams. Avoid Girivalam, hills, caves and wet outdoor routes.";
+
+        places.forEach(function (place) {
+
+            if (place.category === "indoor") {
+
+                recommended.push(place);
+
+            } else {
+
+                avoid.push({
+                    place: place,
+                    reason:
+                        "Avoid while roads and paths are wet."
+                });
+
+            }
+
+        });
+
+    }
+
+
+    /* VERY HOT */
+
+    else if (temperature >= 37) {
+
+        advice =
+            "Very hot weather. Visit temples and ashrams during the daytime. Visit outdoor places only early morning or evening.";
+
+        places.forEach(function (place) {
+
+            if (place.category === "indoor") {
+
+                recommended.push(place);
+
+            } else {
+
+                avoid.push({
+                    place: place,
+                    reason:
+                        "Avoid during peak afternoon heat."
+                });
+
+            }
+
+        });
+
+    }
+
+
+    /* WARM AND SUNNY */
+
+    else if (temperature >= 31) {
+
+        advice =
+            "Warm weather. Visit temples and ashrams during the day. Plan Girivalam and outdoor visits in the morning or after 5:00 PM.";
+
+        places.forEach(function (place) {
+
+            recommended.push(place);
+
+        });
+
+    }
+
+
+    /* CLOUDY */
+
+    else if (weather.type === "cloudy") {
+
+        advice =
+            "Cloudy and comfortable weather. Most places are suitable, but check for rain before visiting hills and caves.";
+
+        places.forEach(function (place) {
+
+            recommended.push(place);
+
+        });
+
+    }
+
+
+    /* PLEASANT */
+
+    else {
+
+        advice =
+            "Pleasant weather. Most Tiruvannamalai places can be visited during their recommended times.";
+
+        places.forEach(function (place) {
+
+            recommended.push(place);
+
+        });
+
+    }
+
+
+    suggestionIcon.textContent =
+        weather.icon;
+
+
+    const recommendedHtml =
+        recommended
+            .map(createRecommendedCard)
+            .join("");
+
+
+    let avoidHtml = `
+        <div class="tour-suggestion-item">
+            No major restrictions based on the current weather.
+        </div>
+    `;
+
+
+    if (avoid.length > 0) {
+
+        avoidHtml =
+            avoid
+                .map(function (item) {
+
+                    return createAvoidCard(
+                        item.place,
+                        item.reason
+                    );
+
+                })
+                .join("");
+
+    }
+
+
+    weatherSuggestion.innerHTML = `
+
+        <h3>
+            ${weather.icon}
+            ${weather.name}
+            — ${temperature}°C
+        </h3>
+
+        <p>
+            ${advice}
+        </p>
+
+        <h3 style="margin-top:20px;">
+            ✅ Recommended Places
+        </h3>
+
+        <div class="tour-suggestion-list">
+
+            ${recommendedHtml}
+
+        </div>
+
+        <h3 style="margin-top:25px;">
+            ⚠️ Avoid or Postpone
+        </h3>
+
+        <div class="tour-suggestion-list">
+
+            ${avoidHtml}
+
+        </div>
+
+        <p
+            style="
+                margin-top:18px;
+                font-size:13px;
+                color:#777;
+            "
+        >
+            These are suggested travel windows,
+            not official opening hours.
+            Verify local timings before travelling.
+        </p>
+    `;
+}
+
+
+/* =====================================================
+   LOAD LIVE WEATHER
+===================================================== */
+
+async function loadWeather() {
+
     try {
-        const response = await fetch(weatherApiUrl);
+
+        const response =
+            await fetch(weatherApiUrl);
+
 
         if (!response.ok) {
+
             throw new Error(
-                "Unable to connect to the weather service"
+                "Weather request failed"
             );
+
         }
 
-        const data = await response.json();
 
-        const current = data.current;
-        const daily = data.daily;
+        const data =
+            await response.json();
 
-        const temperature =
-            Math.round(current.temperature_2m);
 
-        const feelsLike =
-            Math.round(current.apparent_temperature);
+        if (!data.current) {
 
-        const rain =
-            Number(
-                current.rain ||
-                current.precipitation ||
-                0
+            throw new Error(
+                "Current weather is missing"
             );
 
+        }
+
+
+        const temperature =
+            Math.round(
+                data.current.temperature_2m
+            );
+
+
         const weatherCode =
-            Number(current.weather_code);
+            Number(
+                data.current.weather_code
+            );
 
-        const windSpeed =
-            Math.round(current.wind_speed_10m);
-
-        const rainChance =
-            daily &&
-            daily.precipitation_probability_max
-                ? Number(
-                    daily.precipitation_probability_max[0] || 0
-                )
-                : 0;
-
-        const maximumTemperature =
-            daily && daily.temperature_2m_max
-                ? Math.round(daily.temperature_2m_max[0])
-                : temperature;
-
-        const minimumTemperature =
-            daily && daily.temperature_2m_min
-                ? Math.round(daily.temperature_2m_min[0])
-                : temperature;
 
         const weather =
-            getWeatherDetails(weatherCode);
+            getWeatherDetails(
+                weatherCode
+            );
 
 
-        /* UPDATE WEATHER CARD */
+        /* WEATHER CARD */
 
         weatherIcon.textContent =
             weather.icon;
 
+
         weatherTemperature.textContent =
             `${temperature}°C`;
 
+
         weatherCondition.textContent =
-            weather.condition;
-
-        weatherExtra.textContent = "";
+            weather.name;
 
 
-        /* DISPLAY TOUR SUGGESTIONS */
+        /* REMOVE EXTRA DETAILS */
 
-        showTourSuggestion(
+        if (weatherExtra) {
+
+            weatherExtra.textContent = "";
+
+        }
+
+
+        /* DISPLAY PLACES */
+
+        displaySuggestions(
             temperature,
-            feelsLike,
-            rain,
-            rainChance,
-            windSpeed,
-            weatherCode
+            weather
         );
 
-    } catch (error) {
+    }
+
+    catch (error) {
+
         console.error(
-            "Weather loading error:",
+            "Weather error:",
             error
         );
 
-        weatherIcon.textContent = "⚠️";
+
+        weatherIcon.textContent =
+            "⚠️";
+
 
         weatherTemperature.textContent =
             "--°C";
 
+
         weatherCondition.textContent =
             "Weather unavailable";
 
-        weatherExtra.textContent =
-            "Check your internet connection";
 
-        if (suggestionIcon) {
-            suggestionIcon.textContent = "⚠️";
+        if (weatherExtra) {
+
+            weatherExtra.textContent = "";
+
         }
 
-        if (weatherSuggestion) {
-            weatherSuggestion.innerHTML = `
-                <h3>Unable to load live weather</h3>
 
-                <p>
-                    Please check your internet connection
-                    and refresh the page.
-                </p>
-            `;
-        }
+        suggestionIcon.textContent =
+            "⚠️";
+
+
+        weatherSuggestion.innerHTML = `
+
+            <h3>
+                Unable to load live weather
+            </h3>
+
+            <p>
+                Check your internet connection,
+                save script.js and refresh the page.
+            </p>
+        `;
+
     }
+
 }
 
 
-/* LOAD WEATHER WHEN THE PAGE OPENS */
+/* LOAD WEATHER IMMEDIATELY */
 
-loadTiruvannamalaiWeather();
+loadWeather();
 
 
-/* REFRESH WEATHER EVERY 15 MINUTES */
+/* UPDATE EVERY 15 MINUTES */
 
 setInterval(
-    loadTiruvannamalaiWeather,
+    loadWeather,
     15 * 60 * 1000
 );
