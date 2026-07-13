@@ -1,1252 +1,2840 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tiruvannamalai Pilgrimage Guide</title>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-  <style>
-    :root{
-      --green:#2c3e36;
-      --green-light:#3f5b4f;
-      --orange:#d35400;
-      --gold:#c89b3c;
-      --cream:#f6f1e7;
-      --white:#ffffff;
-      --text:#333333;
-      --muted:#6b6b6b;
-      --shadow:0 8px 24px rgba(0,0,0,0.10);
-    }
+    <title>Tiruvannamalai Pilgrimage Guide</title>
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
+    <style>
+        :root {
+            --green: #2c3e36;
+            --orange: #d35400;
+            --gold: #c89b3c;
+            --cream: #f6f1e7;
+            --white: #ffffff;
+            --text: #333333;
+            --muted: #6b6b6b;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+        }
 
-    html{
-      scroll-behavior:smooth;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    body{
-      background:var(--cream);
-      color:var(--text);
-      line-height:1.6;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    img{
-      width:100%;
-      display:block;
-    }
+        body {
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    a{
-      text-decoration:none;
-    }
+        img {
+            width: 100%;
+            display: block;
+        }
 
-    .container{
-      width:min(1180px, 92%);
-      margin:auto;
-    }
+        a {
+            text-decoration: none;
+        }
 
-    /* NAVBAR */
-    .navbar{
-      background:var(--green);
-      color:white;
-      position:sticky;
-      top:0;
-      z-index:1000;
-      box-shadow:0 2px 10px rgba(0,0,0,0.15);
-    }
+        .container {
+            width: min(1180px, 92%);
+            margin: auto;
+        }
 
-    .nav-wrap{
-      min-height:70px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-    }
+        /* NAVBAR */
 
-    .brand{
-      font-size:22px;
-      font-weight:700;
-      color:white;
-      white-space:nowrap;
-    }
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--green);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
 
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:20px;
-      flex-wrap:wrap;
-    }
+        .nav-wrap {
+            min-height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
 
-    .nav-links a{
-      color:white;
-      font-size:14px;
-    }
+        .brand {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
 
-    .nav-links a:hover{
-      color:#ffd98b;
-    }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-    .language{
-      background:white;
-      color:var(--green);
-      border:none;
-      border-radius:8px;
-      padding:8px 10px;
-      font-weight:600;
-    }
+        .nav-links a {
+            color: white;
+            font-size: 14px;
+        }
 
-    /* ANNOUNCEMENT */
-    .announcement{
-      background:var(--gold);
-      color:#1f2c26;
-      text-align:center;
-      padding:9px 15px;
-      font-size:14px;
-      font-weight:600;
-    }
+        .nav-links a:hover {
+            color: #ffd98b;
+        }
 
-/* =========================
-   HERO SECTION
-========================= */
+        .language {
+            border: none;
+            border-radius: 9px;
+            padding: 9px 12px;
+            background: white;
+            color: var(--green);
+            font-weight: 700;
+        }
 
-.hero{
-    min-height:600px;
-    display:flex;
-    align-items:center;
-    background:
-        radial-gradient(
-            circle at top right,
-            rgba(200,155,60,0.18),
-            transparent 38%
-        ),
-        #222a26;
-    color:white;
-    padding:65px 0;
-    overflow:hidden;
-}
+        /* ANNOUNCEMENT */
 
-/* TEXT AND IMAGE SIDE BY SIDE */
+        .announcement {
+            background: var(--gold);
+            color: #1f2c26;
+            text-align: center;
+            padding: 9px 15px;
+            font-size: 14px;
+            font-weight: 700;
+        }
 
-.hero-layout{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:55px;
-    align-items:center;
-}
+        /* HERO */
 
-/* LEFT TEXT */
+        .hero {
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            padding: 65px 0 110px;
+            overflow: hidden;
+            color: white;
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(200, 155, 60, 0.18),
+                    transparent 38%
+                ),
+                #222a26;
+        }
 
-.hero-content{
-    max-width:650px;
-    padding:20px 0;
-}
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 55px;
+            align-items: center;
+        }
 
-.hero h1{
-    font-size:clamp(42px, 5vw, 68px);
-    line-height:1.08;
-    margin-bottom:22px;
-}
+        .hero-content {
+            max-width: 650px;
+        }
 
-.hero p{
-    font-size:19px;
-    line-height:1.8;
-    color:#eeeeee;
-    margin-bottom:30px;
-}
+        .hero h1 {
+            font-size: clamp(42px, 5vw, 68px);
+            line-height: 1.08;
+            margin-bottom: 22px;
+        }
 
-/* RIGHT IMAGE AREA */
+        .hero p {
+            color: #eeeeee;
+            font-size: 19px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
 
-.hero-slider{
-    position:relative;
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 21px;
+            border: 2px solid transparent;
+            border-radius: 9px;
+            font-weight: 700;
+            transition: 0.25s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.92;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--green);
+        }
+
+        .btn-outline {
+            border-color: white;
+            color: white;
+        }
+
+        /* HERO SLIDER */
+
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 430px;
+            padding: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 26px;
+            background: rgba(255, 255, 255, 0.09);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 16px;
+            opacity: 0;
+            transform: translateX(45px);
+            transition:
+                opacity 0.9s ease,
+                transform 0.9s ease;
+            pointer-events: none;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .hero-slide img {
+            height: 100%;
+            object-fit: contain;
+            border-radius: 18px;
+            background: #111713;
+        }
+
+        .slider-dots {
+            position: absolute;
+            z-index: 5;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .slider-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: 0.3s;
+        }
+
+        .slider-dot.active {
+            width: 26px;
+            border-radius: 10px;
+            background: var(--gold);
+        }
+
+        /* QUICK CARDS */
+
+        .quick-info {
+            position: relative;
+            z-index: 10;
+            margin-top: -55px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .weather-flip-card,
+        .temple-flip-card,
+        .girivalam-flip-card,
+        .emergency-flip-card {
+            width: 100%;
+            height: 285px;
+            perspective: 1200px;
+            cursor: pointer;
+        }
+
+        .weather-flip-inner,
+        .temple-flip-inner,
+        .girivalam-flip-inner,
+        .emergency-flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.7s ease;
+        }
+
+        .weather-flip-card.flipped .weather-flip-inner,
+        .temple-flip-card.flipped .temple-flip-inner,
+        .girivalam-flip-card.flipped .girivalam-flip-inner,
+        .emergency-flip-card.flipped .emergency-flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        .weather-card-front,
+        .weather-card-back,
+        .temple-card-front,
+        .temple-card-back,
+        .girivalam-card-front,
+        .girivalam-card-back,
+        .emergency-card-front,
+        .emergency-card-back {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        /* CARD FRONTS */
+
+        .weather-card-front,
+        .temple-card-front,
+        .girivalam-card-front,
+        .emergency-card-front {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 22px;
+            background: white;
+            text-align: center;
+        }
+
+        .weather-card-front .icon,
+        .temple-card-front .icon,
+        .girivalam-card-front .icon,
+        .emergency-card-front .icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .weather-card-front h3,
+        .temple-card-front h3,
+        .girivalam-card-front h3,
+        .emergency-card-front h3 {
+            color: var(--green);
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .weather-card-front p,
+        .temple-card-front p,
+        .girivalam-card-front p,
+        .emergency-card-front p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .weather-temperature {
+            color: var(--orange) !important;
+            font-size: 29px !important;
+            line-height: 1.2;
+            font-weight: 800;
+            margin: 3px 0;
+        }
+
+        .weather-extra {
+            display: none;
+        }
+
+        .weather-flip-hint,
+        .temple-flip-hint,
+        .girivalam-flip-hint,
+        .emergency-flip-hint {
+            color: var(--orange);
+            font-size: 9px;
+            font-weight: 700;
+            margin-top: 11px;
+        }
+
+        .temple-status-open {
+            color: #198f40 !important;
+            font-weight: 700;
+        }
+
+        .temple-status-closed {
+            color: #d63031 !important;
+            font-weight: 700;
+        }
+
+        /* CARD BACKS */
+
+        .weather-card-back,
+        .temple-card-back,
+        .girivalam-card-back,
+        .emergency-card-back {
+            display: flex;
+            flex-direction: column;
+            padding: 16px 18px;
+            color: white;
+            background: var(--green);
+            transform: rotateY(180deg);
+        }
+
+        .weather-back-icon {
+            font-size: 18px;
+            line-height: 1;
+            text-align: center;
+            margin-bottom: 3px;
+        }
+
+        #weatherBackTitle,
+        .temple-back-title,
+        .girivalam-back-title,
+        .emergency-back-title {
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.2;
+            margin-bottom: 11px;
+        }
+
+        #weatherBackSummary {
+            color: #dce5e0;
+            font-size: 9.5px;
+            line-height: 1.3;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .simple-suggestion-section {
+            margin-bottom: 7px;
+        }
+
+        .simple-suggestion-title,
+        .simple-avoid-title {
+            color: white;
+            font-size: 10.5px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+
+        .simple-suggestion-text {
+            color: #f4f4f4;
+            font-size: 9px;
+            line-height: 1.35;
+            padding-left: 3px;
+        }
+
+        .simple-suggestion-text::before {
+            content: "• ";
+        }
+
+        .simple-precaution,
+        .simple-best-time {
+            color: #f4f4f4;
+            font-size: 9px;
+            line-height: 1.35;
+            margin-top: 5px;
+        }
+
+        .weather-back-hint,
+        .temple-back-hint,
+        .girivalam-back-hint,
+        .emergency-back-hint {
+            color: #dce5e0;
+            font-size: 8px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .temple-time-list,
+        .girivalam-time-list,
+        .emergency-list {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            width: 100%;
+        }
+
+        .temple-time-row,
+        .girivalam-time-row,
+        .emergency-row {
+            width: 100%;
+            padding: 5px 2px 7px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .temple-time-row:last-child,
+        .girivalam-time-row:last-child,
+        .emergency-row:last-child {
+            border-bottom: none;
+        }
+
+        .temple-time-label,
+        .girivalam-time-label,
+        .emergency-label {
+            display: block;
+            color: #dce5e0;
+            font-size: 9.5px;
+            line-height: 1.2;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .temple-time-value,
+        .girivalam-time-value,
+        .emergency-value {
+            display: block;
+            color: white;
+            font-size: 11px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .girivalam-note {
+            color: #f0f4f2;
+            font-size: 8.5px;
+            line-height: 1.3;
+            text-align: center;
+            margin-top: 7px;
+        }
+
+        /* COMMON SECTIONS */
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title > span {
+            color: var(--orange);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            color: var(--green);
+            font-size: 36px;
+            margin-top: 5px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 10px auto 0;
+            color: var(--muted);
+        }
+
+        /* TOUR SUGGESTION */
+
+        .tour-suggestion-section {
+            padding: 70px 0 30px;
+        }
+
+        .tour-suggestion-box {
+            width: 100%;
+            background: white;
+            border-left: 6px solid var(--orange);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        /* SERVICES */
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            overflow: hidden;
+            background: white;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            transition: 0.25s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .service-card img {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .service-content {
+            padding: 22px;
+        }
+
+        .service-content h3 {
+            color: var(--green);
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .service-content p {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 18px;
+        }
+
+        .small-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: var(--green);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* GIRIVALAM SECTION */
+
+        .route-section {
+            background: #e9e2d4;
+        }
+
+        .route-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 30px;
+        }
+        
+        .route-map{
     width:100%;
-    height:430px;
-    padding:16px;
-    background:rgba(255,255,255,0.09);
-    border:1px solid rgba(255,255,255,0.18);
-    border-radius:26px;
-    box-shadow:0 18px 45px rgba(0,0,0,0.35);
+    height:420px;
+    background:#fff;
+    border-radius:20px;
     overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-/* EACH IMAGE */
-
-.hero-slide{
-    position:absolute;
-    top:16px;
-    left:16px;
-    right:16px;
-    bottom:16px;
-    opacity:0;
-    transform:translateX(45px);
-    transition:
-        opacity 0.9s ease,
-        transform 0.9s ease;
-    pointer-events:none;
-}
-
-.hero-slide.active{
-    opacity:1;
-    transform:translateX(0);
-}
-
-/* IMAGE FITS INSIDE BOX */
-
-.hero-slide img{
+.route-map img{
     width:100%;
     height:100%;
-    object-fit:contain;
-    background:#111713;
-    border-radius:18px;
+    object-fit:contain;   /* shows the complete map */
+    display:block;
 }
 
-/* SLIDER DOTS */
+        .route-details {
+            padding: 34px;
+        }
 
-.slider-dots{
-    position:absolute;
-    left:50%;
-    bottom:28px;
-    transform:translateX(-50%);
-    display:flex;
-    gap:8px;
-    z-index:5;
+        .route-details h2 {
+            color: var(--green);
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .route-details p {
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .facility-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 22px 0 28px;
+        }
+
+        .facility {
+            padding: 13px;
+            border-left: 4px solid var(--orange);
+            border-radius: 8px;
+            background: var(--cream);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* BOOKINGS */
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .booking-card {
+            padding: 25px;
+            border-radius: 16px;
+            background: white;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .booking-card .icon {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .booking-card h3 {
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .booking-card p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        /* GALLERY */
+
+        .gallery {
+            background: #fffaf1;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 220px 220px;
+            gap: 14px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-grid img:first-child {
+            grid-row: 1 / 3;
+        }
+
+        /* STAY */
+
+        .stay-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .stay-card {
+            overflow: hidden;
+            border-radius: 18px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .stay-card img {
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .stay-content {
+            padding: 20px;
+        }
+
+        .stay-content h3 {
+            color: var(--green);
+            margin-bottom: 6px;
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .price {
+            color: var(--orange);
+            font-weight: 700;
+            margin: 12px 0;
+        }
+
+        /* FESTIVALS */
+
+        .festival-section {
+            color: white;
+            background: var(--green);
+        }
+
+        .festival-section .section-title h2,
+        .festival-section .section-title p {
+            color: white;
+        }
+
+        .festival-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .festival-card {
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .festival-card h3 {
+            color: #ffd98b;
+            margin-bottom: 7px;
+        }
+
+        .festival-card p {
+            font-size: 14px;
+        }
+
+        /* TRAVEL */
+
+        .travel-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .travel-card {
+            padding: 24px;
+            border-radius: 14px;
+            background: white;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .travel-card .icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .travel-card h3 {
+            color: var(--green);
+            font-size: 17px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 50px 0 20px;
+            background: #1d2a25;
+            color: #e8e8e8;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        footer h3 {
+            color: #ffd98b;
+            margin-bottom: 12px;
+        }
+
+        footer a,
+        footer p {
+            display: block;
+            color: #d5d5d5;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .copyright {
+            margin-top: 35px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            color: #bcbcbc;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                text-align: center;
+                margin: auto;
+            }
+
+            .btn-row {
+                justify-content: center;
+            }
+
+            .hero-slider {
+                max-width: 650px;
+                height: 380px;
+                margin: auto;
+            }
+
+            .info-grid,
+            .services-grid,
+            .booking-grid,
+            .stay-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .route-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .festival-grid,
+            .travel-grid,
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .hero {
+                min-height: 500px;
+                padding: 50px 0;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero-slider {
+                height: 300px;
+            }
+
+            .quick-info {
+                margin-top: 25px;
+            }
+
+            .info-grid,
+            .services-grid,
+            .booking-grid,
+            .stay-grid,
+            .festival-grid,
+            .travel-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .facility-list {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            .gallery-grid img,
+            .gallery-grid img:first-child {
+                grid-row: auto;
+                height: 240px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+    /* ========================================
+   SMART TRIP PLANNER
+========================================= */
+
+.smart-trip-wrapper{
+    width:min(1200px,95%);
+    margin:0 auto 25px;
+    background:#24392f;
+    border-radius:26px;
+    padding:60px 40px 40px;
 }
 
-.slider-dot{
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:rgba(255,255,255,0.50);
-    transition:0.3s;
+.smart-trip-section {
+    padding: 25px 0 10px;
+    background: #f8f4eb;
 }
 
-.slider-dot.active{
-    width:26px;
-    border-radius:10px;
-    background:#c89b3c;
+.smart-trip-wrapper {
+    width: min(1200px, 95%);
+    margin: 0 auto;
+    background: #24392f;
+    border-radius: 26px;
+    padding: 45px 40px 35px;
 }
 
-/* BUTTONS */
-
-.btn-row{
-    display:flex;
-    gap:14px;
-    flex-wrap:wrap;
+.main-services-section {
+    padding: 25px 20px 70px;
+    background: #f8f4eb;
 }
 
-/* MOBILE RESPONSIVE */
+.smart-trip-container {
+    width: min(1100px, 94%);
+    margin: auto;
+}
 
-@media(max-width:900px){
+.smart-trip-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
 
-    .hero-layout{
-        grid-template-columns:1fr;
-        gap:35px;
+.smart-trip-heading span{
+    color:#ffb347;
+}
+
+.smart-trip-heading h2{
+    color:white;
+}
+
+.smart-trip-heading p{
+    color:#d7e3dc;
+}
+
+.trip-selection-box {
+    max-width: 850px;
+    margin: auto;
+    padding: 27px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid #d35400;
+}
+
+.trip-selection-box label {
+    display: block;
+    margin-bottom: 14px;
+    color: #2c3e36;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.trip-input-row {
+    display: flex;
+    gap: 14px;
+}
+
+.trip-input-row select {
+    flex: 1;
+    min-height: 50px;
+    padding: 0 15px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #333333;
+    font-size: 16px;
+    outline: none;
+}
+
+.trip-input-row select:focus {
+    border-color: #6f9460;
+    box-shadow: 0 0 0 3px rgba(111, 148, 96, 0.15);
+}
+
+.trip-input-row button {
+    min-height: 50px;
+    padding: 0 22px;
+    border: none;
+    border-radius: 10px;
+    background: #2c3e36;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.trip-input-row button:hover {
+    background: #d35400;
+    transform: translateY(-2px);
+}
+
+.trip-result {
+    max-width: 1000px;
+    margin: 30px auto 0;
+}
+
+.trip-placeholder {
+    padding: 45px 25px;
+    background: #ffffff;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.08);
+}
+
+.placeholder-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.trip-placeholder h3 {
+    color: #2c3e36;
+    margin-bottom: 7px;
+}
+
+.trip-placeholder p {
+    color: #777777;
+}
+
+.generated-trip-header {
+    margin-bottom: 22px;
+    padding: 23px;
+    border-radius: 16px;
+    background: #2c3e36;
+    color: #ffffff;
+    text-align: center;
+}
+
+.generated-trip-header h3 {
+    margin-bottom: 7px;
+    font-size: 26px;
+}
+
+.generated-trip-header p {
+    color: #e5ece7;
+    line-height: 1.6;
+}
+
+.trip-day-card {
+    margin-bottom: 22px;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 17px;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.09);
+}
+
+.trip-day-title {
+    padding: 17px 21px;
+    background: #d35400;
+    color: #ffffff;
+}
+
+.trip-day-title h3 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.day-places-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.trip-place-card {
+    padding: 18px;
+    border-radius: 13px;
+    background: #f8f6f1;
+    border-left: 5px solid #6f9460;
+}
+
+.trip-place-card h4 {
+    color: #2c3e36;
+    margin-bottom: 7px;
+    font-size: 17px;
+}
+
+.trip-place-card p {
+    margin-bottom: 5px;
+    color: #555555;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.trip-place-card strong {
+    color: #d35400;
+}
+
+.trip-tip-box {
+    margin-top: 12px;
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 6px solid #c89b3c;
+    background: #fff8e7;
+}
+
+.trip-tip-box h3 {
+    color: #2c3e36;
+    margin-bottom: 8px;
+}
+
+.trip-tip-box p {
+    color: #555555;
+    line-height: 1.7;
+}
+
+@media (max-width: 750px) {
+
+    .trip-input-row {
+        flex-direction: column;
     }
 
-    .hero{
-        padding:50px 0;
+    .trip-input-row button {
+        width: 100%;
     }
 
-    .hero-content{
-        text-align:center;
-        margin:auto;
-    }
-
-    .btn-row{
-        justify-content:center;
-    }
-
-    .hero-slider{
-        height:380px;
-        max-width:650px;
-        margin:auto;
+    .day-places-grid {
+        grid-template-columns: 1fr;
     }
 }
 
-@media(max-width:600px){
+.trip-planner-link {
+    margin-top: 22px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: 0.3s;
+}
 
-    .hero h1{
-        font-size:40px;
-    }
+.trip-planner-link:hover {
+    background: #d35400;
+    transform: translateY(-2px);
+}
 
-    .hero p{
-        font-size:17px;
-    }
+/* =========================================
+   MAIN SERVICE CARDS
+========================================= */
 
-    .hero-slider{
-        height:300px;
-        padding:10px;
-    }
+.main-services-section {
+    padding: 20px;
+    background: #f8f4eb;
+}
 
-    .hero-slide{
-        top:10px;
-        left:10px;
-        right:10px;
-        bottom:10px;
+.main-services-section .section-title{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.main-services-section .section-title span {
+    color: #d35400;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.main-services-section .section-title h2 {
+    margin-top: 8px;
+    color: #2c3e36;
+    font-size: clamp(30px, 4vw, 43px);
+}
+
+.main-services-section .section-title p {
+    max-width: 700px;
+    margin: 12px auto 0;
+    color: #666666;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.service-card {
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.11);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 13px 28px rgba(0, 0, 0, 0.16);
+}
+
+.service-card img {
+    width: 100%;
+    height: 220px;
+    display: block;
+    object-fit: cover;
+}
+
+.service-content {
+    padding: 22px;
+}
+
+.service-content h3 {
+    color: #2c3e36;
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.service-content p {
+    min-height: 78px;
+    color: #666666;
+    font-size: 15px;
+    line-height: 1.65;
+}
+
+.service-content .small-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 11px 17px;
+    border-radius: 8px;
+    background: #2c3e36;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.service-content .small-btn:hover {
+    background: #d35400;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 950px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
-    .hero h1{
-      font-size:clamp(40px, 6vw, 72px);
-      line-height:1.08;
-      margin-bottom:18px;
-    }
-
-    .hero p{
-      font-size:19px;
-      max-width:650px;
-      margin-bottom:28px;
-    }
-
-    .btn-row{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      display:inline-block;
-      padding:13px 21px;
-      border-radius:9px;
-      font-weight:700;
-      transition:0.25s ease;
-      border:2px solid transparent;
-    }
-
-    .btn-primary{
-      background:var(--orange);
-      color:white;
-    }
-
-    .btn-secondary{
-      background:white;
-      color:var(--green);
-    }
-
-    .btn-outline{
-      border-color:white;
-      color:white;
-    }
-
-    .btn:hover{
-      transform:translateY(-2px);
-      opacity:0.92;
-    }
-
-    /* QUICK INFO */
-    .quick-info{
-      margin-top:-45px;
-      position:relative;
-      z-index:5;
-    }
-
-    .info-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .info-card{
-      background:white;
-      border-radius:16px;
-      padding:22px;
-      text-align:center;
-      box-shadow:var(--shadow);
-    }
-
-    .info-card .icon{
-      font-size:30px;
-      margin-bottom:6px;
-    }
-
-    .info-card h3{
-      color:var(--green);
-      font-size:16px;
-      margin-bottom:4px;
-    }
-
-    .info-card p{
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    /* COMMON SECTIONS */
-    section{
-      padding:80px 0;
-    }
-
-    .section-title{
-      text-align:center;
-      margin-bottom:40px;
-    }
-
-    .section-title span{
-      color:var(--orange);
-      font-size:14px;
-      font-weight:800;
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-    }
-
-    .section-title h2{
-      color:var(--green);
-      font-size:36px;
-      margin-top:5px;
-    }
-
-    .section-title p{
-      max-width:700px;
-      margin:10px auto 0;
-      color:var(--muted);
-    }
-
-    /* SERVICES */
-    .services-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:24px;
-    }
-
-    .service-card{
-      background:white;
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      transition:0.25s ease;
-    }
-
-    .service-card:hover{
-      transform:translateY(-6px);
-    }
-
-    .service-card img{
-      height:220px;
-      object-fit:cover;
-    }
-
-    .service-content{
-      padding:22px;
-    }
-
-    .service-content h3{
-      color:var(--green);
-      font-size:21px;
-      margin-bottom:8px;
-    }
-
-    .service-content p{
-      color:var(--muted);
-      margin-bottom:18px;
-      font-size:15px;
-    }
-
-    .small-btn{
-      display:inline-block;
-      background:var(--green);
-      color:white;
-      padding:10px 15px;
-      border-radius:8px;
-      font-size:14px;
-      font-weight:700;
-    }
-
-    /* GIRIVALAM */
-    .route-section{
-      background:#e9e2d4;
-    }
-
-    .route-layout{
-      display:grid;
-      grid-template-columns:1.1fr 0.9fr;
-      gap:30px;
-      align-items:stretch;
-    }
-
-    .route-map,
-    .route-details{
-      background:white;
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-
-    .route-map img{
-      height:100%;
-      min-height:470px;
-      object-fit:cover;
-    }
-
-    .route-details{
-      padding:34px;
-    }
-
-    .route-details h2{
-      color:var(--green);
-      font-size:32px;
-      margin-bottom:12px;
-    }
-
-    .route-details p{
-      color:var(--muted);
-      margin-bottom:22px;
-    }
-
-    .facility-list{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin:22px 0 28px;
-    }
-
-    .facility{
-      background:var(--cream);
-      border-left:4px solid var(--orange);
-      border-radius:8px;
-      padding:13px;
-      font-size:14px;
-      font-weight:600;
-    }
-
-    /* BOOKING */
-    .booking-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-    }
 
-    .booking-card{
-      background:white;
-      border-radius:16px;
-      padding:25px;
-      box-shadow:var(--shadow);
-      text-align:center;
-    }
-
-    .booking-card .icon{
-      font-size:34px;
-      margin-bottom:10px;
-    }
-
-    .booking-card h3{
-      color:var(--green);
-      margin-bottom:8px;
-    }
-
-    .booking-card p{
-      font-size:14px;
-      color:var(--muted);
-      margin-bottom:18px;
-    }
-
-    /* GALLERY */
-    .gallery{
-      background:#fffaf1;
-    }
-
-    .gallery-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr 1fr;
-      grid-template-rows:220px 220px;
-      gap:14px;
-    }
-
-    .gallery-grid img{
-      height:100%;
-      object-fit:cover;
-      border-radius:14px;
-      box-shadow:var(--shadow);
-    }
-
-    .gallery-grid img:first-child{
-      grid-row:1 / 3;
-    }
-
-    /* HOTELS */
-    .stay-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:24px;
-    }
-
-    .stay-card{
-      background:white;
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:var(--shadow);
-    }
-
-    .stay-card img{
-      height:210px;
-      object-fit:cover;
-    }
-
-    .stay-content{
-      padding:20px;
-    }
-
-    .stay-content h3{
-      color:var(--green);
-      margin-bottom:6px;
-    }
-
-    .meta{
-      font-size:14px;
-      color:var(--muted);
-      margin-bottom:6px;
-    }
-
-    .price{
-      color:var(--orange);
-      font-weight:700;
-      margin:12px 0;
-    }
-
-    /* FESTIVALS */
-    .festival-section{
-      background:var(--green);
-      color:white;
-    }
-
-    .festival-section .section-title h2,
-    .festival-section .section-title p{
-      color:white;
-    }
-
-    .festival-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .festival-card{
-      background:rgba(255,255,255,0.10);
-      border:1px solid rgba(255,255,255,0.20);
-      border-radius:15px;
-      padding:24px;
-    }
-
-    .festival-card h3{
-      color:#ffd98b;
-      margin-bottom:7px;
-    }
-
-    .festival-card p{
-      font-size:14px;
-      opacity:0.9;
-    }
-
-    /* TRAVEL */
-    .travel-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .travel-card{
-      background:white;
-      border-radius:14px;
-      text-align:center;
-      padding:24px;
-      box-shadow:var(--shadow);
-    }
-
-    .travel-card .icon{
-      font-size:32px;
-      margin-bottom:8px;
-    }
-
-    .travel-card h3{
-      color:var(--green);
-      font-size:17px;
-    }
-
-    /* FOOTER */
-    footer{
-      background:#1d2a25;
-      color:#e8e8e8;
-      padding:50px 0 20px;
-    }
-
-    .footer-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr 1fr 1fr;
-      gap:30px;
-    }
-
-    footer h3{
-      color:#ffd98b;
-      margin-bottom:12px;
-    }
-
-    footer a,
-    footer p{
-      color:#d5d5d5;
-      font-size:14px;
-      display:block;
-      margin-bottom:8px;
-    }
-
-    .copyright{
-      border-top:1px solid rgba(255,255,255,0.16);
-      margin-top:35px;
-      padding-top:18px;
-      text-align:center;
-      font-size:13px;
-      color:#bcbcbc;
-    }
-
-    /* RESPONSIVE */
-    @media(max-width:950px){
-      .nav-links{
-        display:none;
-      }
-
-      .info-grid,
-      .services-grid,
-      .booking-grid,
-      .stay-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .route-layout{
-        grid-template-columns:1fr;
-      }
-
-      .festival-grid,
-      .travel-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .footer-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-    }
-
-    @media(max-width:650px){
-      .hero{
-        min-height:500px;
-      }
-
-      .hero h1{
-        font-size:42px;
-      }
-
-      .info-grid,
-      .services-grid,
-      .booking-grid,
-      .stay-grid,
-      .festival-grid,
-      .travel-grid,
-      .footer-grid{
-        grid-template-columns:1fr;
-      }
-
-      .quick-info{
-        margin-top:25px;
-      }
-
-      .gallery-grid{
-        grid-template-columns:1fr;
-        grid-template-rows:auto;
-      }
-
-      .gallery-grid img,
-      .gallery-grid img:first-child{
-        grid-row:auto;
-        height:240px;
-      }
-
-      .facility-list{
-        grid-template-columns:1fr;
-      }
-
-      section{
-        padding:60px 0;
-      }
-    }
-  </style>
+@media (max-width: 650px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card img {
+        height: 210px;
+    }
+
+    .service-content p {
+        min-height: auto;
+    }
+}
+    /* =========================================
+   SPIRITUAL JOURNEY IMAGE BOX
+========================================= */
+
+.trip-image-box {
+    position: relative;
+    width: 100%;
+    min-height: 360px;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #ffffff;
+}
+
+.trip-background-image {
+    width: 100%;
+    height: 360px;
+    display: block;
+    object-fit: cover;
+}
+
+.trip-image-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 28px;
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.05) 55%,
+            transparent
+        );
+}
+
+.trip-image-overlay .trip-planner-link {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 10px;
+    background: #2c3e36;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease;
+}
+
+.trip-image-overlay .trip-planner-link:hover {
+    background: #d35400;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 650px) {
+    .trip-image-box,
+    .trip-background-image {
+        min-height: 260px;
+        height: 260px;
+    }
+
+    .trip-image-overlay {
+        padding-bottom: 20px;
+    }
+}
+
+    </style>
 </head>
 
 <body>
 
-  <header class="navbar">
-    <div class="container nav-wrap">
-      <a href="#" class="brand">🛕 Tiruvannamalai Guide</a>
+    <header class="navbar">
+        <div class="container nav-wrap">
 
-      <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#services">Temple</a>
-        <a href="#girivalam">Girivalam</a>
-        <a href="#bookings">Bookings</a>
-        <a href="#gallery">Photos</a>
-        <a href="#stay">Hotels & Dining</a>
-        <a href="#travel">Travel</a>
-      </nav>
+            <a
+                href="#home"
+                class="brand"
+            >
+                🛕 Tiruvannamalai Guide
+            </a>
 
-      <select class="language">
-        <option>English</option>
-        <option>தமிழ்</option>
-        <option>తెలుగు</option>
-        <option>हिंदी</option>
-      </select>
+            <nav class="nav-links">
+
+    <a href="#home" data-i18n="navHome">
+        Home
+    </a>
+
+    <a href="#services" data-i18n="navTemple">
+        Temple
+    </a>
+
+    <a href="#girivalam" data-i18n="navGirivalam">
+        Girivalam
+    </a>
+
+    <a href="#bookings" data-i18n="navBookings">
+        Bookings
+    </a>
+
+    <a href="#gallery" data-i18n="navPhotos">
+        Photos
+    </a>
+
+    <a href="#stay" data-i18n="navHotels">
+        Hotels & Dining
+    </a>
+
+    <a href="#travel" data-i18n="navTravel">
+        Travel
+    </a>
+
+</nav>
+
+            <select class="language" id="languageSelector">
+    <option value="en">English</option>
+    <option value="te">తెలుగు</option>
+    <option value="hi">हिंदी</option>
+    <option value="ta">தமிழ்</option>
+</select>
+        </div>
+    </header>
+
+    <div class="announcement">
+        🌕 Upcoming Pournami Girivalam • Temple Timings •
+        Official Booking Links • Route Assistance
     </div>
-  </header>
 
-  <div class="announcement">
-    🌕 Upcoming Pournami Girivalam • Temple Timings • Official Booking Links • Route Assistance
-  </div>
+    <main>
 
-  <main>
-    <section class="hero" id="home">
-    <div class="container hero-layout">
+        <!-- HERO -->
 
-        <!-- LEFT SIDE TEXT -->
-        <div class="hero-content">
-            <h1>Experience Sacred Tiruvannamalai</h1>
+        <section
+            class="hero"
+            id="home"
+        >
+            <div class="container hero-layout">
+
+                <div class="hero-content">
+
+                    <h1 data-i18n="heroTitle">
+    Experience Sacred Tiruvannamalai
+</h1>
+
+                    <p>
+                        Explore temple darshan, the 14 km Girivalam route,
+                        Ashta Lingams, sacred places, hotels, restaurants
+                        and travel assistance in one place.
+                    </p>
+
+                    <div class="btn-row">
+
+                        <a
+                            href="#girivalam"
+                            class="btn btn-primary"
+                        >
+                            Start Girivalam
+                        </a>
+
+                        <a
+                            href="#bookings"
+                            class="btn btn-secondary"
+                        >
+                            Temple Bookings
+                        </a>
+
+                        <a
+                            href="#services"
+                            class="btn btn-outline"
+                        >
+                            Explore Places
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-slider">
+
+                    <div class="hero-slide active">
+                        <img
+                            src="images/scrolling_images/hero1.jpg"
+                            alt="Arunachaleswarar Temple"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero2.jpg"
+                            alt="Arunachala Hill"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero3.jpg"
+                            alt="Sacred Temple"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero4.jpg"
+                            alt="Ramana Ashram"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero5.jpg"
+                            alt="Temple Interior"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero6.jpg"
+                            alt="Sacred Lingam"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero7.jpg"
+                            alt="Sacred Lingam"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero8.jpg"
+                            alt="Sacred Lingam"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero9.jpg"
+                            alt="Sacred Lingam"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero10.jpg"
+                            alt="Sacred Lingam"
+                        >
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="images/scrolling_images/hero11.jpg"
+                            alt="Sacred Lingam"
+                        >
+                    </div>
+
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOUR FLIP CARDS -->
+
+        <div class="quick-info">
+
+            <div class="container info-grid">
+
+                <!-- WEATHER -->
+
+                <div
+                    class="weather-flip-card"
+                    id="mainWeatherCard"
+                >
+                    <div class="weather-flip-inner">
+
+                        <div class="weather-card-front">
+
+                            <div
+                                class="icon"
+                                id="weatherIcon"
+                            >
+                                🌤️
+                            </div>
+
+                            <h3>Today's Weather</h3>
+
+                            <p
+                                class="weather-temperature"
+                                id="weatherTemperature"
+                            >
+                                Loading...
+                            </p>
+
+                            <p id="weatherCondition">
+                                Checking weather...
+                            </p>
+
+                            <p
+                                class="weather-extra"
+                                id="weatherExtra"
+                            ></p>
+
+                            <div class="weather-flip-hint">
+                                🔄 Click to view suggestions
+                            </div>
+
+                        </div>
+
+                        <div class="weather-card-back">
+
+                            <div class="weather-back-icon">
+                                🧭
+                            </div>
+
+                            <h3 id="weatherBackTitle">
+                                Weather Suggestions
+                            </h3>
+
+                            <p id="weatherBackSummary">
+                                Loading suggestions...
+                            </p>
+
+                            <div id="weatherBackSuggestions"></div>
+
+                            <div class="weather-back-hint">
+                                🔄 Click again to view weather
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- TEMPLE -->
+
+                <div
+                    class="temple-flip-card"
+                    id="templeStatusCard"
+                >
+                    <div class="temple-flip-inner">
+
+                        <div class="temple-card-front">
+
+                            <div class="icon">
+                                🕉️
+                            </div>
+
+                            <h3>Temple Status</h3>
+
+                            <p id="templeCurrentStatus">
+                                Checking temple status...
+                            </p>
+
+                            <div class="temple-flip-hint">
+                                🔄 Click to view temple timings
+                            </div>
+
+                        </div>
+
+                        <div class="temple-card-back">
+
+                            <h3 class="temple-back-title">
+                                🛕 Daily Darshan Timings
+                            </h3>
+
+                            <div class="temple-time-list">
+
+                                <div class="temple-time-row">
+
+                                    <span class="temple-time-label">
+                                        Morning Darshan
+                                    </span>
+
+                                    <span class="temple-time-value">
+                                        5:30 AM – 12:30 PM
+                                    </span>
+
+                                </div>
+
+                                <div class="temple-time-row">
+
+                                    <span class="temple-time-label">
+                                        Afternoon Break
+                                    </span>
+
+                                    <span class="temple-time-value">
+                                        12:30 PM – 3:30 PM
+                                    </span>
+
+                                </div>
+
+                                <div class="temple-time-row">
+
+                                    <span class="temple-time-label">
+                                        Evening Darshan
+                                    </span>
+
+                                    <span class="temple-time-value">
+                                        3:30 PM – 9:30 PM
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="temple-back-hint">
+                                🔄 Click again to view temple status
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- GIRIVALAM -->
+
+                <div
+                    class="girivalam-flip-card"
+                    id="girivalamCard"
+                >
+                    <div class="girivalam-flip-inner">
+
+                        <div class="girivalam-card-front">
+
+                            <div class="icon">
+                                🚶
+                            </div>
+
+                            <h3>Girivalam Route</h3>
+
+                            <p>14 KM Sacred Walk</p>
+
+                            <div class="girivalam-flip-hint">
+                                🔄 Click to view Girivalam timings
+                            </div>
+
+                        </div>
+
+                        <div class="girivalam-card-back">
+
+                            <h3 class="girivalam-back-title">
+                                🕉️ Girivalam Timings
+                            </h3>
+
+                            <div class="girivalam-time-list">
+
+                                <div class="girivalam-time-row">
+
+                                    <span class="girivalam-time-label">
+                                        Availability
+                                    </span>
+
+                                    <span class="girivalam-time-value">
+                                        24 Hours • 7 Days
+                                    </span>
+
+                                </div>
+
+                                <div class="girivalam-time-row">
+
+                                    <span class="girivalam-time-label">
+                                        Best Morning Time
+                                    </span>
+
+                                    <span class="girivalam-time-value">
+                                        4:00 AM – 8:00 AM
+                                    </span>
+
+                                </div>
+
+                                <div class="girivalam-time-row">
+
+                                    <span class="girivalam-time-label">
+                                        Best Evening Time
+                                    </span>
+
+                                    <span class="girivalam-time-value">
+                                        After 6:30 PM
+                                    </span>
+
+                                </div>
+
+                                <div class="girivalam-time-row">
+
+                                    <span class="girivalam-time-label">
+                                        Recommended Duration
+                                    </span>
+
+                                    <span class="girivalam-time-value">
+                                        3 – 5 Hours
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <p class="girivalam-note">
+                                Avoid afternoon Girivalam. Carry drinking
+                                water. Water points, rest areas, Annadanam
+                                and free Rudraksha points are available.
+                            </p>
+
+                            <div class="girivalam-back-hint">
+                                🔄 Click again to view route
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- EMERGENCY -->
+
+                <div
+                    class="emergency-flip-card"
+                    id="emergencyCard"
+                >
+                    <div class="emergency-flip-inner">
+
+                        <div class="emergency-card-front">
+
+                            <div class="icon">
+                                🚑
+                            </div>
+
+                            <h3>Emergency</h3>
+
+                            <p>
+                                Medical and Police Help
+                            </p>
+
+                            <div class="emergency-flip-hint">
+                                🔄 Click to view emergency contacts
+                            </div>
+
+                        </div>
+
+                        <div class="emergency-card-back">
+
+                            <h3 class="emergency-back-title">
+                                🚨 Emergency Contact Numbers
+                            </h3>
+
+                            <div class="emergency-list">
+
+                                <div class="emergency-row">
+
+                                    <span class="emergency-label">
+                                        Medical / Accident
+                                    </span>
+
+                                    <span class="emergency-value">
+                                        📞 108 / 102
+                                    </span>
+
+                                </div>
+
+                                <div class="emergency-row">
+
+                                    <span class="emergency-label">
+                                        Police Control Room
+                                    </span>
+
+                                    <span class="emergency-value">
+                                        📞 100 / 04175-233344
+                                    </span>
+
+                                </div>
+
+                                <div class="emergency-row">
+
+                                    <span class="emergency-label">
+                                        Women Helpline
+                                    </span>
+
+                                    <span class="emergency-value">
+                                        📞 181 / 1091
+                                    </span>
+
+                                </div>
+
+                                <div class="emergency-row">
+
+                                    <span class="emergency-label">
+                                        General Emergency
+                                    </span>
+
+                                    <span class="emergency-value">
+                                        📞 112
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="emergency-back-hint">
+                                🔄 Click again to view emergency
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- END info-grid -->
+
+        </div>
+        <!-- END quick-info -->
+
+    <!-- SMART TRIP PLANNER -->
+
+<section class="smart-trip-section" id="smartTripPlanner">
+
+    <div class="smart-trip-wrapper">
+
+    <div class="smart-trip-container">
+
+        <div class="smart-trip-heading">
+
+            <span>SMART TOUR ASSISTANT</span>
+
+            <h2>
+                🗓️ Build Your Tiruvannamalai Trip
+            </h2>
 
             <p>
-                Explore temple darshan, the 14 km Girivalam route,
-                Ashta Lingams, sacred places, hotels, restaurants
-                and travel assistance in one place.
+                Select your travel dates, trip type and interests.
+                Get a personalised day-wise itinerary with estimated
+                visiting times and an interactive route map.
             </p>
 
-            <div class="btn-row">
-                <a href="#girivalam" class="btn btn-primary">
-                    Start Girivalam
-                </a>
-
-                <a href="#bookings" class="btn btn-secondary">
-                    Temple Bookings
-                </a>
-
-                <a href="#services" class="btn btn-outline">
-                    Explore Places
-                </a>
-            </div>
         </div>
 
-        <!-- RIGHT SIDE IMAGE SLIDER -->
-        <div class="hero-slider">
+        <div class="trip-selection-box">
 
-            <div class="hero-slide active">
-                <img src="images/hero1.jpg" alt="Arunachaleswarar Temple">
+          <div class="trip-placeholder trip-image-box">
+
+    <img
+        src="images/spiritual-journey.png"
+        alt="Start Your Spiritual Journey"
+        class="trip-background-image"
+    >
+
+    <div class="trip-image-overlay">
+
+        <a
+            href="tripplanner.html"
+            class="small-btn trip-planner-link"
+        >
+            🗓️ Plan My Trip
+        </a>
+
+                     </div>
+
+                </div>  
+
             </div>
-
-            <div class="hero-slide">
-                <img src="images/hero2.jpg" alt="Arunachala Hill">
-            </div>
-
-            <div class="hero-slide">
-                <img src="images/hero3.jpg" alt="Sacred Temple">
-            </div>
-
-            <div class="hero-slide">
-                <img src="images/hero4.jpg" alt="Ramana Ashram">
-            </div>
-
-            <div class="hero-slide">
-                <img src="images/hero5.jpg" alt="Temple Interior">
-            </div>
-
-            <div class="hero-slide">
-                <img src="images/hero6.jpg" alt="Sacred Lingam">
-            </div>
-
-            <div class="slider-dots">
-                <span class="slider-dot active"></span>
-                <span class="slider-dot"></span>
-                <span class="slider-dot"></span>
-                <span class="slider-dot"></span>
-                <span class="slider-dot"></span>
-                <span class="slider-dot"></span>
-            </div>
-
         </div>
+    <div>
 
-    </div>
 </section>
+<!-- =========================================
+     MAIN SERVICE CARDS
+========================================= -->
 
-    <div class="quick-info">
-      <div class="container info-grid">
+<section id="services" class="main-services-section">
 
-<!-- LIVE WEATHER CARD -->
-<div class="info-card weather-card">
-  <div class="icon" id="weatherIcon">🌤️</div>
+    <div class="container">
 
-  <h3>Today's Weather</h3>
-
-  <p class="weather-temperature" id="weatherTemperature">
-    Loading...
-  </p>
-
-  <p id="weatherCondition">
-    Checking weather...
-  </p>
-
-  <p class="weather-extra" id="weatherExtra"></p>
-</div>
-
-        <div class="info-card">
-          <div class="icon">🕉️</div>
-          <h3>Temple Status</h3>
-          <p>Open for Darshan</p>
-        </div>
-
-        <div class="info-card">
-          <div class="icon">🚶</div>
-          <h3>Girivalam Route</h3>
-          <p>14 KM Sacred Walk</p>
-        </div>
-
-        <div class="info-card">
-          <div class="icon">🚑</div>
-          <h3>Emergency</h3>
-          <p>Medical and Police Help</p>
-        </div>
-      </div>
-    </div>
-
-
-    <section id="services">
-      <div class="container">
         <div class="section-title">
-          <span>Main Services</span>
-          <h2>Plan Your Spiritual Journey</h2>
-          <p>Access the most important pilgrimage, travel and visitor services.</p>
+
+            <span>
+                MAIN SERVICES
+            </span>
+
+            <h2>
+                Plan Your Spiritual Journey
+            </h2>
+
+            <p>
+                Access the most important pilgrimage,
+                travel and visitor services.
+            </p>
+
         </div>
 
         <div class="services-grid">
-          <article class="service-card">
-            <img src="images/rajagopuram.jpg" alt="Arunachaleswarar Temple">
-            <div class="service-content">
-              <h3>Arunachaleswarar Temple</h3>
-              <p>View temple timings, history, darshan information, festivals and route details.</p>
-              <a href="temple-details.html" class="small-btn">Explore Temple</a>
-            </div>
-          </article>
 
-          <article class="service-card">
-            <img src="images/route-map.jpg" alt="Girivalam Route">
-            <div class="service-content">
-              <h3>Girivalam Route</h3>
-              <p>Navigate the complete route with Ashta Lingams, water, rest and Annadanam points.</p>
-              <a href="girivalam-details.html" class="small-btn">View Route</a>
-            </div>
-          </article>
+            <!-- 1. TEMPLE CARD -->
 
-          <article class="service-card">
-            <img src="images/Tiruvunamalaiar-Temple.jpg" alt="Temple Booking">
-            <div class="service-content">
-              <h3>Temple Bookings</h3>
-              <p>Access official darshan, pooja, donation and accommodation booking services.</p>
-              <a href="#bookings" class="small-btn">Book Services</a>
-            </div>
-          </article>
+            <article class="service-card">
 
-          <article class="service-card">
-            <img src="images/annamalaiyar.jpg" alt="Ashta Lingams">
-            <div class="service-content">
-              <h3>Ashta Lingams</h3>
-              <p>Discover the eight sacred Lingams situated around the Girivalam path.</p>
-              <a href="girivalam-details.html" class="small-btn">View Lingams</a>
-            </div>
-          </article>
+                <img
+                    src="images/card_images/temple.jpg"
+                    alt="Arunachaleswarar Temple"
+                >
 
-          <article class="service-card">
-            <img src="images/ramana-asaramam.jpg" alt="Sacred Places">
-            <div class="service-content">
-              <h3>Other Sacred Places</h3>
-              <p>Explore Ramana Ashram, Virupaksha Cave, Skandashram and nearby attractions.</p>
-              <a href="sacred_places.html" class="small-btn">Explore Places</a>
-            </div>
-          </article>
+                <div class="service-content">
 
-          <article class="service-card">
-            <img src="images/hotel1.jpg" alt="Hotels and Restaurants">
-            <div class="service-content">
-              <h3>Hotels & Restaurants</h3>
-              <p>Find suitable accommodation, pure vegetarian dining and nearby food services.</p>
-              <a href="hotels.html" class="small-btn">View Options</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+                    <h3>
+                        Arunachaleswarar Temple
+                    </h3>
 
-    <section class="route-section" id="girivalam">
-      <div class="container route-layout">
-        <div class="route-map">
-          <img src="images/circular-map.jpg" alt="Girivalam route map">
-        </div>
+                    <p>
+                        View temple timings, history, darshan
+                        information, facilities, festivals and route details.
+                    </p>
 
-        <div class="route-details">
-          <span style="color:#d35400;font-weight:800;">14 KM SACRED ROUTE</span>
-          <h2>Girivalam Navigation</h2>
-          <p>
-            Follow the complete sacred route around Arunachala Hill and identify
-            important spiritual and public-service points.
-          </p>
+                    <a
+                        href="temple-details.html"
+                        class="small-btn"
+                    >
+                        Explore Temple
+                    </a>
 
-          <div class="facility-list">
-            <div class="facility">🕉️ Eight Ashta Lingams</div>
-            <div class="facility">💧 Drinking Water Points</div>
-            <div class="facility">🪑 Rest Areas</div>
-            <div class="facility">🍚 Annadanam Centres</div>
-            <div class="facility">🏥 Medical Assistance</div>
-            <div class="facility">📍 Route Guidance</div>
-          </div>
+                </div>
 
-          <a href="girivalam-details.html" class="btn btn-primary">Open Complete Route</a>
-        </div>
-      </div>
-    </section>
+            </article>
 
-    <section id="bookings">
-      <div class="container">
-        <div class="section-title">
-          <span>Official Services</span>
-          <h2>Temple Bookings</h2>
-          <p>Use verified official links for temple-related bookings and services.</p>
-        </div>
 
-        <div class="booking-grid">
-          <div class="booking-card">
-            <div class="icon">🎟️</div>
-            <h3>Darshan Booking</h3>
-            <p>Book available darshan services through the official temple portal.</p>
-            <a href="#" class="small-btn">Book Darshan</a>
-          </div>
+            <!-- 2. GIRIVALAM CARD -->
 
-          <div class="booking-card">
-            <div class="icon">🙏</div>
-            <h3>Pooja & Abhishekam</h3>
-            <p>Check available pooja and special worship services.</p>
-            <a href="#" class="small-btn">View Poojas</a>
-          </div>
+            <article class="service-card">
 
-          <div class="booking-card">
-            <div class="icon">🏨</div>
-            <h3>Accommodation</h3>
-            <p>Find temple accommodation and nearby lodging information.</p>
-            <a href="hotels.html" class="small-btn">Find Rooms</a>
-          </div>
-        </div>
-      </div>
-    </section>
+                <img
+                    src="images/girivalayam_images/giri1.jpg"
+                    alt="Girivalam Route"
+                >
 
-    <section class="gallery" id="gallery">
-      <div class="container">
-        <div class="section-title">
-          <span>Photo Gallery</span>
-          <h2>Sacred Tiruvannamalai</h2>
-          <p>Temple architecture, Arunachala Hill, Girivalam and spiritual landmarks.</p>
-        </div>
+                <div class="service-content">
 
-        <div class="gallery-grid">
-          <img src="images/rajagopuram.jpg" alt="Rajagopuram">
-          <img src="images/ramana-maharshi.jpg" alt="Ramana Maharshi">
-          <img src="images/mokshamaragam.jpg" alt="Sacred path">
-          <img src="images/sathanur-dam.jpg" alt="Sathanur Dam">
-          <img src="images/meditation-asharamam.jpg" alt="Meditation Ashram">
-        </div>
-      </div>
-    </section>
+                    <h3>
+                        Girivalam Route
+                    </h3>
 
-    <section id="stay">
-      <div class="container">
-        <div class="section-title">
-          <span>Stay & Dining</span>
-          <h2>Hotels and Restaurants</h2>
-          <p>Choose convenient accommodation and dining options near important locations.</p>
-        </div>
+                    <p>
+                        Navigate the sacred 14 KM route with Ashta Lingams,
+                        drinking water, rest and Annadanam points.
+                    </p>
 
-        <div class="stay-grid">
-          <div class="stay-card">
-            <img src="images/hotel1.jpg" alt="Budget hotel">
-            <div class="stay-content">
-              <h3>Budget Stay</h3>
-              <p class="meta">⭐ 4.1 • Near Temple</p>
-              <p class="meta">Parking and family rooms available</p>
-              <div class="price">₹800 – ₹1,500</div>
-              <a href="hotels.html" class="small-btn">View Hotels</a>
-            </div>
-          </div>
+                    <a
+                        href="girivalam-details.html"
+                        class="small-btn"
+                    >
+                        View Route
+                    </a>
 
-          <div class="stay-card">
-            <img src="images/hotel2.jpg" alt="Premium hotel">
-            <div class="stay-content">
-              <h3>Premium Stay</h3>
-              <p class="meta">⭐ 4.5 • Comfortable Rooms</p>
-              <p class="meta">Restaurant and travel assistance</p>
-              <div class="price">₹2,500 – ₹5,000</div>
-              <a href="hotels.html" class="small-btn">View Hotels</a>
-            </div>
-          </div>
+                </div>
 
-          <div class="stay-card">
-            <img src="restautantimg/restaurant1.jpg" alt="Vegetarian restaurant">
-            <div class="stay-content">
-              <h3>Vegetarian Dining</h3>
-              <p class="meta">⭐ 4.3 • South Indian Food</p>
-              <p class="meta">Breakfast, meals and family dining</p>
-              <div class="price">₹100 – ₹500</div>
-              <a href="hotels.html" class="small-btn">View Restaurants</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            </article>
 
-    <section class="festival-section">
-      <div class="container">
-        <div class="section-title">
-          <span>Events</span>
-          <h2>Festivals and Special Days</h2>
-          <p>Stay informed about important temple celebrations and Girivalam days.</p>
-        </div>
 
-        <div class="festival-grid">
-          <div class="festival-card">
-            <h3>Karthigai Deepam</h3>
-            <p>The most important annual festival celebrated with the sacred hilltop flame.</p>
-          </div>
+            <!-- 3. BOOKING CARD -->
 
-          <div class="festival-card">
-            <h3>Pournami Girivalam</h3>
-            <p>Thousands of devotees perform Girivalam on every full-moon day.</p>
-          </div>
+            <article class="service-card">
 
-          <div class="festival-card">
-            <h3>Mahashivaratri</h3>
-            <p>Special worship, abhishekam and night-long spiritual observances.</p>
-          </div>
+                <img
+                    src="images/card_images/booking.jpg"
+                    alt="Temple Bookings"
+                >
 
-          <div class="festival-card">
-            <h3>Brahmotsavam</h3>
-            <p>A major temple celebration with processions and traditional rituals.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+                <div class="service-content">
 
-    <section id="travel">
-      <div class="container">
-        <div class="section-title">
-          <span>Visitor Support</span>
-          <h2>Travel Assistance</h2>
-          <p>Useful transport and public-service information for pilgrims.</p>
+                    <h3>
+                        Temple Bookings
+                    </h3>
+
+                    <p>
+                        Access official darshan, pooja, donation
+                        and accommodation booking services.
+                    </p>
+
+                    <a
+                        href="#bookings"
+                        class="small-btn"
+                    >
+                        Book Services
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- 4. ASHTA LINGAMS CARD -->
+
+            <article class="service-card">
+
+                <img
+                    src="images/girivalayam_images/lingams.jpg"
+                    alt="Ashta Lingams"
+                >
+
+                <div class="service-content">
+
+                    <h3>
+                        Ashta Lingams
+                    </h3>
+
+                    <p>
+                        Discover the eight sacred directional Lingams
+                        situated around the complete Girivalam path.
+                    </p>
+
+                    <a
+                        href="girivalam-details.html#ashtaLingams"
+                        class="small-btn"
+                    >
+                        View Lingams
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- 5. SACRED PLACES CARD -->
+
+            <article class="service-card">
+
+                <img
+                    src="images/card_images/sacred_places.jpg"
+                    alt="Other Sacred Places"
+                >
+
+                <div class="service-content">
+
+                    <h3>
+                        Other Sacred Places
+                    </h3>
+
+                    <p>
+                        Explore Ramana Ashram, Virupaksha Cave,
+                        Skandashramam and nearby spiritual attractions.
+                    </p>
+
+                    <a
+                        href="sacred_places.html"
+                        class="small-btn"
+                    >
+                        Explore Places
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- 6. HOTELS CARD -->
+
+            <article class="service-card">
+
+                <img
+                    src="images/card_images/hotels.jpg"
+                    alt="Hotels and Restaurants"
+                >
+
+                <div class="service-content">
+
+                    <h3>
+                        Hotels &amp; Restaurants
+                    </h3>
+
+                    <p>
+                        Find suitable accommodation, vegetarian dining
+                        and nearby food services.
+                    </p>
+
+                    <a
+                        href="hotels.html"
+                        class="small-btn"
+                    >
+                        View Options
+                    </a>
+
+                </div>
+
+            </article>
+
         </div>
 
-        <div class="travel-grid">
-          <div class="travel-card">
-            <div class="icon">🚉</div>
-            <h3>Railway Station</h3>
-          </div>
-
-          <div class="travel-card">
-            <div class="icon">🚌</div>
-            <h3>Bus Stand</h3>
-          </div>
-
-          <div class="travel-card">
-            <div class="icon">🚕</div>
-            <h3>Taxi & Auto</h3>
-          </div>
-
-          <div class="travel-card">
-            <div class="icon">🅿️</div>
-            <h3>Parking Areas</h3>
-          </div>
-
-          <div class="travel-card">
-            <div class="icon">🚻</div>
-            <h3>Public Toilets</h3>
-          </div>
-
-          <div class="travel-card">
-            <div class="icon">🏥</div>
-            <h3>Medical Help</h3>
-          </div>
-
-          <div class="travel-card">
-            <div class="icon">👮</div>
-            <h3>Police Support</h3>
-          </div>
-
-          <div class="travel-card">
-            <div class="icon">📍</div>
-            <h3>Route Maps</h3>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <h3>Tiruvannamalai Guide</h3>
-          <p>
-            A digital pilgrimage guide for temple information, Girivalam navigation,
-            sacred places, accommodation and visitor support.
-          </p>
-        </div>
-
-        <div>
-          <h3>Quick Links</h3>
-          <a href="#services">Temple Information</a>
-          <a href="#girivalam">Girivalam Route</a>
-          <a href="#bookings">Bookings</a>
-          <a href="#gallery">Photo Gallery</a>
-        </div>
-
-        <div>
-          <h3>Visitor Services</h3>
-          <a href="#stay">Hotels</a>
-          <a href="#stay">Restaurants</a>
-          <a href="#travel">Travel Assistance</a>
-          <a href="#travel">Emergency Help</a>
-        </div>
-
-        <div>
-          <h3>Important Note</h3>
-          <p>Use only official temple portals for paid bookings.</p>
-          <p>Verify local timings before travel.</p>
-        </div>
-      </div>
-
-      <div class="copyright">
-        © 2026 Smart Spiritual Navigation System
-      </div>
     </div>
-  </footer>
 
-<script>
-    const heroSlides = document.querySelectorAll(".hero-slide");
-    const sliderDots = document.querySelectorAll(".slider-dot");
+</section>
+<!-- GIRIVALAM ROUTE -->
 
-    let currentSlide = 0;
+        <section
+            class="route-section"
+            id="girivalam"
+        >
 
-    function showNextHeroSlide() {
+            <div class="container route-layout">
 
-        heroSlides[currentSlide].classList.remove("active");
-        sliderDots[currentSlide].classList.remove("active");
+                <div class="route-map">
 
-        currentSlide++;
+                    <img
+                        src="images/card_images/lingams.jpg"
+                        alt="Girivalam route map"
+                    >
 
-        if(currentSlide >= heroSlides.length){
-            currentSlide = 0;
-        }
+                </div>
 
-        heroSlides[currentSlide].classList.add("active");
-        sliderDots[currentSlide].classList.add("active");
-    }
+                <div class="route-details">
 
-    setInterval(showNextHeroSlide, 4000);
-</script>
+                    <span
+                        style="
+                            color:#d35400;
+                            font-weight:800;
+                        "
+                    >
+                        14 KM SACRED ROUTE
+                    </span>
 
+                    <h2>
+                        Girivalam Navigation
+                    </h2>
+
+                    <p>
+                        Follow the sacred route around Arunachala Hill
+                        and identify spiritual and public-service points.
+                    </p>
+
+                    <div class="facility-list">
+
+                        <div class="facility">
+                            🕉️ Eight Ashta Lingams
+                        </div>
+
+                        <div class="facility">
+                            💧 Drinking Water Points
+                        </div>
+
+                        <div class="facility">
+                            🪑 Rest Areas
+                        </div>
+
+                        <div class="facility">
+                            🍚 Annadanam Centres
+                        </div>
+
+                        <div class="facility">
+                            🏥 Medical Assistance
+                        </div>
+
+                        <div class="facility">
+                            📍 Route Guidance
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="girivalam-details.html"
+                        class="btn btn-primary"
+                    >
+                        Open Complete Route
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- BOOKINGS -->
+
+        <section id="bookings">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span>
+                        Official Services
+                    </span>
+
+                    <h2>
+                        Temple Bookings
+                    </h2>
+
+                    <p>
+                        Use verified official links for
+                        temple-related bookings and services.
+                    </p>
+
+                </div>
+
+                <div class="booking-grid">
+
+                    <div class="booking-card">
+
+                        <div class="icon">
+                            🎟️
+                        </div>
+
+                        <h3>
+                            Darshan Booking
+                        </h3>
+
+                        <p>
+                            Book available darshan services through
+                            the official temple portal.
+                        </p>
+
+                        <a
+                            href="https://annamalaiyar.hrce.tn.gov.in/hrcehome/ticketing"
+                            class="small-btn"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Book Darshan
+                        </a>
+
+                    </div>
+
+                    <div class="booking-card">
+
+                        <div class="icon">
+                            🙏
+                        </div>
+
+                        <h3>
+                            Pooja & Abhishekam
+                        </h3>
+
+                        <p>
+                            Check available pooja and
+                            special worship services.
+                        </p>
+
+                        <a
+                            href="https://annamalaiyar.hrce.tn.gov.in/"
+                            class="small-btn"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Poojas
+                        </a>
+
+                    </div>
+
+                    <div class="booking-card">
+
+                        <div class="icon">
+                            🏨
+                        </div>
+
+                        <h3>
+                            Accommodation
+                        </h3>
+
+                        <p>
+                            Find temple accommodation and nearby lodging.
+                        </p>
+
+                        <a
+                            href="hotels.html"
+                            class="small-btn"
+                        >
+                            Find Rooms
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- GALLERY -->
+
+        <section
+            class="gallery"
+            id="gallery"
+        >
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span>
+                        Photo Gallery
+                    </span>
+
+                    <h2>
+                        Sacred Tiruvannamalai
+                    </h2>
+
+                    <p>
+                        Temple architecture, Arunachala Hill,
+                        Girivalam and spiritual landmarks.
+                    </p>
+
+                </div>
+
+                <div class="gallery-grid">
+
+                    <img
+                        src="images/rajagopuram.jpg"
+                        alt="Rajagopuram"
+                    >
+
+                    <img
+                        src="images/ramana-maharshi.jpg"
+                        alt="Ramana Maharshi"
+                    >
+
+                    <img
+                        src="images/mokshamaragam.jpg"
+                        alt="Sacred path"
+                    >
+
+                    <img
+                        src="images/sathanur-dam.jpg"
+                        alt="Sathanur Dam"
+                    >
+
+                    <img
+                        src="images/meditation-asharamam.jpg"
+                        alt="Meditation Ashram"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- HOTELS -->
+
+        <section id="stay">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span>
+                        Stay & Dining
+                    </span>
+
+                    <h2>
+                        Hotels and Restaurants
+                    </h2>
+
+                    <p>
+                        Choose accommodation and dining options
+                        near important locations.
+                    </p>
+
+                </div>
+
+                <div class="stay-grid">
+
+                    <div class="stay-card">
+
+                        <img
+                            src="images/hotel1.jpg"
+                            alt="Budget hotel"
+                        >
+
+                        <div class="stay-content">
+
+                            <h3>Budget Stay</h3>
+
+                            <p class="meta">
+                                ⭐ 4.1 • Near Temple
+                            </p>
+
+                            <p class="meta">
+                                Parking and family rooms available
+                            </p>
+
+                            <div class="price">
+                                ₹800 – ₹1,500
+                            </div>
+
+                            <a
+                                href="hotels.html"
+                                class="small-btn"
+                            >
+                                View Hotels
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="stay-card">
+
+                        <img
+                            src="images/hotel2.jpg"
+                            alt="Premium hotel"
+                        >
+
+                        <div class="stay-content">
+
+                            <h3>Premium Stay</h3>
+
+                            <p class="meta">
+                                ⭐ 4.5 • Comfortable Rooms
+                            </p>
+
+                            <p class="meta">
+                                Restaurant and travel assistance
+                            </p>
+
+                            <div class="price">
+                                ₹2,500 – ₹5,000
+                            </div>
+
+                            <a
+                                href="hotels.html"
+                                class="small-btn"
+                            >
+                                View Hotels
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="stay-card">
+
+                        <img
+                            src="restautantimg/restaurant1.jpg"
+                            alt="Vegetarian restaurant"
+                        >
+
+                        <div class="stay-content">
+
+                            <h3>
+                                Vegetarian Dining
+                            </h3>
+
+                            <p class="meta">
+                                ⭐ 4.3 • South Indian Food
+                            </p>
+
+                            <p class="meta">
+                                Breakfast, meals and family dining
+                            </p>
+
+                            <div class="price">
+                                ₹100 – ₹500
+                            </div>
+
+                            <a
+                                href="hotels.html"
+                                class="small-btn"
+                            >
+                                View Restaurants
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- FESTIVALS -->
+
+        <section class="festival-section">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span>Events</span>
+
+                    <h2>
+                        Festivals and Special Days
+                    </h2>
+
+                    <p>
+                        Important temple celebrations and Girivalam days.
+                    </p>
+
+                </div>
+
+                <div class="festival-grid">
+
+                    <div class="festival-card">
+
+                        <h3>
+                            Karthigai Deepam
+                        </h3>
+
+                        <p>
+                            Annual festival celebrated with the sacred
+                            hilltop flame.
+                        </p>
+
+                    </div>
+
+                    <div class="festival-card">
+
+                        <h3>
+                            Pournami Girivalam
+                        </h3>
+
+                        <p>
+                            Devotees perform Girivalam on every
+                            full-moon day.
+                        </p>
+
+                    </div>
+
+                    <div class="festival-card">
+
+                        <h3>
+                            Mahashivaratri
+                        </h3>
+
+                        <p>
+                            Special worship and night-long
+                            spiritual observances.
+                        </p>
+
+                    </div>
+
+                    <div class="festival-card">
+
+                        <h3>
+                            Brahmotsavam
+                        </h3>
+
+                        <p>
+                            Temple processions and traditional rituals.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- TRAVEL -->
+
+        <section id="travel">
+
+            <div class="container">
+
+                <div class="section-title">
+
+                    <span>
+                        Visitor Support
+                    </span>
+
+                    <h2>
+                        Travel Assistance
+                    </h2>
+
+                    <p>
+                        Useful transport and public-service information.
+                    </p>
+
+                </div>
+
+                <div class="travel-grid">
+
+                    <div class="travel-card">
+                        <div class="icon">🚉</div>
+                        <h3>Railway Station</h3>
+                    </div>
+
+                    <div class="travel-card">
+                        <div class="icon">🚌</div>
+                        <h3>Bus Stand</h3>
+                    </div>
+
+                    <div class="travel-card">
+                        <div class="icon">🚕</div>
+                        <h3>Taxi & Auto</h3>
+                    </div>
+
+                    <div class="travel-card">
+                        <div class="icon">🅿️</div>
+                        <h3>Parking Areas</h3>
+                    </div>
+
+                    <div class="travel-card">
+                        <div class="icon">🚻</div>
+                        <h3>Public Toilets</h3>
+                    </div>
+
+                    <div class="travel-card">
+                        <div class="icon">🏥</div>
+                        <h3>Medical Help</h3>
+                    </div>
+
+                    <div class="travel-card">
+                        <div class="icon">👮</div>
+                        <h3>Police Support</h3>
+                    </div>
+
+                    <div class="travel-card">
+                        <div class="icon">📍</div>
+                        <h3>Route Maps</h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div>
+
+                    <h3>
+                        Smart Spiritual Navigation
+                    </h3>
+
+                    <p>
+                        Complete pilgrimage guidance for Tiruvannamalai
+                        including temple information, Girivalam route,
+                        sacred places, hotels and travel assistance.
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <h3>Quick Links</h3>
+
+                    <a href="#home">Home</a>
+                    <a href="#services">Temple</a>
+                    <a href="#girivalam">Girivalam</a>
+                    <a href="#bookings">Bookings</a>
+
+                </div>
+
+                <div>
+
+                    <h3>Explore</h3>
+
+                    <a href="temple-details.html">
+                        Temple Details
+                    </a>
+
+                    <a href="girivalam-details.html">
+                        Girivalam Route
+                    </a>
+
+                    <a href="sacred_places.html">
+                        Sacred Places
+                    </a>
+
+                    <a href="hotels.html">
+                        Hotels & Restaurants
+                    </a>
+
+                </div>
+
+                <div>
+
+                    <h3>Contact</h3>
+
+                    <p>
+                        📍 Tiruvannamalai, Tamil Nadu
+                    </p>
+
+                    <p>
+                        🛕 Arunachaleswarar Temple
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                © 2026 Smart Spiritual Navigation System.
+                All Rights Reserved.
+            </div>
+
+        </div>
+
+    </footer>
+    <script src="script.js"></script>
+    <script src="translations.js"></script>
 </body>
+
 </html>

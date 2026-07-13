@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Arunachaleswarar Temple Details</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        /* =========================================
+           GENERAL STYLING
+        ========================================= */
+
+        :root {
+            --green: #2c3e36;
+            --light-green: #6f9460;
+            --dark-green: #56754a;
+            --orange: #d35400;
+            --cream: #f4f3ef;
+            --white: #ffffff;
+            --text: #444444;
+            --light-text: #666666;
+            --gold: #c89b3c;
+            --shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button,
+        select {
+            font-family: inherit;
+        }
+
+        /* =========================================
+           TOP NAVIGATION
+        ========================================= */
+
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--green);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+        }
+
+        .top-bar-inner {
+            width: min(1100px, 94%);
+            min-height: 70px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .top-title {
+            color: white;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .top-back-btn {
+            display: inline-block;
+            padding: 10px 17px;
+
+            border-radius: 9px;
+
+            background: white;
+            color: var(--green);
+
+            font-size: 14px;
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .top-back-btn:hover {
+            background: #f0e9dc;
+            transform: translateY(-2px);
+        }
+
+        .language {
+            border: none;
+            outline: none;
+
+            border-radius: 9px;
+            padding: 10px 13px;
+
+            background: white;
+            color: var(--green);
+
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* =========================================
+           PAGE HEADING
+        ========================================= */
+
+        .page-heading {
+            padding: 38px 20px 28px;
+            text-align: center;
+        }
+
+        .page-heading span {
+            color: var(--orange);
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .page-heading h1 {
+            color: var(--green);
+            font-size: clamp(32px, 5vw, 48px);
+            margin-top: 5px;
+        }
+
+        .page-heading p {
+            max-width: 760px;
+            margin: 12px auto 0;
+
+            color: var(--light-text);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* =========================================
+           MAIN TEMPLE CARD
+        ========================================= */
+
+        .details-card {
+            width: min(1000px, 94%);
+            margin: 0 auto 50px;
+
+            overflow: hidden;
+
+            background: white;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        /* =========================================
+           TEMPLE IMAGE AND 360 BUTTON
+        ========================================= */
+
+        .temple-image-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .temple-main-image {
+            width: 100%;
+            height: 460px;
+
+            display: block;
+            object-fit: cover;
+        }
+
+        .temple-360-btn {
+            position: absolute;
+            right: 22px;
+            bottom: 22px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+
+            padding: 12px 19px;
+
+            background: rgba(44, 62, 54, 0.94);
+            color: white;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
+            transition: 0.3s;
+        }
+
+        .temple-360-btn:hover {
+            background: var(--orange);
+            transform: translateY(-3px);
+        }
+
+        /* =========================================
+           360 DEGREE POPUP
+        ========================================= */
+
+        .panorama-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px;
+
+            background: rgba(0, 0, 0, 0.82);
+        }
+
+        .panorama-modal.open {
+            display: flex;
+        }
+
+        .panorama-modal-content {
+            width: min(1100px, 96%);
+            max-height: 94vh;
+
+            overflow: hidden;
+
+            background: white;
+            border-radius: 20px;
+
+            box-shadow: 0 18px 55px rgba(0, 0, 0, 0.45);
+        }
+
+        .panorama-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            padding: 16px 20px;
+
+            background: var(--green);
+            color: white;
+        }
+
+        .panorama-header h2 {
+            margin: 0;
+            color: white;
+            font-size: 20px;
+        }
+
+        .panorama-close-btn {
+            width: 38px;
+            height: 38px;
+
+            flex-shrink: 0;
+
+            border: none;
+            border-radius: 50%;
+
+            background: white;
+            color: var(--green);
+
+            font-size: 18px;
+            font-weight: bold;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .panorama-close-btn:hover {
+            background: var(--orange);
+            color: white;
+        }
+
+        .street-view-frame {
+            width: 100%;
+            height: 600px;
+
+            display: block;
+
+            border: 0;
+            background: #111111;
+        }
+
+        .panorama-help {
+            margin: 0;
+            padding: 12px 18px;
+
+            color: var(--light-text);
+            background: #f8f6f1;
+
+            font-size: 14px;
+            text-align: center;
+        }
+
+        body.panorama-open {
+            overflow: hidden;
+        }
+
+        /* =========================================
+           MAIN CONTENT
+        ========================================= */
+
+        .content {
+            padding: 36px;
+        }
+
+        /* =========================================
+           COMMON SECTION DESIGN
+        ========================================= */
+
+        .section {
+            padding: 30px 0;
+            border-bottom: 1px solid #e4e4e4;
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            color: var(--orange);
+            font-size: 29px;
+            line-height: 1.3;
+            margin-bottom: 17px;
+        }
+
+        .section h3 {
+            color: var(--green);
+            font-size: 20px;
+            margin: 19px 0 9px;
+        }
+
+        .section p {
+            color: #555555;
+            font-size: 17px;
+            line-height: 1.85;
+            margin-bottom: 13px;
+        }
+
+        .highlight-box {
+            margin-top: 20px;
+            padding: 22px;
+
+            border-left: 6px solid var(--light-green);
+            border-radius: 13px;
+
+            background: #f5faf2;
+        }
+
+        .warning-box {
+            margin-top: 20px;
+            padding: 22px;
+
+            border-left: 6px solid var(--orange);
+            border-radius: 13px;
+
+            background: #fff7ef;
+        }
+
+        /* =========================================
+           INFORMATION LISTS
+        ========================================= */
+
+        .info-list {
+            list-style: none;
+            margin-top: 18px;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+
+            margin-bottom: 14px;
+
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .info-list i {
+            width: 24px;
+            flex-shrink: 0;
+
+            color: var(--light-green);
+            font-size: 17px;
+
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .label-text {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        /* =========================================
+           INFORMATION GRID
+        ========================================= */
+
+        .information-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 17px;
+
+            margin-top: 20px;
+        }
+
+        .information-item {
+            padding: 18px;
+
+            border-radius: 13px;
+            border-left: 5px solid var(--gold);
+
+            background: #f8f6f1;
+        }
+
+        .information-item h3 {
+            margin: 0 0 7px;
+
+            color: var(--green);
+            font-size: 17px;
+        }
+
+        .information-item p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           FACILITIES GRID
+        ========================================= */
+
+        .facility-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+        .facility-item {
+            min-height: 130px;
+            padding: 18px;
+
+            border-radius: 14px;
+
+            background: #f8f6f1;
+            text-align: center;
+
+            transition: 0.3s;
+        }
+
+        .facility-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .facility-item i {
+            color: var(--orange);
+            font-size: 27px;
+            margin-bottom: 9px;
+        }
+
+        .facility-item h3 {
+            margin: 0 0 5px;
+
+            color: var(--green);
+            font-size: 16px;
+        }
+
+        .facility-item p {
+            margin: 0;
+
+            color: var(--light-text);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* =========================================
+           BEST-TIME CARDS
+        ========================================= */
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 17px;
+
+            margin-top: 20px;
+        }
+
+        .time-card {
+            padding: 22px;
+
+            border-radius: 15px;
+
+            background: #f8f6f1;
+            text-align: center;
+
+            transition: 0.3s;
+        }
+
+        .time-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-card .time-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .time-card h3 {
+            color: var(--green);
+            font-size: 18px;
+            margin: 0 0 8px;
+        }
+
+        .time-card strong {
+            display: block;
+
+            color: var(--orange);
+            margin-bottom: 7px;
+
+            font-size: 16px;
+        }
+
+        .time-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           TEMPLE MAP
+        ========================================= */
+
+        .temple-map {
+            width: 100%;
+            height: 450px;
+
+            margin-top: 20px;
+
+            border: 0;
+            border-radius: 16px;
+        }
+
+        .map-btn {
+            display: block;
+            width: fit-content;
+
+            margin: 22px auto 0;
+            padding: 14px 24px;
+
+            border-radius: 10px;
+
+            background: var(--light-green);
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .map-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           NEARBY PLACES
+        ========================================= */
+
+        .nearby-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 17px;
+
+            margin-top: 20px;
+        }
+
+        .nearby-card {
+            padding: 20px;
+
+            border-radius: 14px;
+            border-bottom: 4px solid var(--light-green);
+
+            background: #f8f6f1;
+
+            transition: 0.3s;
+        }
+
+        .nearby-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .nearby-card h3 {
+            color: var(--green);
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .nearby-card p {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .nearby-card a {
+            display: inline-block;
+
+            padding: 9px 14px;
+
+            border-radius: 8px;
+
+            background: var(--green);
+            color: white;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .nearby-card a:hover {
+            background: var(--orange);
+        }
+
+        /* =========================================
+           BOTTOM BUTTON
+        ========================================= */
+
+        .bottom-back-btn {
+            display: block;
+            width: 270px;
+
+            margin: 40px auto 5px;
+            padding: 15px;
+
+            border-radius: 13px;
+
+            background: var(--green);
+            color: white;
+
+            text-align: center;
+            font-size: 17px;
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .bottom-back-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+        ========================================= */
+
+        @media (max-width: 850px) {
+
+            .facility-grid,
+            .time-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .information-grid,
+            .nearby-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .street-view-frame {
+                height: 450px;
+            }
+
+            .panorama-modal {
+                padding: 10px;
+            }
+
+            .panorama-header h2 {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .top-bar-inner {
+                padding: 12px 0;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .top-actions {
+                width: 100%;
+            }
+
+            .top-back-btn,
+            .language {
+                flex: 1;
+                text-align: center;
+            }
+
+            .page-heading {
+                padding-top: 28px;
+            }
+
+            .details-card {
+                width: 95%;
+            }
+
+            .temple-main-image {
+                height: 260px;
+            }
+
+            .temple-360-btn {
+                right: 12px;
+                bottom: 12px;
+
+                padding: 9px 14px;
+                font-size: 13px;
+            }
+
+            .content {
+                padding: 22px;
+            }
+
+            .section h2 {
+                font-size: 24px;
+            }
+
+            .section p {
+                font-size: 16px;
+            }
+
+            .facility-grid,
+            .time-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .temple-map {
+                height: 330px;
+            }
+
+            .bottom-back-btn {
+                width: 100%;
+            }
+        }
+            </style>
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         TOP NAVIGATION
+    ========================================== -->
+
+    <header class="top-bar">
+
+        <div class="top-bar-inner">
+
+            <div class="top-title">
+                🛕 Arunachaleswarar Temple
+            </div>
+
+            <div class="top-actions">
+
+                <a
+                    href="index.html#services"
+                    class="top-back-btn"
+                >
+                    ← Back to Home
+                </a>
+
+                <select
+                    class="language"
+                    id="languageSelector"
+                >
+                    <option value="en">English</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="ta">தமிழ்</option>
+                </select>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- =========================================
+         PAGE HEADING
+    ========================================== -->
+
+    <div class="page-heading">
+
+        <span>
+            Complete Temple Guide
+        </span>
+
+        <h1>
+            Arunachaleswarar Temple
+        </h1>
+
+        <p>
+            Explore temple history, darshan information, timings,
+            architecture, facilities, visitor guidelines, festivals
+            and the spiritual importance of the sacred
+            Arunachaleswarar Temple in Tiruvannamalai.
+        </p>
+
+    </div>
+
+    <!-- =========================================
+         MAIN TEMPLE DETAILS CARD
+    ========================================== -->
+
+    <main class="details-card">
+
+        <!-- =====================================
+             TEMPLE IMAGE WITH 360 BUTTON
+        ====================================== -->
+
+        <div class="temple-image-wrapper">
+
+            <img
+                src="images/card_images/temple.jpg"
+                alt="Arunachaleswarar Temple"
+                class="temple-main-image"
+            >
+
+            <button
+                type="button"
+                class="temple-360-btn"
+                id="open360Button"
+            >
+                🔄 360° View
+            </button>
+
+        </div>
+
+        <!-- =====================================
+             360 DEGREE POPUP
+        ====================================== -->
+
+        <div
+            class="panorama-modal"
+            id="panoramaModal"
+            aria-hidden="true"
+        >
+
+            <div class="panorama-modal-content">
+
+                <div class="panorama-header">
+
+                    <h2>
+                        🔄 Arunachaleswarar Temple 360° View
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="panorama-close-btn"
+                        id="close360Button"
+                        aria-label="Close 360 degree view"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+                <iframe
+                    id="templeStreetView"
+                    class="street-view-frame"
+                    src=""
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Arunachaleswarar Temple 360 degree Street View"
+                ></iframe>
+
+                <p class="panorama-help">
+                    Click and drag inside the view to look around.
+                    Use the controls to move and zoom.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="content">
+
+            <!-- =================================
+                 ABOUT TEMPLE
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    📖 About Arunachaleswarar Temple
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple, also known as Annamalaiyar
+                    Temple, is one of the most important temples dedicated
+                    to Lord Shiva. It is located at the foot of the sacred
+                    Arunachala Hill in Tiruvannamalai, Tamil Nadu.
+                </p>
+
+                <p>
+                    Lord Shiva is worshipped here as Arunachaleswarar or
+                    Annamalaiyar, while Goddess Parvati is worshipped as
+                    Unnamulai Amman. The temple and Arunachala Hill are
+                    deeply connected, and devotees consider the hill itself
+                    to be a divine manifestation of Lord Shiva.
+                </p>
+
+                <p>
+                    The temple is an important centre for Shaiva worship,
+                    pilgrimage, meditation and Girivalam. Devotees from
+                    different parts of India and other countries visit
+                    Tiruvannamalai throughout the year.
+                </p>
+
+                <p>
+                    The temple complex contains grand entrance towers,
+                    mandapams, shrines, sacred tanks, stone corridors,
+                    carved pillars and large courtyards used for daily
+                    worship and major festival processions.
+                </p>
+
+                <div class="highlight-box">
+
+                    <p>
+                        <strong>Presiding Deity:</strong>
+                        Lord Arunachaleswarar
+                    </p>
+
+                    <p>
+                        <strong>Goddess:</strong>
+                        Unnamulai Amman
+                    </p>
+
+                    <p>
+                        <strong>Sacred Element:</strong>
+                        Fire or Agni
+                    </p>
+
+                    <p>
+                        <strong>Important Pilgrimage:</strong>
+                        Girivalam around Arunachala Hill
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        Tiruvannamalai, Tamil Nadu
+                    </p>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 TEMPLE TIMINGS
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    ⏰ Temple Timings
+                </h2>
+
+                <p>
+                    The temple generally remains open from early morning
+                    until night, with an afternoon interval. During
+                    weekends, Pournami, Karthigai Deepam and other major
+                    festival days, devotees should arrive early because
+                    the queues can become very long.
+                </p>
+
+                <ul class="info-list">
+
+                    <li>
+
+                        <i class="fa-solid fa-door-open"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Temple Opening Time:
+                            </span>
+
+                            5:30 AM
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-sun"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Morning Darshan:
+                            </span>
+
+                            5:30 AM – 12:30 PM
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-pause"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Afternoon Interval:
+                            </span>
+
+                            12:30 PM – 3:30 PM
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-moon"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Evening Darshan:
+                            </span>
+
+                            3:30 PM – 9:30 PM
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-door-closed"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Temple Closing Time:
+                            </span>
+
+                            9:30 PM
+                        </div>
+
+                    </li>
+
+                </ul>
+
+                <div class="warning-box">
+
+                    <p>
+                        Temple timings may change during special pujas,
+                        important festivals, maintenance work or crowd
+                        management arrangements. Visitors travelling from
+                        a long distance should confirm the current timing
+                        before starting their journey.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 DARSHAN INFORMATION
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🎫 Darshan Information
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple welcomes thousands of devotees.
+                    Darshan is managed through designated queues to ensure
+                    safe and orderly movement inside the temple.
+                </p>
+
+                <p>
+                    Waiting time depends on the day, crowd level, festival
+                    schedule and special rituals. Weekdays are usually less
+                    crowded than weekends, Pournami days, Karthigai Deepam
+                    and Mahashivaratri.
+                </p>
+
+                <ul class="info-list">
+
+                    <li>
+
+                        <i class="fa-solid fa-user-group"></i>
+
+                        <div>
+                            <span class="label-text">
+                                General Darshan:
+                            </span>
+
+                            Available through the regular queue, subject to
+                            temple arrangements.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-ticket"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Special Darshan:
+                            </span>
+
+                            Special-entry facilities may be available through
+                            authorised temple counters or the official
+                            booking system.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-wheelchair"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Visitor Assistance:
+                            </span>
+
+                            Senior citizens and differently-abled devotees
+                            may approach temple staff for available help.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Recommended Arrival:
+                            </span>
+
+                            Arrive early in the morning or before the evening
+                            crowd increases.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-shoe-prints"></i>
+
+                        <div>
+                            Footwear must be removed before entering the
+                            designated temple areas.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-people-arrows"></i>
+
+                        <div>
+                            Follow the queue system and the instructions
+                            given by temple staff and security personnel.
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </section>
+
+            <!-- =================================
+                 DRESS CODE
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    👕 Temple Dress Code
+                </h2>
+
+                <p>
+                    Devotees should wear clean, respectful and modest
+                    clothing suitable for a place of worship. Traditional
+                    Indian clothing is preferred because it reflects the
+                    sacred atmosphere of the temple.
+                </p>
+
+                <div class="information-grid">
+
+                    <div class="information-item">
+
+                        <h3>
+                            Recommended for Men
+                        </h3>
+
+                        <p>
+                            Dhoti, veshti, kurta, full-length trousers,
+                            simple shirts or other clean and modest clothing.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Recommended for Women
+                        </h3>
+
+                        <p>
+                            Saree, salwar kameez, churidar, kurta with
+                            full-length bottoms or other modest traditional
+                            clothing.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Clothing to Avoid
+                        </h3>
+
+                        <p>
+                            Avoid shorts, very short clothing, sleeveless
+                            or revealing outfits, beachwear and clothing
+                            with disrespectful words or images.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Footwear
+                        </h3>
+
+                        <p>
+                            Shoes and slippers should be deposited at the
+                            authorised footwear stand before entering the
+                            temple.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 TEMPLE RULES
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    📜 Temple Rules
+                </h2>
+
+                <p>
+                    Temple rules protect the sanctity of the premises and
+                    help every devotee worship peacefully. Visitors should
+                    cooperate with priests, temple staff, volunteers,
+                    security personnel and police.
+                </p>
+
+                <ul class="info-list">
+
+                    <li>
+
+                        <i class="fa-solid fa-volume-xmark"></i>
+
+                        <div>
+                            Maintain silence and avoid loud conversations
+                            inside worship areas.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-mobile-screen"></i>
+
+                        <div>
+                            Keep mobile phones on silent mode. Mobile-phone
+                            use may be restricted in some temple areas.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-camera"></i>
+
+                        <div>
+                            Photography and videography may be prohibited
+                            near the sanctum and inside restricted areas.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-people-arrows"></i>
+
+                        <div>
+                            Follow the darshan queue and do not cross
+                            barricades or restricted entrances.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-trash"></i>
+
+                        <div>
+                            Do not litter. Use the available waste bins and
+                            help keep the temple premises clean.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-ban"></i>
+
+                        <div>
+                            Smoking, alcohol, tobacco and intoxicating
+                            substances are not permitted within the temple
+                            premises.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+
+                        <div>
+                            Respect temple customs, priests, rituals and
+                            other devotees.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-box"></i>
+
+                        <div>
+                            Avoid carrying large bags. Security checks may
+                            be conducted at the temple entrances.
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </section>
+                        <!-- =================================
+                 TEMPLE FACILITIES
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🏛️ Temple Facilities
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple provides various facilities to
+                    ensure devotees have a comfortable and peaceful
+                    pilgrimage. These services help visitors perform
+                    darshan and participate in temple rituals with ease.
+                </p>
+
+                <div class="facility-grid">
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-shoe-prints"></i>
+                        <h3>Footwear Stand</h3>
+                        <p>Safe footwear deposit available near the temple entrance.</p>
+                    </div>
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-droplet"></i>
+                        <h3>Drinking Water</h3>
+                        <p>Free purified drinking water points are available.</p>
+                    </div>
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-restroom"></i>
+                        <h3>Restrooms</h3>
+                        <p>Separate restroom facilities for men and women.</p>
+                    </div>
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-car"></i>
+                        <h3>Parking</h3>
+                        <p>Parking facilities for two-wheelers, cars and buses.</p>
+                    </div>
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-wheelchair"></i>
+                        <h3>Senior Citizen Support</h3>
+                        <p>Special assistance may be available for elderly and differently-abled devotees.</p>
+                    </div>
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-store"></i>
+                        <h3>Prasadam Counter</h3>
+                        <p>Temple prasadam and pooja items are available at authorised counters.</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 BEST TIME TO VISIT
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🌅 Best Time to Visit
+                </h2>
+
+                <p>
+                    Tiruvannamalai can be visited throughout the year.
+                    However, weather conditions and crowd levels vary by
+                    season. Planning your visit properly ensures a better
+                    spiritual experience.
+                </p>
+
+                <div class="time-grid">
+
+                    <div class="time-card">
+
+                        <div class="time-icon">🌄</div>
+
+                        <h3>Morning</h3>
+
+                        <strong>5:30 AM – 8:30 AM</strong>
+
+                        <p>
+                            Pleasant weather, peaceful atmosphere and
+                            shorter queues.
+                        </p>
+
+                    </div>
+
+                    <div class="time-card">
+
+                        <div class="time-icon">🌇</div>
+
+                        <h3>Evening</h3>
+
+                        <strong>4:00 PM – 7:30 PM</strong>
+
+                        <p>
+                            Comfortable climate and beautiful temple
+                            lighting after sunset.
+                        </p>
+
+                    </div>
+
+                    <div class="time-card">
+
+                        <div class="time-icon">❄️</div>
+
+                        <h3>Best Season</h3>
+
+                        <strong>October – February</strong>
+
+                        <p>
+                            Cooler weather ideal for temple visits and
+                            Girivalam.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 RAJAGOPURAM
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🛕 Rajagopuram
+                </h2>
+
+                <p>
+                    The Eastern Rajagopuram of Arunachaleswarar Temple is
+                    one of the tallest temple towers in South India,
+                    standing at approximately 217 feet with eleven
+                    magnificent tiers.
+                </p>
+
+                <p>
+                    Built during the Vijayanagara period, the Rajagopuram
+                    showcases remarkable Dravidian architecture, intricate
+                    stone carvings and beautiful sculptures depicting
+                    various deities and mythological stories.
+                </p>
+
+                <p>
+                    For devotees, entering through the Rajagopuram
+                    symbolises leaving worldly worries behind and stepping
+                    into a sacred path of devotion and inner peace.
+                </p>
+
+            </section>
+
+            <!-- =================================
+                 RAJAGOPURAM ROUTE MAP
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🗺️ Rajagopuram Route Map
+                </h2>
+
+                <p>
+                    Use the interactive map below to locate the eastern
+                    Rajagopuram entrance of Arunachaleswarar Temple and
+                    navigate easily using Google Maps.
+                </p>
+
+                <iframe
+                    class="temple-map"
+                    src="https://www.google.com/maps?q=Arunachaleswarar+Temple+Tiruvannamalai&output=embed"
+                    loading="lazy"
+                    allowfullscreen>
+                </iframe>
+
+                <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=Arunachaleswarar+Temple+Tiruvannamalai"
+                    target="_blank"
+                    class="map-btn"
+                >
+                    📍 Open Route in Google Maps
+                </a>
+
+            </section>
+
+            <!-- =================================
+                 AGNI LINGAM
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🔥 Agni Lingam
+                </h2>
+
+                <p>
+                    Agni Lingam is one of the sacred Ashta Lingams located
+                    along the Girivalam path around Arunachala Hill. It
+                    represents the Fire Element among the Pancha Bhootas.
+                </p>
+
+                <p>
+                    Devotees believe worshipping Agni Lingam removes
+                    negativity, strengthens courage, improves confidence
+                    and brings spiritual purification.
+                </p>
+
+                <p>
+                    During Girivalam, thousands of pilgrims stop at Agni
+                    Lingam to offer prayers, light lamps and meditate
+                    before continuing their sacred walk.
+                </p>
+
+            </section>
+                        <!-- =================================
+                 TEMPLE HISTORY
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    📜 Temple History
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple has a long and important history
+                    connected with the growth of Shaivism in Tamil Nadu.
+                    The temple developed over many centuries through the
+                    contributions of several South Indian dynasties.
+                </p>
+
+                <p>
+                    The Cholas, Pandyas, Hoysalas and Vijayanagara rulers
+                    supported the expansion, renovation and maintenance of
+                    the temple. Inscriptions found in the temple complex
+                    provide information about donations, land grants,
+                    festivals, rituals and administrative activities.
+                </p>
+
+                <p>
+                    According to Hindu tradition, Lord Shiva appeared here
+                    as an endless column of fire before Lord Vishnu and
+                    Lord Brahma. This divine form is associated with
+                    Arunachala Hill, and the temple represents the sacred
+                    fire element at the foot of the hill.
+                </p>
+
+                <p>
+                    Tamil Shaiva saints praised Arunachala in devotional
+                    hymns. Over time, Tiruvannamalai became an important
+                    centre for saints, scholars, pilgrims, yogis and
+                    spiritual seekers.
+                </p>
+
+                <p>
+                    The temple complex gradually expanded to include
+                    magnificent gopurams, mandapams, shrines, stone
+                    corridors, sacred tanks, processional streets and
+                    large courtyards used during major festivals.
+                </p>
+
+            </section>
+
+            <!-- =================================
+                 SPIRITUAL IMPORTANCE
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🔱 Spiritual Importance
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple is one of the Pancha Bhoota
+                    Sthalams, the five sacred Shiva temples associated
+                    with the five natural elements. Tiruvannamalai
+                    represents the element of fire.
+                </p>
+
+                <p>
+                    Arunachala Hill itself is worshipped as a sacred form
+                    of Lord Shiva. Devotees believe that seeing the hill,
+                    worshipping at the temple and performing Girivalam
+                    bring spiritual purification and peace.
+                </p>
+
+                <p>
+                    Girivalam is the sacred clockwise walk around Arunachala
+                    Hill. It is performed as an act of devotion, surrender,
+                    discipline and prayer. Many devotees perform Girivalam
+                    on Pournami days.
+                </p>
+
+                <p>
+                    The spiritual atmosphere of the temple, hill and nearby
+                    ashrams attracts pilgrims, meditators and seekers from
+                    different parts of the world.
+                </p>
+
+                <ul class="info-list">
+
+                    <li>
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+
+                        <div>
+                            Represents the sacred fire element among the
+                            Pancha Bhoota Sthalams.
+                        </div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-mountain-sun"></i>
+
+                        <div>
+                            Arunachala Hill is revered as a manifestation
+                            of Lord Shiva.
+                        </div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-person-walking"></i>
+
+                        <div>
+                            Girivalam is performed for devotion, peace,
+                            purification and spiritual progress.
+                        </div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-om"></i>
+
+                        <div>
+                            Tiruvannamalai is an important centre for
+                            Shaiva worship and meditation.
+                        </div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-hands-praying"></i>
+
+                        <div>
+                            Devotees pray for wisdom, inner peace, courage
+                            and removal of negative thoughts.
+                        </div>
+                    </li>
+
+                </ul>
+
+            </section>
+
+            <!-- =================================
+                 SPECIAL PUJAS AND FESTIVALS
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🎉 Special Pujas &amp; Festivals
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple celebrates many important
+                    festivals and special worship occasions throughout
+                    the year. Festival days attract a large number of
+                    devotees and include processions, rituals, chanting
+                    and special darshan arrangements.
+                </p>
+
+                <div class="information-grid">
+
+                    <div class="information-item">
+
+                        <h3>
+                            Karthigai Deepam
+                        </h3>
+
+                        <p>
+                            The most famous festival of Tiruvannamalai.
+                            A sacred flame is lit on the top of Arunachala
+                            Hill, symbolising Lord Shiva as an infinite
+                            column of fire.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Pournami Girivalam
+                        </h3>
+
+                        <p>
+                            On every full-moon day, thousands of devotees
+                            walk around Arunachala Hill and visit the sacred
+                            Ashta Lingams.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Maha Shivaratri
+                        </h3>
+
+                        <p>
+                            Devotees observe fasting, chanting, abhishekam,
+                            prayer and night-long worship dedicated to
+                            Lord Shiva.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Brahmotsavam
+                        </h3>
+
+                        <p>
+                            Traditional temple processions are conducted
+                            using decorated temple vehicles, devotional
+                            music and special rituals.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Pradosham
+                        </h3>
+
+                        <p>
+                            A special Shiva worship period observed on the
+                            thirteenth lunar day with prayers and temple
+                            rituals.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Daily Abhishekam
+                        </h3>
+
+                        <p>
+                            Ritual bathing, decoration, lamp worship and
+                            offerings are performed according to the daily
+                            temple schedule.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 NEARBY ATTRACTIONS
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    📍 Nearby Attractions
+                </h2>
+
+                <p>
+                    Visitors can explore several important spiritual,
+                    historical and natural attractions located near
+                    Arunachaleswarar Temple.
+                </p>
+
+                <div class="nearby-grid">
+
+                    <div class="nearby-card">
+
+                        <h3>
+                            Arunachala Hill
+                        </h3>
+
+                        <p>
+                            The sacred hill associated with Lord Shiva and
+                            surrounded by the 14 km Girivalam route.
+                        </p>
+
+                        <a
+                            href="https://www.google.com/maps/search/?api=1&query=Arunachala+Hill+Tiruvannamalai"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Route
+                        </a>
+
+                    </div>
+
+                    <div class="nearby-card">
+
+                        <h3>
+                            Sri Ramana Ashram
+                        </h3>
+
+                        <p>
+                            A peaceful spiritual centre associated with
+                            Bhagavan Sri Ramana Maharshi.
+                        </p>
+
+                        <a
+                            href="https://www.google.com/maps/search/?api=1&query=Sri+Ramana+Ashram+Tiruvannamalai"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Route
+                        </a>
+
+                    </div>
+
+                    <div class="nearby-card">
+
+                        <h3>
+                            Virupaksha Cave
+                        </h3>
+
+                        <p>
+                            A sacred meditation cave on Arunachala Hill
+                            where Sri Ramana Maharshi stayed for several
+                            years.
+                        </p>
+
+                        <a
+                            href="https://www.google.com/maps/search/?api=1&query=Virupaksha+Cave+Tiruvannamalai"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Route
+                        </a>
+
+                    </div>
+
+                    <div class="nearby-card">
+
+                        <h3>
+                            Skandashramam
+                        </h3>
+
+                        <p>
+                            A peaceful hillside ashram with a spiritual
+                            atmosphere and views of Tiruvannamalai.
+                        </p>
+
+                        <a
+                            href="https://www.google.com/maps/search/?api=1&query=Skandashramam+Tiruvannamalai"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Route
+                        </a>
+
+                    </div>
+
+                    <div class="nearby-card">
+
+                        <h3>
+                            Agni Lingam
+                        </h3>
+
+                        <p>
+                            One of the eight sacred Lingams visited during
+                            the Girivalam pilgrimage.
+                        </p>
+
+                        <a
+                            href="https://www.google.com/maps/search/?api=1&query=Agni+Lingam+Tiruvannamalai"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Route
+                        </a>
+
+                    </div>
+
+                    <div class="nearby-card">
+
+                        <h3>
+                            Yogi Ramsuratkumar Ashram
+                        </h3>
+
+                        <p>
+                            A spiritual ashram dedicated to Yogi
+                            Ramsuratkumar, located in Tiruvannamalai.
+                        </p>
+
+                        <a
+                            href="https://www.google.com/maps/search/?api=1&query=Yogi+Ramsuratkumar+Ashram+Tiruvannamalai"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View Route
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 BACK TO HOME
+            ================================== -->
+
+            <a
+                href="index.html#services"
+                class="bottom-back-btn"
+            >
+                ⬅ Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- =========================================
+         360 DEGREE POPUP SCRIPT
+    ========================================== -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const openButton =
+                document.getElementById("open360Button");
+
+            const closeButton =
+                document.getElementById("close360Button");
+
+            const panoramaModal =
+                document.getElementById("panoramaModal");
+
+            const streetViewFrame =
+                document.getElementById("templeStreetView");
+
+            /*
+                IMPORTANT:
+                Replace the text below with the exact Google Street View
+                embed URL copied from Google Maps.
+            */
+
+            const templeStreetViewURL =
+                "PASTE_GOOGLE_STREET_VIEW_EMBED_URL_HERE";
+
+
+            function openPanorama() {
+
+                if (
+                    templeStreetViewURL ===
+                    "PASTE_GOOGLE_STREET_VIEW_EMBED_URL_HERE"
+                ) {
+                    alert(
+                        "Please paste the Google Street View embed URL inside temple-details.html."
+                    );
+
+                    return;
+                }
+
+                streetViewFrame.src =
+                    templeStreetViewURL;
+
+                panoramaModal.classList.add("open");
+
+                panoramaModal.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+                document.body.classList.add(
+                    "panorama-open"
+                );
+            }
+
+
+            function closePanorama() {
+
+                panoramaModal.classList.remove("open");
+
+                panoramaModal.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+                document.body.classList.remove(
+                    "panorama-open"
+                );
+
+                streetViewFrame.src = "";
+            }
+
+
+            if (openButton) {
+                openButton.addEventListener(
+                    "click",
+                    openPanorama
+                );
+            }
+
+
+            if (closeButton) {
+                closeButton.addEventListener(
+                    "click",
+                    closePanorama
+                );
+            }
+
+
+            if (panoramaModal) {
+
+                panoramaModal.addEventListener(
+                    "click",
+                    function (event) {
+
+                        if (
+                            event.target ===
+                            panoramaModal
+                        ) {
+                            closePanorama();
+                        }
+                    }
+                );
+            }
+
+
+            document.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "Escape" &&
+                        panoramaModal.classList.contains(
+                            "open"
+                        )
+                    ) {
+                        closePanorama();
+                    }
+                }
+            );
+
+        });
+    </script>
+
+    <script src="translations.js"></script>
+
+</body>
+
+</html>

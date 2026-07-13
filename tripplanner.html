@@ -1,0 +1,2944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Smart Tiruvannamalai Trip Planner</title>
+
+    <!-- Leaflet map CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <style>
+        :root {
+            --dark-green: #173c30;
+            --green: #2c5b49;
+            --bright-green: #15883e;
+            --light-green: #eef6f0;
+            --orange: #d35400;
+            --cream: #f5f1e8;
+            --white: #ffffff;
+            --text: #24312c;
+            --muted: #68736e;
+            --border: #cdd8d1;
+            --shadow: 0 10px 30px rgba(23, 60, 48, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #ffffff;
+            color: var(--text);
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .planner-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--dark-green);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+        }
+
+        .header-inner {
+            width: min(1250px, 94%);
+            min-height: 72px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .home-link {
+            padding: 11px 18px;
+            border-radius: 24px;
+            background: white;
+            color: var(--dark-green);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .planner-shell {
+            width: min(1250px, 94%);
+            margin: 34px auto 60px;
+        }
+
+        .progress-area {
+            max-width: 950px;
+            margin: 0 auto 32px;
+        }
+
+        .step-number {
+            margin-bottom: 12px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 7px;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #e5e9e6;
+        }
+
+        .progress-fill {
+            width: 25%;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--bright-green);
+            transition: width 0.35s ease;
+        }
+
+        .planner-step {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .planner-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .step-heading h1 {
+            color: var(--dark-green);
+            font-size: clamp(29px, 4vw, 43px);
+            margin-bottom: 11px;
+        }
+
+        .step-heading p {
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        /* ================================
+           CALENDAR
+        ================================= */
+
+        .calendar-card {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #edf0ee;
+            border-radius: 22px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .calendar-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .calendar-nav {
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: var(--light-green);
+            color: var(--dark-green);
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .calendar-nav:hover {
+            background: var(--dark-green);
+            color: white;
+        }
+
+        .calendar-summary {
+            text-align: center;
+        }
+
+        .calendar-summary strong {
+            display: block;
+            color: var(--dark-green);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .calendar-summary span {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .calendar-grid-wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+        }
+
+        .month-calendar {
+            min-width: 0;
+        }
+
+        .month-title {
+            margin-bottom: 15px;
+            color: var(--dark-green);
+            text-align: center;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .week-row,
+        .dates-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .week-row div {
+            padding: 10px 2px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .calendar-day {
+            position: relative;
+            min-height: 47px;
+            border: none;
+            background: transparent;
+            color: var(--dark-green);
+            font-size: 14px;
+            border-radius: 9px;
+        }
+
+        .calendar-day:hover:not(:disabled) {
+            background: var(--light-green);
+        }
+
+        .calendar-day:disabled {
+            color: #b8c0bb;
+            cursor: not-allowed;
+        }
+
+        .calendar-day.empty {
+            pointer-events: none;
+        }
+
+        .calendar-day.start,
+        .calendar-day.end {
+            background: var(--dark-green);
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendar-day.in-range {
+            border-radius: 0;
+            background: #dfe9e3;
+        }
+
+        .calendar-day.start {
+            border-radius: 9px 0 0 9px;
+        }
+
+        .calendar-day.end {
+            border-radius: 0 9px 9px 0;
+        }
+
+        .calendar-day.start.end {
+            border-radius: 9px;
+        }
+
+        .selected-date-box {
+            display: none;
+            margin-top: 23px;
+            padding: 18px;
+            border-left: 5px solid var(--orange);
+            border-radius: 12px;
+            background: #fff8ed;
+        }
+
+        .selected-date-box.show {
+            display: block;
+        }
+
+        .selected-date-box strong {
+            color: var(--dark-green);
+        }
+
+        /* ================================
+           TRIP TYPE
+        ================================= */
+
+        .choice-grid {
+            max-width: 850px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 17px;
+        }
+
+        .choice-card {
+            position: relative;
+            min-height: 145px;
+            padding: 22px 18px;
+            border: 1px solid #9fb0a6;
+            border-radius: 15px;
+            background: white;
+            color: var(--dark-green);
+            text-align: left;
+            transition: 0.25s;
+        }
+
+        .choice-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .choice-card.selected {
+            border-color: var(--bright-green);
+            background: var(--bright-green);
+            color: white;
+        }
+
+        .choice-icon {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
+
+        .choice-card strong {
+            font-size: 17px;
+        }
+
+        .choice-check {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: none;
+            font-size: 20px;
+        }
+
+        .choice-card.selected .choice-check {
+            display: block;
+        }
+
+        .conditional-question {
+            display: none;
+            max-width: 650px;
+            margin: 34px auto 0;
+            text-align: center;
+        }
+
+        .conditional-question.show {
+            display: block;
+        }
+
+        .conditional-question h3 {
+            color: var(--dark-green);
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .yes-no-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .yes-no-btn {
+            min-width: 150px;
+            padding: 13px 22px;
+            border: 1px solid #9fb0a6;
+            border-radius: 25px;
+            background: white;
+            color: var(--dark-green);
+            font-weight: bold;
+        }
+
+        .yes-no-btn.selected {
+            border-color: var(--bright-green);
+            background: var(--bright-green);
+            color: white;
+        }
+
+        /* ================================
+           INTERESTS
+        ================================= */
+
+        .interest-grid {
+            max-width: 920px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .interest-btn {
+            padding: 14px 21px;
+            border: 1px solid #9fb0a6;
+            border-radius: 28px;
+            background: white;
+            color: var(--dark-green);
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .interest-btn:hover {
+            background: var(--light-green);
+        }
+
+        .interest-btn.selected {
+            border-color: var(--bright-green);
+            background: var(--bright-green);
+            color: white;
+        }
+
+        /* ================================
+           NAVIGATION BUTTONS
+        ================================= */
+
+        .step-controls {
+            max-width: 950px;
+            margin: 45px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .back-button,
+        .next-button {
+            min-width: 125px;
+            padding: 14px 22px;
+            border-radius: 28px;
+            font-weight: bold;
+        }
+
+        .back-button {
+            border: none;
+            background: transparent;
+            color: var(--dark-green);
+            text-decoration: underline;
+        }
+
+        .next-button {
+            border: none;
+            background: var(--dark-green);
+            color: white;
+        }
+
+        .next-button:hover {
+            background: var(--bright-green);
+        }
+
+        .next-button:disabled {
+            background: #aebbb4;
+            cursor: not-allowed;
+        }
+
+        /* ================================
+           RESULT PAGE
+        ================================= */
+
+        .result-heading {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .result-heading h1 {
+            color: var(--dark-green);
+            font-size: clamp(29px, 4vw, 42px);
+            margin-bottom: 8px;
+        }
+
+        .result-heading p {
+            color: var(--muted);
+        }
+
+        .plan-summary {
+            max-width: 1050px;
+            margin: 0 auto 22px;
+            padding: 18px 21px;
+            border-radius: 14px;
+            background: var(--light-green);
+            color: var(--dark-green);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .result-actions {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 11px 17px;
+            border: none;
+            border-radius: 22px;
+            background: var(--dark-green);
+            color: white;
+            font-weight: bold;
+        }
+
+        .action-btn.secondary {
+            border: 1px solid var(--dark-green);
+            background: white;
+            color: var(--dark-green);
+        }
+
+        .day-tabs {
+            max-width: 1200px;
+            margin: 0 auto 18px;
+            display: flex;
+            gap: 9px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .day-tab {
+            flex-shrink: 0;
+            padding: 11px 18px;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: white;
+            color: var(--dark-green);
+            font-weight: bold;
+        }
+
+        .day-tab.active {
+            border-color: var(--bright-green);
+            background: var(--bright-green);
+            color: white;
+        }
+
+        .result-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+            min-height: 640px;
+            overflow: hidden;
+            border: 1px solid #e3e8e5;
+            border-radius: 20px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .itinerary-panel {
+            max-height: 720px;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .itinerary-day-header {
+            margin-bottom: 22px;
+        }
+
+        .itinerary-day-header h2 {
+            color: var(--dark-green);
+            margin-bottom: 6px;
+        }
+
+        .itinerary-day-header p {
+            color: var(--muted);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 35px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            bottom: 5px;
+            left: 12px;
+            width: 3px;
+            border-radius: 5px;
+            background: #bfd0c5;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 17px;
+            padding: 18px;
+            border: 1px solid #e1e7e3;
+            border-radius: 14px;
+            background: white;
+            transition: 0.25s;
+        }
+
+        .timeline-item:hover,
+        .timeline-item.highlight {
+            border-color: var(--bright-green);
+            background: #f1faf4;
+            transform: translateX(3px);
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: 20px;
+            left: -36px;
+            width: 27px;
+            height: 27px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+            border-radius: 50%;
+            background: var(--bright-green);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
+        }
+
+        .time-label {
+            display: inline-block;
+            margin-bottom: 7px;
+            padding: 6px 10px;
+            border-radius: 18px;
+            background: #edf3ef;
+            color: var(--dark-green);
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .timeline-item h3 {
+            color: var(--dark-green);
+            font-size: 18px;
+            margin-bottom: 7px;
+        }
+
+        .timeline-item p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .duration-label {
+            display: block;
+            margin-top: 8px;
+            color: var(--orange);
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .map-panel {
+            position: relative;
+            min-height: 640px;
+            background: #eef0eb;
+        }
+
+        #tripMap {
+            width: 100%;
+            height: 100%;
+            min-height: 640px;
+        }
+
+        .map-day-label {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            z-index: 500;
+            transform: translateX(-50%);
+            padding: 10px 16px;
+            border-radius: 22px;
+            background: rgba(23, 60, 48, 0.94);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        .custom-map-number {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+            border-radius: 50%;
+            background: var(--dark-green);
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28);
+        }
+
+        .notice-box {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            padding: 18px;
+            border-left: 5px solid var(--orange);
+            border-radius: 12px;
+            background: #fff8ec;
+            color: #5d4c3e;
+            line-height: 1.65;
+        }
+
+        @media print {
+            .planner-header,
+            .progress-area,
+            .result-actions,
+            .step-controls,
+            .day-tabs,
+            .map-panel {
+                display: none !important;
+            }
+
+            .planner-step {
+                display: none !important;
+            }
+
+            #step4 {
+                display: block !important;
+            }
+
+            .result-layout {
+                display: block;
+                border: none;
+                box-shadow: none;
+            }
+
+            .itinerary-panel {
+                max-height: none;
+                overflow: visible;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .calendar-grid-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .choice-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .result-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .map-panel,
+            #tripMap {
+                min-height: 450px;
+            }
+
+            .itinerary-panel {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .header-inner {
+                min-height: auto;
+                padding: 13px 0;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .calendar-card {
+                padding: 18px 11px;
+            }
+
+            .calendar-grid-wrapper {
+                gap: 35px;
+            }
+
+            .calendar-day {
+                min-height: 42px;
+            }
+
+            .choice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .choice-card {
+                min-height: 105px;
+            }
+
+            .yes-no-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .step-controls {
+                margin-top: 30px;
+            }
+
+            .result-layout {
+                border-radius: 14px;
+            }
+
+            .itinerary-panel {
+                padding: 18px;
+            }
+
+            .timeline {
+                padding-left: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="planner-header">
+    <div class="header-inner">
+
+        <div class="brand">
+            🛕 Smart Tiruvannamalai Trip Planner
+        </div>
+
+        <a href="index.html" class="home-link">
+            ← Back to Home
+        </a>
+
+    </div>
+</header>
+
+<main class="planner-shell">
+
+    <div class="progress-area">
+
+        <div class="step-number" id="stepNumber">
+            Step 1 of 4
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+    </div>
+
+    <!-- =========================================
+         STEP 1: CALENDAR
+    ========================================== -->
+
+    <section class="planner-step active" id="step1">
+
+        <div class="step-heading">
+            <h1>When are you going?</h1>
+
+            <p>
+                Choose your arrival and departure dates. You can select
+                a trip of up to seven days.
+            </p>
+        </div>
+
+        <div class="calendar-card">
+
+            <div class="calendar-toolbar">
+
+                <button
+                    type="button"
+                    class="calendar-nav"
+                    id="previousMonth"
+                    aria-label="Previous month"
+                >
+                    ‹
+                </button>
+
+                <div class="calendar-summary">
+                    <strong>Select your travel dates</strong>
+                    <span>Click the same date twice for a 1-day trip • Maximum: 7 days
+</span>
+                </div>
+
+                <button
+                    type="button"
+                    class="calendar-nav"
+                    id="nextMonth"
+                    aria-label="Next month"
+                >
+                    ›
+                </button>
+
+            </div>
+
+            <div class="calendar-grid-wrapper">
+
+                <div class="month-calendar">
+                    <div class="month-title" id="firstMonthTitle"></div>
+
+                    <div class="week-row">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+
+                    <div class="dates-grid" id="firstMonthGrid"></div>
+                </div>
+
+                <div class="month-calendar">
+                    <div class="month-title" id="secondMonthTitle"></div>
+
+                    <div class="week-row">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+
+                    <div class="dates-grid" id="secondMonthGrid"></div>
+                </div>
+
+            </div>
+
+            <div class="selected-date-box" id="selectedDateBox">
+                <strong id="selectedDatesText"></strong>
+                <div id="selectedDurationText"></div>
+            </div>
+
+        </div>
+
+        <div class="step-controls">
+
+            <a href="index.html" class="back-button">
+                Back
+            </a>
+
+            <button
+                type="button"
+                class="next-button"
+                id="step1Next"
+                disabled
+            >
+                Next
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         STEP 2: TRIP TYPE
+    ========================================== -->
+
+    <section class="planner-step" id="step2">
+
+        <div class="step-heading">
+            <h1>What kind of trip are you planning?</h1>
+            <p>Select one option.</p>
+        </div>
+
+        <div class="choice-grid">
+
+            <button
+                type="button"
+                class="choice-card"
+                data-trip-type="solo"
+            >
+                <span class="choice-check">✓</span>
+                <span class="choice-icon">👤</span>
+                <strong>Solo Trip</strong>
+            </button>
+
+            <button
+                type="button"
+                class="choice-card"
+                data-trip-type="partner"
+            >
+                <span class="choice-check">✓</span>
+                <span class="choice-icon">💑</span>
+                <strong>Partner Trip</strong>
+            </button>
+
+            <button
+                type="button"
+                class="choice-card"
+                data-trip-type="friends"
+            >
+                <span class="choice-check">✓</span>
+                <span class="choice-icon">👥</span>
+                <strong>Friends Trip</strong>
+            </button>
+
+            <button
+                type="button"
+                class="choice-card"
+                data-trip-type="family"
+            >
+                <span class="choice-check">✓</span>
+                <span class="choice-icon">👨‍👩‍👧‍👦</span>
+                <strong>Family Trip</strong>
+            </button>
+
+        </div>
+
+        <div
+            class="conditional-question"
+            id="childrenQuestion"
+        >   
+            <h3>Are children travelling with you?</h3>
+
+            <div class="yes-no-row">
+
+                <button
+                    type="button"
+                    class="yes-no-btn"
+                    data-children="yes"
+                >
+                    Yes
+                </button>
+
+                <button
+                    type="button"
+                    class="yes-no-btn"
+                    data-children="no"
+                >
+                    No
+                </button>
+
+            </div>
+        </div>
+
+        <div class="step-controls">
+
+            <button
+                type="button"
+                class="back-button"
+                data-back-step="1"
+            >
+                Back
+            </button>
+
+            <button
+                type="button"
+                class="next-button"
+                id="step2Next"
+                disabled
+            >
+                Next
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         STEP 3: INTERESTS
+    ========================================== -->
+
+    <section class="planner-step" id="step3">
+
+        <div class="step-heading">
+            <h1>Tell us what you’re interested in</h1>
+
+            <p>
+                Select one or more interests. Your itinerary will be
+                prepared according to your choices.
+            </p>
+        </div>
+
+        <div class="interest-grid">
+
+            <button class="interest-btn" data-interest="temple">
+                🛕 Temple Darshan
+            </button>
+
+            <button class="interest-btn" data-interest="girivalam">
+                🚶 Girivalam
+            </button>
+
+            <button class="interest-btn" data-interest="meditation">
+                🧘 Ashrams & Meditation
+            </button>
+
+            <button class="interest-btn" data-interest="history">
+                📜 History & Architecture
+            </button>
+
+            <button class="interest-btn" data-interest="nature">
+                🌳 Nature & Sightseeing
+            </button>
+
+            <button class="interest-btn" data-interest="adventure">
+                ⛰️ Trekking & Adventure
+            </button>
+
+            <button class="interest-btn" data-interest="viewpoints">
+                📸 Photography & Viewpoints
+            </button>
+
+            <button class="interest-btn" data-interest="food">
+                🍛 Local Food
+            </button>
+
+            <button class="interest-btn" data-interest="shopping">
+                🛍️ Shopping
+            </button>
+
+        </div>
+
+        <div class="step-controls">
+
+            <button
+                type="button"
+                class="back-button"
+                data-back-step="2"
+            >
+                Back
+            </button>
+
+            <button
+                type="button"
+                class="next-button"
+                id="generatePlanButton"
+                disabled
+            >
+                Generate My Plan
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- =========================================
+         STEP 4: RESULT
+    ========================================== -->
+
+    <section class="planner-step" id="step4">
+
+        <div class="result-heading">
+            <h1>Your Smart Tiruvannamalai Tour Plan</h1>
+
+            <p>
+                Day-wise places, estimated visiting times and route map.
+            </p>
+        </div>
+
+        <div class="plan-summary" id="planSummary"></div>
+
+        <div class="result-actions">
+
+            <button
+                type="button"
+                class="action-btn secondary"
+                id="editPlanButton"
+            >
+                ← Edit Preferences
+            </button>
+
+            <button
+                type="button"
+                class="action-btn"
+                onclick="window.print()"
+            >
+                🖨 Print Plan
+            </button>
+
+        </div>
+
+        <div class="day-tabs" id="dayTabs"></div>
+
+        <div class="result-layout">
+
+            <div class="itinerary-panel" id="itineraryPanel"></div>
+
+            <div class="map-panel">
+
+                <div class="map-day-label" id="mapDayLabel">
+                    Day 1 Route
+                </div>
+
+                <div id="tripMap"></div>
+
+            </div>
+
+        </div>
+
+        <div class="notice-box">
+            <strong>Important:</strong>
+            All times are estimated. Temple, ashram, trekking and attraction
+            timings can change. Verify current local timings, weather and
+            route conditions before travelling.
+        </div>
+
+    </section>
+
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =========================================
+       STATE
+    ========================================== */
+
+    let currentStep = 1;
+
+    let calendarBase =
+        new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            1
+        );
+
+    let selectedStartDate = null;
+    let selectedEndDate = null;
+
+    let selectedTripType = "";
+    let travellingWithChildren = null;
+
+    const selectedInterests = new Set();
+
+    let generatedDays = [];
+    let activeResultDay = 0;
+
+    let map = null;
+    let mapLayerGroup = null;
+
+
+    /* =========================================
+       MAIN ELEMENTS
+    ========================================== */
+
+    const progressFill =
+        document.getElementById("progressFill");
+
+    const stepNumber =
+        document.getElementById("stepNumber");
+
+    const step1Next =
+        document.getElementById("step1Next");
+
+    const step2Next =
+        document.getElementById("step2Next");
+
+    const generatePlanButton =
+        document.getElementById("generatePlanButton");
+
+
+    /* =========================================
+       STEP NAVIGATION
+    ========================================== */
+
+    function showStep(step) {
+
+        currentStep = step;
+
+        document
+            .querySelectorAll(".planner-step")
+            .forEach(function (section) {
+                section.classList.remove("active");
+            });
+
+        document
+            .getElementById("step" + step)
+            .classList.add("active");
+
+        progressFill.style.width =
+            (step * 25) + "%";
+
+        stepNumber.textContent =
+            "Step " + step + " of 4";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        if (step === 4 && map) {
+            setTimeout(function () {
+                map.invalidateSize();
+            }, 250);
+        }
+    }
+
+
+    document
+        .querySelectorAll("[data-back-step]")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function () {
+                showStep(
+                    Number(this.dataset.backStep)
+                );
+            });
+        });
+
+
+    step1Next.addEventListener("click", function () {
+        showStep(2);
+    });
+
+
+    step2Next.addEventListener("click", function () {
+        showStep(3);
+    });
+
+
+    document
+        .getElementById("editPlanButton")
+        .addEventListener("click", function () {
+            showStep(1);
+        });
+
+
+    /* =========================================
+       DATE HELPERS
+    ========================================== */
+
+    function normaliseDate(date) {
+        return new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate()
+        );
+    }
+
+
+    function sameDate(first, second) {
+
+        return (
+            first &&
+            second &&
+            first.getFullYear() === second.getFullYear() &&
+            first.getMonth() === second.getMonth() &&
+            first.getDate() === second.getDate()
+        );
+    }
+
+
+    function daysBetween(start, end) {
+
+        const difference =
+            normaliseDate(end) -
+            normaliseDate(start);
+
+        return Math.round(
+            difference / 86400000
+        ) + 1;
+    }
+
+
+    function formatDate(date) {
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            }
+        );
+    }
+
+
+    function dateKey(date) {
+
+        return [
+            date.getFullYear(),
+            String(date.getMonth() + 1).padStart(2, "0"),
+            String(date.getDate()).padStart(2, "0")
+        ].join("-");
+    }
+
+
+    /* =========================================
+       CALENDAR
+    ========================================== */
+
+    const firstMonthTitle =
+        document.getElementById("firstMonthTitle");
+
+    const secondMonthTitle =
+        document.getElementById("secondMonthTitle");
+
+    const firstMonthGrid =
+        document.getElementById("firstMonthGrid");
+
+    const secondMonthGrid =
+        document.getElementById("secondMonthGrid");
+
+    const selectedDateBox =
+        document.getElementById("selectedDateBox");
+
+    const selectedDatesText =
+        document.getElementById("selectedDatesText");
+
+    const selectedDurationText =
+        document.getElementById("selectedDurationText");
+
+
+    function createMonthCalendar(
+        year,
+        month,
+        titleElement,
+        gridElement
+    ) {
+
+        const monthDate =
+            new Date(year, month, 1);
+
+        titleElement.textContent =
+            monthDate.toLocaleDateString(
+                "en-IN",
+                {
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+        gridElement.innerHTML = "";
+
+        const firstWeekDay =
+            monthDate.getDay();
+
+        const totalDays =
+            new Date(year, month + 1, 0)
+                .getDate();
+
+        for (
+            let emptyIndex = 0;
+            emptyIndex < firstWeekDay;
+            emptyIndex++
+        ) {
+
+            const emptyButton =
+                document.createElement("button");
+
+            emptyButton.type = "button";
+            emptyButton.className =
+                "calendar-day empty";
+
+            gridElement.appendChild(
+                emptyButton
+            );
+        }
+
+        const today =
+            normaliseDate(new Date());
+
+        for (
+            let day = 1;
+            day <= totalDays;
+            day++
+        ) {
+
+            const currentDate =
+                new Date(year, month, day);
+
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+            button.className =
+                "calendar-day";
+
+            button.textContent = day;
+
+            button.dataset.date =
+                dateKey(currentDate);
+
+            if (
+                normaliseDate(currentDate) <
+                today
+            ) {
+                button.disabled = true;
+            }
+
+            if (
+                selectedStartDate &&
+                selectedEndDate &&
+                currentDate > selectedStartDate &&
+                currentDate < selectedEndDate
+            ) {
+                button.classList.add("in-range");
+            }
+
+            if (
+                sameDate(
+                    currentDate,
+                    selectedStartDate
+                )
+            ) {
+                button.classList.add("start");
+            }
+
+            if (
+                sameDate(
+                    currentDate,
+                    selectedEndDate
+                )
+            ) {
+                button.classList.add("end");
+            }
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    selectCalendarDate(
+                        currentDate
+                    );
+                }
+            );
+
+            gridElement.appendChild(button);
+        }
+    }
+
+
+    function renderCalendars() {
+
+        createMonthCalendar(
+            calendarBase.getFullYear(),
+            calendarBase.getMonth(),
+            firstMonthTitle,
+            firstMonthGrid
+        );
+
+        const nextMonth =
+            new Date(
+                calendarBase.getFullYear(),
+                calendarBase.getMonth() + 1,
+                1
+            );
+
+        createMonthCalendar(
+            nextMonth.getFullYear(),
+            nextMonth.getMonth(),
+            secondMonthTitle,
+            secondMonthGrid
+        );
+    }
+
+
+    function selectCalendarDate(date) {
+
+        const selected =
+            normaliseDate(date);
+
+        if (
+            !selectedStartDate ||
+            selectedEndDate
+        ) {
+
+            selectedStartDate = selected;
+            selectedEndDate = null;
+
+        } else if (
+            selected < selectedStartDate
+        ) {
+
+            selectedStartDate = selected;
+            selectedEndDate = null;
+
+        } else {
+
+            const duration =
+                daysBetween(
+                    selectedStartDate,
+                    selected
+                );
+
+            if (duration > 7) {
+
+                alert(
+                    "Please select a maximum trip duration of 7 days."
+                );
+
+                return;
+            }
+
+            selectedEndDate = selected;
+        }
+
+        updateDateSummary();
+        renderCalendars();
+    }
+
+
+    function updateDateSummary() {
+
+        if (
+            selectedStartDate &&
+            !selectedEndDate
+        ) {
+
+            selectedDateBox.classList.add("show");
+
+            selectedDatesText.textContent =
+                "Arrival: " +
+                formatDate(selectedStartDate);
+
+            selectedDurationText.textContent =
+                "Now select your departure date.";
+
+            step1Next.disabled = true;
+
+            return;
+        }
+
+        if (
+            selectedStartDate &&
+            selectedEndDate
+        ) {
+
+            const duration =
+                daysBetween(
+                    selectedStartDate,
+                    selectedEndDate
+                );
+
+            selectedDateBox.classList.add("show");
+
+            selectedDatesText.textContent =
+                formatDate(selectedStartDate) +
+                " – " +
+                formatDate(selectedEndDate);
+
+            selectedDurationText.textContent =
+                duration +
+                (
+                    duration === 1
+                        ? " day trip"
+                        : " days trip"
+                );
+
+            step1Next.disabled = false;
+
+            return;
+        }
+
+        selectedDateBox.classList.remove("show");
+        step1Next.disabled = true;
+    }
+
+
+    document
+        .getElementById("previousMonth")
+        .addEventListener("click", function () {
+
+            calendarBase =
+                new Date(
+                    calendarBase.getFullYear(),
+                    calendarBase.getMonth() - 1,
+                    1
+                );
+
+            renderCalendars();
+        });
+
+
+    document
+        .getElementById("nextMonth")
+        .addEventListener("click", function () {
+
+            calendarBase =
+                new Date(
+                    calendarBase.getFullYear(),
+                    calendarBase.getMonth() + 1,
+                    1
+                );
+
+            renderCalendars();
+        });
+
+
+    /* =========================================
+       TRIP TYPE
+    ========================================== */
+
+    const childrenQuestion =
+        document.getElementById("childrenQuestion");
+
+
+    document
+        .querySelectorAll(".choice-card")
+        .forEach(function (card) {
+
+            card.addEventListener("click", function () {
+
+                document
+                    .querySelectorAll(".choice-card")
+                    .forEach(function (item) {
+                        item.classList.remove("selected");
+                    });
+
+                this.classList.add("selected");
+
+                selectedTripType =
+                    this.dataset.tripType;
+
+                travellingWithChildren = null;
+
+                document
+                    .querySelectorAll(".yes-no-btn")
+                    .forEach(function (button) {
+                        button.classList.remove("selected");
+                    });
+
+                if (selectedTripType === "family") {
+
+    childrenQuestion.classList.add("show");
+    step2Next.disabled = true;
+
+} else {
+
+    childrenQuestion.classList.remove("show");
+    travellingWithChildren = false;
+    step2Next.disabled = false;
+
+}
+            });
+        });
+
+
+    document
+        .querySelectorAll(".yes-no-btn")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                document
+                    .querySelectorAll(".yes-no-btn")
+                    .forEach(function (item) {
+                        item.classList.remove("selected");
+                    });
+
+                this.classList.add("selected");
+
+                travellingWithChildren =
+                    this.dataset.children === "yes";
+
+                step2Next.disabled = false;
+            });
+        });
+
+
+    /* =========================================
+       INTERESTS
+    ========================================== */
+
+    document
+        .querySelectorAll(".interest-btn")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                const interest =
+                    this.dataset.interest;
+
+                if (
+                    selectedInterests.has(interest)
+                ) {
+
+                    selectedInterests.delete(interest);
+                    this.classList.remove("selected");
+
+                } else {
+
+                    selectedInterests.add(interest);
+                    this.classList.add("selected");
+                }
+
+                generatePlanButton.disabled =
+                    selectedInterests.size === 0;
+            });
+        });
+
+
+    /* =========================================
+       PLACE DATABASE
+    ========================================== */
+        const placeDatabase = {
+
+    temple: {
+        id: "temple",
+        icon: "🛕",
+        name: "Arunachaleswarar Temple",
+        category: ["temple", "history"],
+        duration: "2 hours",
+        description:
+            "Morning darshan, Rajagopuram, main sanctum, temple architecture and Unnamulai Amman shrine.",
+        latitude: 12.2316,
+        longitude: 79.0674
+    },
+
+    breakfast: {
+        id: "breakfast",
+        icon: "☕",
+        name: "Breakfast Break",
+        category: ["food"],
+        duration: "45 minutes",
+        description:
+            "Breakfast and refreshments near the temple or hotel.",
+        latitude: 12.2332,
+        longitude: 79.0695
+    },
+
+    lunch: {
+        id: "lunch",
+        icon: "🍛",
+        name: "Lunch and Rest",
+        category: ["food"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Vegetarian lunch followed by a short rest before continuing the journey.",
+        latitude: 12.2265,
+        longitude: 79.0712
+    },
+
+    ramana: {
+        id: "ramana",
+        icon: "🧘",
+        name: "Sri Ramana Ashram",
+        category: ["meditation", "history"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Meditation hall, Samadhi, library, bookstall and peaceful ashram surroundings.",
+        latitude: 12.2182,
+        longitude: 79.0668
+    },
+
+    virupaksha: {
+        id: "virupaksha",
+        icon: "⛰️",
+        name: "Virupaksha Cave",
+        category: ["meditation", "adventure"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Sacred meditation cave associated with Sri Ramana Maharshi on Arunachala Hill.",
+        latitude: 12.2221,
+        longitude: 79.0605
+    },
+
+    skandashramam: {
+        id: "skandashramam",
+        icon: "🌄",
+        name: "Skandashramam",
+        category: ["meditation", "adventure", "viewpoints"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Historic hill ashram with meditation areas and panoramic views of Tiruvannamalai.",
+        latitude: 12.2233,
+        longitude: 79.0582
+    },
+
+    seshadri: {
+        id: "seshadri",
+        icon: "🙏",
+        name: "Sri Seshadri Swamigal Ashram",
+        category: ["meditation", "history"],
+        duration: "1 hour",
+        description:
+            "Peaceful spiritual centre associated with Sri Seshadri Swamigal.",
+        latitude: 12.2201,
+        longitude: 79.0681
+    },
+
+    yogi: {
+        id: "yogi",
+        icon: "🙏",
+        name: "Yogi Ramsuratkumar Ashram",
+        category: ["meditation"],
+        duration: "1 hour",
+        description:
+            "Serene prayer hall and spiritual surroundings dedicated to Yogi Ramsuratkumar.",
+        latitude: 12.2088,
+        longitude: 79.0737
+    },
+
+    viewpoint: {
+        id: "viewpoint",
+        icon: "🌅",
+        name: "Annamalaiyar Temple View Point",
+        category: ["viewpoints", "nature"],
+        duration: "1 hour",
+        description:
+            "Panoramic views of Arunachala Hill, Arunachaleswarar Temple and Tiruvannamalai town.",
+        latitude: 12.2269,
+        longitude: 79.0575
+    },
+
+    girivalam: {
+        id: "girivalam",
+        icon: "🚶",
+        name: "Evening Girivalam – 8 Lingams & Moksha Margam",
+        category: ["girivalam", "temple"],
+        duration: "4 to 5 hours",
+        description:
+            "Complete the sacred Girivalam around Arunachala Hill, visit all eight Ashta Lingams and pass through the Moksha Margam route.",
+        latitude: 12.2324,
+        longitude: 79.0868
+    },
+
+    eveningTemple: {
+        id: "eveningTemple",
+        icon: "🌙",
+        name: "Evening Temple Darshan",
+        category: ["temple"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Conclude the day with peaceful evening darshan and temple illumination.",
+        latitude: 12.2316,
+        longitude: 79.0674
+    },
+
+    shopping: {
+        id: "shopping",
+        icon: "🛍️",
+        name: "Temple Street Shopping",
+        category: ["shopping"],
+        duration: "1 hour",
+        description:
+            "Shop for devotional products, Rudraksha, lamps, books, souvenirs and local items.",
+        latitude: 12.2328,
+        longitude: 79.0692
+    },
+
+    parvathamalai: {
+        id: "parvathamalai",
+        icon: "🥾",
+        name: "Parvathamalai Hills",
+        category: ["adventure", "nature"],
+        duration: "Full-day trek",
+        description:
+            "A challenging hill trek recommended for physically fit adult visitors. Carry water and begin before sunrise.",
+        latitude: 12.4383,
+        longitude: 78.9667
+    },
+
+    sathanur: {
+        id: "sathanur",
+        icon: "🏞️",
+        name: "Sathanur Reservoir",
+        category: ["nature", "viewpoints"],
+        duration: "3 hours",
+        description:
+            "Enjoy dam views, gardens, water scenery and peaceful natural surroundings.",
+        latitude: 12.1914,
+        longitude: 78.8394
+    },
+
+    javadhu: {
+        id: "javadhu",
+        icon: "🌳",
+        name: "Javadhu Hills",
+        category: ["nature", "adventure", "viewpoints"],
+        duration: "4 to 5 hours",
+        description:
+            "Explore scenic hill roads, forests, viewpoints and seasonal nature attractions.",
+        latitude: 12.5834,
+        longitude: 78.8367
+    },
+
+    velloreGoldenTemple: {
+        id: "velloreGoldenTemple",
+        icon: "✨",
+        name: "Sripuram Golden Temple",
+        category: ["temple", "history"],
+        duration: "2 hours",
+        description:
+            "Visit the famous golden temple complex at Sripuram near Vellore.",
+        latitude: 12.8703,
+        longitude: 79.0887
+    },
+
+    velloreFort: {
+        id: "velloreFort",
+        icon: "🏰",
+        name: "Vellore Fort",
+        category: ["history", "viewpoints"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Explore the historic stone fort, moat and heritage surroundings.",
+        latitude: 12.9202,
+        longitude: 79.1335
+    },
+
+    jalakandeswarar: {
+        id: "jalakandeswarar",
+        icon: "🛕",
+        name: "Jalakandeswarar Temple",
+        category: ["temple", "history"],
+        duration: "1 hour",
+        description:
+            "Visit the historic Shiva temple situated inside Vellore Fort.",
+        latitude: 12.9200,
+        longitude: 79.1325
+    },
+
+    velloreLunch: {
+        id: "velloreLunch",
+        icon: "🍛",
+        name: "Lunch in Vellore",
+        category: ["food"],
+        duration: "1 hour",
+        description:
+            "Lunch and refreshments before returning to Tiruvannamalai.",
+        latitude: 12.9165,
+        longitude: 79.1325
+    },
+
+    yelagiri: {
+        id: "yelagiri",
+        icon: "⛰️",
+        name: "Yelagiri Hills",
+        category: ["nature", "viewpoints", "adventure"],
+        duration: "Full-day visit",
+        description:
+            "Enjoy hill scenery, pleasant weather, viewpoints and relaxed sightseeing.",
+        latitude: 12.5796,
+        longitude: 78.6399
+    },
+
+    naturePark: {
+        id: "naturePark",
+        icon: "🌳",
+        name: "Yelagiri Nature Park",
+        category: ["nature"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Walk through landscaped gardens and enjoy the peaceful hill environment.",
+        latitude: 12.5815,
+        longitude: 78.6356
+    },
+
+    boatHouse: {
+        id: "boatHouse",
+        icon: "🚣",
+        name: "Punganoor Lake and Boat House",
+        category: ["nature", "viewpoints"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Relax beside the lake and enjoy boating when services are available.",
+        latitude: 12.5788,
+        longitude: 78.6392
+    },
+
+    jalagamparai: {
+        id: "jalagamparai",
+        icon: "💧",
+        name: "Jalagamparai Waterfalls",
+        category: ["nature", "adventure"],
+        duration: "2 hours",
+        description:
+            "Visit the seasonal waterfall when access and water conditions are suitable.",
+        latitude: 12.5428,
+        longitude: 78.6713
+    },
+
+    srikalahasti: {
+        id: "srikalahasti",
+        icon: "🛕",
+        name: "Srikalahasti Temple",
+        category: ["temple", "history"],
+        duration: "2 hours",
+        description:
+            "Visit the famous Shiva temple associated with the Vayu element.",
+        latitude: 13.7498,
+        longitude: 79.6984
+    },
+
+    tirupatiTemple: {
+        id: "tirupatiTemple",
+        icon: "🙏",
+        name: "Tirumala Sri Venkateswara Temple",
+        category: ["temple"],
+        duration: "Darshan time varies",
+        description:
+            "Visit the sacred Tirumala temple. Advance darshan arrangements are strongly recommended.",
+        latitude: 13.6833,
+        longitude: 79.3473
+    },
+
+    tirupatiLocal: {
+        id: "tirupatiLocal",
+        icon: "🌆",
+        name: "Tirupati Local Sightseeing",
+        category: ["temple", "history", "viewpoints"],
+        duration: "2 hours",
+        description:
+            "Explore important local spiritual and cultural places based on available time.",
+        latitude: 13.6288,
+        longitude: 79.4192
+    },
+
+    kanipakam: {
+        id: "kanipakam",
+        icon: "🐘",
+        name: "Kanipakam Vinayaka Temple",
+        category: ["temple", "history"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Visit the famous Sri Varasiddhi Vinayaka Temple at Kanipakam.",
+        latitude: 13.2777,
+        longitude: 79.0356
+    },
+
+    chandragiri: {
+        id: "chandragiri",
+        icon: "🏰",
+        name: "Chandragiri Fort",
+        category: ["history", "viewpoints"],
+        duration: "2 hours",
+        description:
+            "Explore the historic fort, palace structures and surrounding views.",
+        latitude: 13.5889,
+        longitude: 79.3164
+    },
+
+    iskconTirupati: {
+        id: "iskconTirupati",
+        icon: "🛕",
+        name: "ISKCON Tirupati",
+        category: ["temple"],
+        duration: "1 hour",
+        description:
+            "Visit the peaceful Krishna temple and devotional complex.",
+        latitude: 13.6280,
+        longitude: 79.4073
+    },
+
+    kapilaTheertham: {
+        id: "kapilaTheertham",
+        icon: "💧",
+        name: "Kapila Theertham",
+        category: ["temple", "nature"],
+        duration: "1 hour 30 minutes",
+        description:
+            "Visit the sacred Shiva temple and seasonal waterfall area.",
+        latitude: 13.6534,
+        longitude: 79.4032
+    }
+};
+
+    /* =========================================
+       DAY TEMPLATES
+    ========================================== */
+     
+    const dayTemplates = [
+
+    /* =====================================
+       DAY 1 — ESSENTIAL TIRUVANNAMALAI
+    ====================================== */
+
+    {
+        title: "Temple, Ashram and Evening Girivalam",
+        schedule: [
+            ["5:30 AM – 7:30 AM", "temple"],
+            ["7:30 AM – 8:15 AM", "breakfast"],
+            ["8:30 AM – 10:00 AM", "ramana"],
+            ["10:15 AM – 11:45 AM", "virupaksha"],
+            ["12:00 PM – 1:30 PM", "lunch"],
+            ["2:30 PM – 3:30 PM", "viewpoint"],
+            ["4:00 PM – 9:00 PM", "girivalam"]
+        ]
+    },
+
+    /* =====================================
+       DAY 2 — COMPLETE SPIRITUAL CIRCUIT
+    ====================================== */
+
+    {
+        title: "Darshan, Skandashramam and Spiritual Ashrams",
+        schedule: [
+            ["5:30 AM – 7:00 AM", "temple"],
+            ["7:00 AM – 7:45 AM", "breakfast"],
+            ["8:15 AM – 10:15 AM", "skandashramam"],
+            ["10:45 AM – 11:45 AM", "seshadri"],
+            ["12:00 PM – 1:00 PM", "yogi"],
+            ["1:15 PM – 2:45 PM", "lunch"],
+            ["3:15 PM – 4:15 PM", "shopping"],
+            ["5:30 PM – 7:00 PM", "eveningTemple"]
+        ]
+    },
+
+    /* =====================================
+       DAY 3 — TIRUVANNAMALAI DISTRICT
+    ====================================== */
+
+    {
+        title: "Sathanur, Javadhu Hills and Local Experience",
+        schedule: [
+            ["5:30 AM – 6:15 AM", "breakfast"],
+            ["6:30 AM – 9:30 AM", "sathanur"],
+            ["10:30 AM – 3:30 PM", "javadhu"],
+            ["4:30 PM – 5:30 PM", "shopping"],
+            ["6:00 PM – 7:30 PM", "eveningTemple"]
+        ]
+    },
+
+    /* =====================================
+       DAY 4 — VELLORE
+    ====================================== */
+
+    {
+        title: "Vellore Golden Temple and Heritage Tour",
+        schedule: [
+            ["6:00 AM – 6:45 AM", "breakfast"],
+            ["9:00 AM – 11:00 AM", "velloreGoldenTemple"],
+            ["11:30 AM – 1:00 PM", "velloreFort"],
+            ["1:00 PM – 2:00 PM", "jalakandeswarar"],
+            ["2:15 PM – 3:15 PM", "velloreLunch"],
+            ["6:00 PM – 8:00 PM", "eveningTemple"]
+        ]
+    },
+
+    /* =====================================
+       DAY 5 — YELAGIRI
+    ====================================== */
+
+    {
+        title: "Yelagiri Hills Nature and Relaxation",
+        schedule: [
+            ["5:30 AM – 6:15 AM", "breakfast"],
+            ["8:30 AM – 10:00 AM", "naturePark"],
+            ["10:15 AM – 11:45 AM", "boatHouse"],
+            ["12:00 PM – 1:00 PM", "lunch"],
+            ["1:30 PM – 3:30 PM", "jalagamparai"],
+            ["3:45 PM – 5:00 PM", "yelagiri"]
+        ]
+    },
+
+    /* =====================================
+       DAY 6 — SRIKALAHASTI AND TIRUPATI
+    ====================================== */
+
+    {
+        title: "Srikalahasti and Tirupati Pilgrimage",
+        schedule: [
+            ["4:30 AM – 5:15 AM", "breakfast"],
+            ["8:00 AM – 10:00 AM", "srikalahasti"],
+            ["11:30 AM – 1:00 PM", "lunch"],
+            ["2:00 PM – 6:00 PM", "tirupatiTemple"],
+            ["6:30 PM – 8:00 PM", "tirupatiLocal"]
+        ]
+    },
+
+    /* =====================================
+       DAY 7 — KANIPAKAM AND TIRUPATI AREA
+    ====================================== */
+
+    {
+        title: "Kanipakam, Chandragiri and Tirupati Sightseeing",
+        schedule: [
+            ["6:00 AM – 6:45 AM", "breakfast"],
+            ["8:00 AM – 9:30 AM", "kanipakam"],
+            ["11:00 AM – 1:00 PM", "chandragiri"],
+            ["1:15 PM – 2:15 PM", "lunch"],
+            ["3:00 PM – 4:00 PM", "iskconTirupati"],
+            ["4:30 PM – 6:00 PM", "kapilaTheertham"]
+        ]
+    }
+];
+        
+    /* =========================================
+       PLAN GENERATION
+    ========================================== */
+
+    function placeMatchesInterests(place) {
+
+        if (
+            place.id === "breakfast" ||
+            place.id === "lunch"
+        ) {
+            return true;
+        }
+
+        return place.category.some(
+            function (category) {
+                return selectedInterests.has(category);
+            }
+        );
+    }
+
+
+    function filterSchedule(schedule) {
+
+        let filtered =
+            schedule.filter(function (entry) {
+
+                const place =
+                    placeDatabase[entry[1]];
+
+                if (
+                    travellingWithChildren &&
+                    (
+                        place.id === "parvathamalai" ||
+                        place.id === "javadhu"
+                    )
+                ) {
+                    return false;
+                }
+
+                return placeMatchesInterests(place);
+            });
+
+
+        if (filtered.length < 4) {
+
+            filtered =
+                schedule.filter(function (entry) {
+
+                    const place =
+                        placeDatabase[entry[1]];
+
+                    return !(
+                        travellingWithChildren &&
+                        (
+                            place.id === "parvathamalai" ||
+                            place.id === "javadhu"
+                        )
+                    );
+                });
+        }
+
+        return filtered.map(function (entry) {
+
+            return {
+                time: entry[0],
+                place: placeDatabase[entry[1]]
+            };
+        });
+    }
+
+    function generateTripPlan() {
+
+    const tripDuration =
+        daysBetween(
+            selectedStartDate,
+            selectedEndDate
+        );
+
+    generatedDays = [];
+
+    for (
+        let dayIndex = 0;
+        dayIndex < tripDuration;
+        dayIndex++
+    ) {
+
+        let template =
+            dayTemplates[
+                dayIndex % dayTemplates.length
+            ];
+
+        let selectedSchedule =
+            template.schedule;
+
+        let selectedTitle =
+            template.title;
+
+
+        /*
+            Day 3:
+            Adventure travellers get Parvathamalai.
+
+            Other visitors get Sathanur and Javadhu Hills.
+        */
+
+        if (
+            dayIndex === 2 &&
+            selectedInterests.has("adventure") &&
+            !travellingWithChildren
+        ) {
+
+            selectedTitle =
+                "Parvathamalai Adventure Trek";
+
+            selectedSchedule = [
+
+                [
+                    "4:30 AM – 5:15 AM",
+                    "breakfast"
+                ],
+
+                [
+                    "6:00 AM – 3:00 PM",
+                    "parvathamalai"
+                ],
+
+                [
+                    "3:30 PM – 5:00 PM",
+                    "lunch"
+                ],
+
+                [
+                    "6:00 PM – 7:30 PM",
+                    "eveningTemple"
+                ]
+
+            ];
+        }
+
+
+        /*
+            Families with children should not receive
+            difficult trekking places.
+        */
+
+        if (
+            travellingWithChildren &&
+            selectedTitle.includes("Parvathamalai")
+        ) {
+
+            selectedTitle =
+                "Sathanur Reservoir and Relaxed Local Tour";
+
+            selectedSchedule = [
+
+                [
+                    "6:30 AM – 7:15 AM",
+                    "breakfast"
+                ],
+
+                [
+                    "8:30 AM – 12:00 PM",
+                    "sathanur"
+                ],
+
+                [
+                    "12:30 PM – 2:00 PM",
+                    "lunch"
+                ],
+
+                [
+                    "3:30 PM – 4:30 PM",
+                    "shopping"
+                ],
+
+                [
+                    "5:30 PM – 7:00 PM",
+                    "eveningTemple"
+                ]
+
+            ];
+        }
+
+
+        generatedDays.push({
+
+            day:
+                dayIndex + 1,
+
+            date:
+                new Date(
+                    selectedStartDate.getFullYear(),
+                    selectedStartDate.getMonth(),
+                    selectedStartDate.getDate() +
+                    dayIndex
+                ),
+
+            title:
+                selectedTitle,
+
+            activities:
+                filterSchedule(
+                    selectedSchedule
+                )
+
+        });
+
+    } // closes the for loop
+
+
+    renderResultHeader();
+
+    renderDayTabs();
+
+    initialiseMap();
+
+    showStep(4);
+
+
+    setTimeout(function () {
+
+        showResultDay(0);
+
+        if (map) {
+            map.invalidateSize();
+        }
+
+    }, 250);
+
+}
+    /* =========================================
+   GENERATE BUTTON CONNECTION
+========================================= */
+
+generatePlanButton.addEventListener(
+    "click",
+    generateTripPlan
+);
+
+
+/* =========================================
+   RESULT RENDERING
+========================================= */
+
+const planSummary =
+    document.getElementById("planSummary");
+
+const dayTabs =
+    document.getElementById("dayTabs");
+
+const itineraryPanel =
+    document.getElementById("itineraryPanel");
+
+const mapDayLabel =
+    document.getElementById("mapDayLabel");
+
+
+function renderResultHeader() {
+
+    const duration =
+        daysBetween(
+            selectedStartDate,
+            selectedEndDate
+        );
+
+    const tripTypeNames = {
+        solo: "Solo Trip",
+        partner: "Partner Trip",
+        friends: "Friends Trip",
+        family: "Family Trip"
+    };
+
+    let coverageText = "";
+
+    if (duration === 1) {
+
+        coverageText =
+            "Essential Tiruvannamalai Spiritual Tour";
+
+    } else if (duration === 2) {
+
+        coverageText =
+            "Complete Tiruvannamalai Spiritual Experience";
+
+    } else if (duration === 3) {
+
+        coverageText =
+            "Complete Tiruvannamalai and District Tour";
+
+    } else if (duration === 4) {
+
+        coverageText =
+            "Tiruvannamalai and Vellore Pilgrimage";
+
+    } else if (duration === 5) {
+
+        coverageText =
+            "Tiruvannamalai, Vellore and Yelagiri Tour";
+
+    } else if (duration === 6) {
+
+        coverageText =
+            "Tiruvannamalai, Vellore, Yelagiri and Tirupati Circuit";
+
+    } else {
+
+        coverageText =
+            "Complete Seven-Day South India Pilgrimage Circuit";
+    }
+
+    planSummary.innerHTML = `
+
+        <strong>
+            ${coverageText}
+        </strong>
+
+        <br><br>
+
+        ${formatDate(selectedStartDate)}
+        –
+        ${formatDate(selectedEndDate)}
+
+        &nbsp; • &nbsp;
+
+        ${duration}
+        ${duration === 1 ? "Day" : "Days"}
+
+        &nbsp; • &nbsp;
+
+        ${tripTypeNames[selectedTripType]}
+
+        &nbsp; • &nbsp;
+
+        ${selectedInterests.size}
+        Interests Selected
+    `;
+}
+
+
+function renderDayTabs() {
+
+    dayTabs.innerHTML = "";
+
+    generatedDays.forEach(
+        function (dayPlan, index) {
+
+            const button =
+                document.createElement("button");
+
+            button.type =
+                "button";
+
+            button.className =
+                index === 0
+                    ? "day-tab active"
+                    : "day-tab";
+
+            button.textContent =
+                "Day " + dayPlan.day;
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    showResultDay(index);
+
+                }
+            );
+
+            dayTabs.appendChild(button);
+        }
+    );
+}
+           
+    function showResultDay(index) {
+
+        activeResultDay = index;
+
+        document
+            .querySelectorAll(".day-tab")
+            .forEach(function (tab, tabIndex) {
+
+                tab.classList.toggle(
+                    "active",
+                    tabIndex === index
+                );
+            });
+
+        const dayPlan =
+            generatedDays[index];
+
+        let timelineHTML = `
+            <div class="itinerary-day-header">
+                <h2>
+                    Day ${dayPlan.day}: ${dayPlan.title}
+                </h2>
+
+                <p>
+                    ${formatDate(dayPlan.date)}
+                </p>
+            </div>
+
+            <div class="timeline">
+        `;
+
+        dayPlan.activities.forEach(
+            function (activity, activityIndex) {
+
+                timelineHTML += `
+                    <article
+                        class="timeline-item"
+                        data-activity-index="${activityIndex}"
+                    >
+                        <span class="timeline-marker">
+                            ${activityIndex + 1}
+                        </span>
+
+                        <span class="time-label">
+                            ${activity.time}
+                        </span>
+
+                        <h3>
+                            ${activity.place.icon}
+                            ${activity.place.name}
+                        </h3>
+
+                        <p>
+                            ${activity.place.description}
+                        </p>
+
+                        <span class="duration-label">
+                            Estimated duration:
+                            ${activity.place.duration}
+                        </span>
+                    </article>
+                `;
+            }
+        );
+
+        timelineHTML += "</div>";
+
+        itineraryPanel.innerHTML =
+            timelineHTML;
+
+        mapDayLabel.textContent =
+            "Day " +
+            dayPlan.day +
+            " Route";
+
+        renderMapRoute(dayPlan);
+
+        document
+            .querySelectorAll(".timeline-item")
+            .forEach(function (item) {
+
+                item.addEventListener(
+                    "mouseenter",
+                    function () {
+
+                        highlightMapActivity(
+                            Number(
+                                this.dataset.activityIndex
+                            )
+                        );
+                    }
+                );
+            });
+    }
+
+
+    /* =========================================
+       MAP
+    ========================================== */
+
+    function initialiseMap() {
+
+        if (map) {
+            return;
+        }
+
+        map = L.map("tripMap").setView(
+            [12.2316, 79.0674],
+            13
+        );
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                maxZoom: 19,
+                attribution:
+                    "&copy; OpenStreetMap contributors"
+            }
+        ).addTo(map);
+
+        mapLayerGroup =
+            L.layerGroup().addTo(map);
+    }
+
+
+    function numberedIcon(number) {
+
+        return L.divIcon({
+            className: "",
+            html:
+                '<div class="custom-map-number">' +
+                number +
+                "</div>",
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+    }
+
+
+    function renderMapRoute(dayPlan) {
+
+        if (!mapLayerGroup) {
+            return;
+        }
+
+        mapLayerGroup.clearLayers();
+
+        const routeCoordinates = [];
+
+        dayPlan.activities.forEach(
+            function (activity, index) {
+
+                const coordinate = [
+                    activity.place.latitude,
+                    activity.place.longitude
+                ];
+
+                routeCoordinates.push(coordinate);
+
+                const marker =
+                    L.marker(
+                        coordinate,
+                        {
+                            icon:
+                                numberedIcon(index + 1)
+                        }
+                    );
+
+                marker.bindPopup(`
+                    <strong>
+                        ${index + 1}.
+                        ${activity.place.name}
+                    </strong>
+
+                    <br>
+
+                    ${activity.time}
+                `);
+
+                marker.on(
+                    "click",
+                    function () {
+
+                        highlightTimelineItem(index);
+                    }
+                );
+
+                marker.addTo(mapLayerGroup);
+            }
+        );
+
+        if (routeCoordinates.length > 1) {
+
+            L.polyline(
+                routeCoordinates,
+                {
+                    color: "#15883e",
+                    weight: 5,
+                    opacity: 0.8,
+                    dashArray: "8, 7"
+                }
+            ).addTo(mapLayerGroup);
+        }
+
+        if (routeCoordinates.length) {
+
+            map.fitBounds(
+                routeCoordinates,
+                {
+                    padding: [45, 45],
+                    maxZoom: 14
+                }
+            );
+        }
+
+        setTimeout(function () {
+            map.invalidateSize();
+        }, 150);
+    }
+
+
+    function highlightTimelineItem(index) {
+
+        document
+            .querySelectorAll(".timeline-item")
+            .forEach(function (item, itemIndex) {
+
+                item.classList.toggle(
+                    "highlight",
+                    itemIndex === index
+                );
+
+                if (itemIndex === index) {
+
+                    item.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }
+            });
+    }
+
+
+    function highlightMapActivity(index) {
+
+        const dayPlan =
+            generatedDays[activeResultDay];
+
+        const activity =
+            dayPlan.activities[index];
+
+        if (!activity) {
+            return;
+        }
+
+        map.flyTo(
+            [
+                activity.place.latitude,
+                activity.place.longitude
+            ],
+            15,
+            {
+                duration: 0.6
+            }
+        );
+    }
+
+
+    /* =========================================
+       INITIALISE PAGE
+    ========================================== */
+
+    renderCalendars();
+    updateDateSummary();
+
+});
+</script>
+
+</body>
+</html>

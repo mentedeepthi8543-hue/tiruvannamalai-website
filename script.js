@@ -1,679 +1,920 @@
-/* =====================================================
-   TIRUVANNAMALAI GUIDE
-   - Hero image slider
-   - Live temperature
-   - Sunny / Cloudy / Rainy status
-   - Weather-based place suggestions
-===================================================== */
+document.addEventListener("DOMContentLoaded", function () {
 
+    /* =========================================
+       HERO SLIDER
+    ========================================= */
 
-/* =====================================================
-   HERO IMAGE SLIDER
-===================================================== */
+    const heroSlides =
+        document.querySelectorAll(".hero-slide");
 
-const heroSlides = document.querySelectorAll(".hero-slide");
-const sliderDots = document.querySelectorAll(".slider-dot");
+    const sliderDots =
+        document.querySelectorAll(".slider-dot");
 
-let currentSlide = 0;
+    let currentSlide = 0;
 
-function showNextHeroSlide() {
-    if (heroSlides.length === 0) {
-        return;
+    function showNextSlide() {
+
+        if (heroSlides.length === 0) {
+            return;
+        }
+
+        heroSlides[currentSlide].classList.remove("active");
+
+        if (sliderDots[currentSlide]) {
+            sliderDots[currentSlide].classList.remove("active");
+        }
+
+        currentSlide =
+            (currentSlide + 1) % heroSlides.length;
+
+        heroSlides[currentSlide].classList.add("active");
+
+        if (sliderDots[currentSlide]) {
+            sliderDots[currentSlide].classList.add("active");
+        }
     }
 
-    heroSlides[currentSlide].classList.remove("active");
-
-    if (sliderDots[currentSlide]) {
-        sliderDots[currentSlide].classList.remove("active");
+    if (heroSlides.length > 0) {
+        setInterval(showNextSlide, 4000);
     }
 
-    currentSlide++;
 
-    if (currentSlide >= heroSlides.length) {
-        currentSlide = 0;
-    }
+    /* =========================================
+       ELEMENTS
+    ========================================= */
 
-    heroSlides[currentSlide].classList.add("active");
+    const mainWeatherCard =
+        document.getElementById("mainWeatherCard");
 
-    if (sliderDots[currentSlide]) {
-        sliderDots[currentSlide].classList.add("active");
-    }
-}
+    const weatherIcon =
+        document.getElementById("weatherIcon");
 
-if (heroSlides.length > 0) {
-    setInterval(showNextHeroSlide, 4000);
-}
+    const weatherTemperature =
+        document.getElementById("weatherTemperature");
 
+    const weatherCondition =
+        document.getElementById("weatherCondition");
 
-/* =====================================================
-   WEATHER HTML ELEMENTS
-===================================================== */
+    const weatherBackTitle =
+        document.getElementById("weatherBackTitle");
 
-const weatherIcon =
-    document.getElementById("weatherIcon");
+    const weatherBackSummary =
+        document.getElementById("weatherBackSummary");
 
-const weatherTemperature =
-    document.getElementById("weatherTemperature");
+    const weatherBackSuggestions =
+        document.getElementById("weatherBackSuggestions");
 
-const weatherCondition =
-    document.getElementById("weatherCondition");
+    const templeStatusCard =
+        document.getElementById("templeStatusCard");
 
-const weatherExtra =
-    document.getElementById("weatherExtra");
+    const templeCurrentStatus =
+        document.getElementById("templeCurrentStatus");
 
-const suggestionIcon =
-    document.getElementById("suggestionIcon");
+    const girivalamCard =
+        document.getElementById("girivalamCard");
 
-const weatherSuggestion =
-    document.getElementById("weatherSuggestion");
+    const emergencyCard =
+        document.getElementById("emergencyCard");
 
 
-/* =====================================================
-   OPEN-METEO API
+    /* =========================================
+       WEATHER API
+    ========================================= */
 
-   Tiruvannamalai:
-   Latitude: 12.2253
-   Longitude: 79.0747
-===================================================== */
-
-const weatherApiUrl =
-    "https://api.open-meteo.com/v1/forecast" +
-    "?latitude=12.2253" +
-    "&longitude=79.0747" +
-    "&current=temperature_2m,weather_code" +
-    "&timezone=Asia%2FKolkata";
+    const weatherUrl =
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=12.2253" +
+        "&longitude=79.0747" +
+        "&current=temperature_2m,weather_code,rain,precipitation" +
+        "&timezone=Asia%2FKolkata";
 
 
-/* =====================================================
-   WEATHER CONDITION
-===================================================== */
+    /* =========================================
+       PLACES
+    ========================================= */
 
-function getWeatherDetails(code) {
+    const places = {
 
-    if (code === 0) {
-        return {
-            name: "Sunny",
-            icon: "☀️",
-            type: "sunny"
-        };
-    }
+        temple: {
+            icon: "🛕",
+            name: "Arunachaleswara Temple",
+            time: "5:00 AM–8:30 AM or 5:00 PM–8:30 PM",
+            temperature: "Below 34°C",
+            reason:
+                "Pleasant weather and comfortable darshan."
+        },
 
-    if (code === 1 || code === 2) {
-        return {
-            name: "Partly Sunny",
-            icon: "🌤️",
-            type: "sunny"
-        };
-    }
+        ramana: {
+            icon: "🧘",
+            name: "Ramana Ashram",
+            time: "6:00 AM–10:00 AM or 4:00 PM–6:00 PM",
+            temperature: "Below 35°C",
+            reason:
+                "Quiet atmosphere for meditation."
+        },
 
-    if (code === 3) {
-        return {
-            name: "Cloudy",
-            icon: "☁️",
-            type: "cloudy"
-        };
-    }
+        parvathamalai: {
+            icon: "⛰️",
+            name: "Parvathamalai Hills",
+            time: "5:00 AM–9:00 AM",
+            temperature: "Below 30°C",
+            reason:
+                "Hill trekking is comfortable in cool weather."
+        },
 
-    if (code === 45 || code === 48) {
-        return {
-            name: "Foggy",
-            icon: "🌫️",
-            type: "cloudy"
-        };
-    }
+        virupaksha: {
+            icon: "🪨",
+            name: "Virupaksha Cave",
+            time: "6:00 AM–10:00 AM",
+            temperature: "Below 33°C",
+            reason:
+                "The uphill route is difficult during high heat."
+        },
 
-    if (code >= 51 && code <= 57) {
-        return {
-            name: "Light Drizzle",
-            icon: "🌦️",
-            type: "rainy"
-        };
-    }
+        viewpoint: {
+            icon: "📸",
+            name: "Temple View Point",
+            time: "Sunrise or 5:30 PM–6:30 PM",
+            temperature: "Prefer below 35°C",
+            reason:
+                "Better lighting and cooler weather."
+        },
 
-    if (
-        (code >= 61 && code <= 67) ||
-        (code >= 80 && code <= 82)
-    ) {
-        return {
-            name: "Rainy",
-            icon: "🌧️",
-            type: "rainy"
-        };
-    }
+        skandashramam: {
+            icon: "🏔️",
+            name: "Skandashramam",
+            time: "6:00 AM–9:30 AM",
+            temperature: "Below 32°C",
+            reason:
+                "The uphill trek is easier in the morning."
+        },
 
-    if (code >= 95) {
-        return {
-            name: "Thunderstorm",
-            icon: "⛈️",
-            type: "storm"
-        };
-    }
+        javadu: {
+            icon: "🌄",
+            name: "Javadu Hills",
+            time: "6:00 AM–10:00 AM",
+            temperature: "Below 30°C",
+            reason:
+                "Best for sightseeing and trekking."
+        },
 
-    return {
-        name: "Current Weather",
-        icon: "🌤️",
-        type: "normal"
+        seshadri: {
+            icon: "🙏",
+            name: "Seshadri Ashram",
+            time: "7:00 AM–11:00 AM or 4:00 PM–6:00 PM",
+            temperature: "Below 35°C",
+            reason:
+                "Suitable for a peaceful spiritual visit."
+        },
+
+        yogi: {
+            icon: "🧘",
+            name: "Yogi Ramsuratkumar Ashram",
+            time: "7:00 AM–11:00 AM or 4:00 PM–6:00 PM",
+            temperature: "Below 35°C",
+            reason:
+                "Comfortable for prayer and meditation."
+        },
+
+        sathanur: {
+            icon: "🌊",
+            name: "Sathanur Reservoir",
+            time: "6:00 AM–10:00 AM or 4:00 PM–6:00 PM",
+            temperature: "Below 34°C",
+            reason:
+                "Cooler breeze and better sightseeing."
+        },
+
+        girivalam: {
+            icon: "🚶",
+            name: "Girivalam",
+            time: "4:00 AM–8:00 AM or after 6:30 PM",
+            temperature: "Below 32°C",
+            reason:
+                "The 14 km walk is safer in cooler weather."
+        }
     };
-}
 
 
-/* =====================================================
-   PLACES AND RECOMMENDED VISITING TIMES
+    /* =========================================
+       WEATHER CONDITION
+    ========================================= */
 
-   These are suggested travel windows,
-   not official opening timings.
-===================================================== */
+    function getWeatherDetails(code, rainAmount) {
 
-const places = [
+        if (code >= 95) {
+            return {
+                name: "Thunderstorm",
+                icon: "⛈️",
+                type: "storm"
+            };
+        }
 
-    {
-        name: "Arunachaleswarar Temple",
-        icon: "🛕",
-        time: "5:00 AM–10:00 AM or 4:00 PM–8:30 PM",
-        category: "indoor"
-    },
+        if (
+            rainAmount > 0 ||
+            (code >= 51 && code <= 67) ||
+            (code >= 80 && code <= 82)
+        ) {
+            return {
+                name: "Rainy",
+                icon: "🌧️",
+                type: "rainy"
+            };
+        }
 
-    {
-        name: "Sri Ramana Ashram",
-        icon: "🧘",
-        time: "8:00 AM–11:30 AM or 2:00 PM–5:30 PM",
-        category: "indoor"
-    },
+        if (code === 0) {
+            return {
+                name: "Sunny",
+                icon: "☀️",
+                type: "sunny"
+            };
+        }
 
-    {
-        name: "Sri Seshadri Swamigal Ashram",
-        icon: "🙏",
-        time: "8:00 AM–12:00 PM or 3:00 PM–6:00 PM",
-        category: "indoor"
-    },
+        if (code === 1 || code === 2) {
+            return {
+                name: "Partly Sunny",
+                icon: "🌤️",
+                type: "partly"
+            };
+        }
 
-    {
-        name: "Yogi Ramsuratkumar Ashram",
-        icon: "🧘",
-        time: "8:00 AM–12:00 PM or 3:00 PM–6:00 PM",
-        category: "indoor"
-    },
+        if (code === 3) {
+            return {
+                name: "Cloudy",
+                icon: "☁️",
+                type: "cloudy"
+            };
+        }
 
-    {
-        name: "Girivalam Route",
-        icon: "🚶",
-        time: "5:00 AM–8:00 AM or after 5:00 PM",
-        category: "outdoor"
-    },
+        if (code === 45 || code === 48) {
+            return {
+                name: "Foggy",
+                icon: "🌫️",
+                type: "foggy"
+            };
+        }
 
-    {
-        name: "Virupaksha Cave",
-        icon: "🪨",
-        time: "6:00 AM–9:30 AM",
-        category: "trek"
-    },
-
-    {
-        name: "Skandashramam",
-        icon: "🕉️",
-        time: "6:00 AM–9:30 AM",
-        category: "trek"
-    },
-
-    {
-        name: "Arunachala Mountain",
-        icon: "🏔️",
-        time: "5:30 AM–9:00 AM",
-        category: "trek"
-    },
-
-    {
-        name: "Parvathamalai Hills",
-        icon: "⛰️",
-        time: "5:00 AM–9:00 AM",
-        category: "trek"
-    },
-
-    {
-        name: "Annamalaiyar Temple View Point",
-        icon: "🌄",
-        time: "6:00 AM–8:00 AM or 4:30 PM–6:30 PM",
-        category: "outdoor"
-    },
-
-    {
-        name: "Javadhu Hills",
-        icon: "🌿",
-        time: "6:00 AM–11:00 AM",
-        category: "outdoor"
-    },
-
-    {
-        name: "Sathanur Reservoir",
-        icon: "🌊",
-        time: "7:00 AM–11:00 AM or 3:30 PM–6:00 PM",
-        category: "outdoor"
+        return {
+            name: "Pleasant",
+            icon: "🌿",
+            type: "normal"
+        };
     }
 
-];
 
+    /* =========================================
+       INDIA TIME
+    ========================================= */
 
-/* =====================================================
-   PLACE CARD
-===================================================== */
+    function getIndiaTime() {
 
-function createRecommendedCard(place) {
+        const parts =
+            new Intl.DateTimeFormat("en-GB", {
+                timeZone: "Asia/Kolkata",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+            }).formatToParts(new Date());
 
-    return `
-        <div class="tour-suggestion-item">
+        let hour = 0;
+        let minute = 0;
 
-            <strong>
-                ${place.icon} ${place.name}
-            </strong>
+        parts.forEach(function (part) {
 
-            <br>
-
-            <span>
-                Best time: ${place.time}
-            </span>
-
-        </div>
-    `;
-}
-
-
-function createAvoidCard(place, reason) {
-
-    return `
-        <div
-            class="tour-suggestion-item"
-            style="border-left-color:#c0392b;"
-        >
-
-            <strong>
-                ❌ ${place.name}
-            </strong>
-
-            <br>
-
-            <span>
-                Suggested time: ${place.time}
-            </span>
-
-            <br>
-
-            <small>
-                ${reason}
-            </small>
-
-        </div>
-    `;
-}
-
-
-/* =====================================================
-   WEATHER-BASED SUGGESTIONS
-===================================================== */
-
-function displaySuggestions(
-    temperature,
-    weather
-) {
-
-    const recommended = [];
-    const avoid = [];
-
-    let advice = "";
-
-
-    /* THUNDERSTORM */
-
-    if (weather.type === "storm") {
-
-        advice =
-            "Thunderstorm conditions are unsafe for outdoor travel. Prefer temples and ashrams.";
-
-        places.forEach(function (place) {
-
-            if (place.category === "indoor") {
-
-                recommended.push(place);
-
-            } else {
-
-                avoid.push({
-                    place: place,
-                    reason:
-                        "Avoid during thunderstorms."
-                });
-
+            if (part.type === "hour") {
+                hour = Number(part.value);
             }
 
-        });
-
-    }
-
-
-    /* RAINY */
-
-    else if (weather.type === "rainy") {
-
-        advice =
-            "Rainy weather. Visit temples and ashrams. Avoid Girivalam, hills, caves and wet outdoor routes.";
-
-        places.forEach(function (place) {
-
-            if (place.category === "indoor") {
-
-                recommended.push(place);
-
-            } else {
-
-                avoid.push({
-                    place: place,
-                    reason:
-                        "Avoid while roads and paths are wet."
-                });
-
+            if (part.type === "minute") {
+                minute = Number(part.value);
             }
-
         });
 
+        return {
+            hour: hour,
+            minute: minute,
+            totalMinutes: (hour * 60) + minute
+        };
     }
 
 
-    /* VERY HOT */
+    function getPeriod(hour) {
 
-    else if (temperature >= 37) {
+        if (hour >= 4 && hour < 8) {
+            return {
+                name: "Early Morning",
+                key: "early"
+            };
+        }
 
-        advice =
-            "Very hot weather. Visit temples and ashrams during the daytime. Visit outdoor places only early morning or evening.";
+        if (hour >= 8 && hour < 11) {
+            return {
+                name: "Morning",
+                key: "morning"
+            };
+        }
 
-        places.forEach(function (place) {
+        if (hour >= 11 && hour < 16) {
+            return {
+                name: "Afternoon",
+                key: "afternoon"
+            };
+        }
 
-            if (place.category === "indoor") {
+        if (hour >= 16 && hour < 19) {
+            return {
+                name: "Evening",
+                key: "evening"
+            };
+        }
 
-                recommended.push(place);
-
-            } else {
-
-                avoid.push({
-                    place: place,
-                    reason:
-                        "Avoid during peak afternoon heat."
-                });
-
-            }
-
-        });
-
+        return {
+            name: "Night",
+            key: "night"
+        };
     }
 
 
-    /* WARM AND SUNNY */
+    /* =========================================
+       SMART SUGGESTION LOGIC
+    ========================================= */
 
-    else if (temperature >= 31) {
+    function getSuggestions(
+        temperature,
+        weather,
+        period
+    ) {
 
-        advice =
-            "Warm weather. Visit temples and ashrams during the day. Plan Girivalam and outdoor visits in the morning or after 5:00 PM.";
+        let recommended = [];
+        let avoid = [];
+        let message = "";
+        let precaution = "";
 
-        places.forEach(function (place) {
+        if (temperature <= 28) {
 
-            recommended.push(place);
+            recommended = [
+                "girivalam",
+                "parvathamalai",
+                "skandashramam",
+                "virupaksha",
+                "javadu",
+                "viewpoint",
+                "temple"
+            ];
 
-        });
+            message =
+                "Excellent weather for Girivalam, trekking, caves and hill visits.";
 
-    }
+        } else if (temperature <= 30) {
 
+            recommended = [
+                "girivalam",
+                "parvathamalai",
+                "skandashramam",
+                "virupaksha",
+                "javadu",
+                "temple",
+                "ramana"
+            ];
 
-    /* CLOUDY */
+            message =
+                "Very good weather for outdoor spiritual activities.";
 
-    else if (weather.type === "cloudy") {
+        } else if (temperature <= 33) {
 
-        advice =
-            "Cloudy and comfortable weather. Most places are suitable, but check for rain before visiting hills and caves.";
+            recommended = [
+                "temple",
+                "ramana",
+                "seshadri",
+                "yogi",
+                "sathanur",
+                "viewpoint"
+            ];
 
-        places.forEach(function (place) {
+            avoid = [
+                "parvathamalai",
+                "javadu"
+            ];
 
-            recommended.push(place);
+            message =
+                "Comfortable for temples, ashrams and sightseeing.";
 
-        });
+        } else if (temperature <= 36) {
 
-    }
+            recommended = [
+                "temple",
+                "ramana",
+                "seshadri",
+                "yogi"
+            ];
 
+            avoid = [
+                "girivalam",
+                "parvathamalai",
+                "skandashramam",
+                "virupaksha",
+                "javadu"
+            ];
 
-    /* PLEASANT */
+            message =
+                "Warm weather. Prefer indoor spiritual places.";
 
-    else {
+        } else {
 
-        advice =
-            "Pleasant weather. Most Tiruvannamalai places can be visited during their recommended times.";
+            recommended = [
+                "temple",
+                "ramana",
+                "seshadri",
+                "yogi"
+            ];
 
-        places.forEach(function (place) {
+            avoid = [
+                "girivalam",
+                "parvathamalai",
+                "skandashramam",
+                "virupaksha",
+                "viewpoint",
+                "javadu",
+                "sathanur"
+            ];
 
-            recommended.push(place);
-
-        });
-
-    }
-
-
-    suggestionIcon.textContent =
-        weather.icon;
-
-
-    const recommendedHtml =
-        recommended
-            .map(createRecommendedCard)
-            .join("");
-
-
-    let avoidHtml = `
-        <div class="tour-suggestion-item">
-            No major restrictions based on the current weather.
-        </div>
-    `;
-
-
-    if (avoid.length > 0) {
-
-        avoidHtml =
-            avoid
-                .map(function (item) {
-
-                    return createAvoidCard(
-                        item.place,
-                        item.reason
-                    );
-
-                })
-                .join("");
-
-    }
-
-
-    weatherSuggestion.innerHTML = `
-
-        <h3>
-            ${weather.icon}
-            ${weather.name}
-            — ${temperature}°C
-        </h3>
-
-        <p>
-            ${advice}
-        </p>
-
-        <h3 style="margin-top:20px;">
-            ✅ Recommended Places
-        </h3>
-
-        <div class="tour-suggestion-list">
-
-            ${recommendedHtml}
-
-        </div>
-
-        <h3 style="margin-top:25px;">
-            ⚠️ Avoid or Postpone
-        </h3>
-
-        <div class="tour-suggestion-list">
-
-            ${avoidHtml}
-
-        </div>
-
-        <p
-            style="
-                margin-top:18px;
-                font-size:13px;
-                color:#777;
-            "
-        >
-            These are suggested travel windows,
-            not official opening hours.
-            Verify local timings before travelling.
-        </p>
-    `;
-}
-
-
-/* =====================================================
-   LOAD LIVE WEATHER
-===================================================== */
-
-async function loadWeather() {
-
-    try {
-
-        const response =
-            await fetch(weatherApiUrl);
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Weather request failed"
-            );
-
+            message =
+                "Very hot weather. Limit outdoor activities.";
         }
 
 
-        const data =
-            await response.json();
+        if (period.key === "afternoon") {
 
-
-        if (!data.current) {
-
-            throw new Error(
-                "Current weather is missing"
+            avoid.push(
+                "girivalam",
+                "parvathamalai",
+                "skandashramam",
+                "virupaksha",
+                "javadu"
             );
 
+            recommended = recommended.filter(function (key) {
+                return [
+                    "temple",
+                    "ramana",
+                    "seshadri",
+                    "yogi"
+                ].includes(key);
+            });
         }
 
 
-        const temperature =
-            Math.round(
-                data.current.temperature_2m
+        if (period.key === "evening") {
+
+            recommended.push(
+                "temple",
+                "viewpoint",
+                "sathanur",
+                "ramana",
+                "girivalam"
             );
-
-
-        const weatherCode =
-            Number(
-                data.current.weather_code
-            );
-
-
-        const weather =
-            getWeatherDetails(
-                weatherCode
-            );
-
-
-        /* WEATHER CARD */
-
-        weatherIcon.textContent =
-            weather.icon;
-
-
-        weatherTemperature.textContent =
-            `${temperature}°C`;
-
-
-        weatherCondition.textContent =
-            weather.name;
-
-
-        /* REMOVE EXTRA DETAILS */
-
-        if (weatherExtra) {
-
-            weatherExtra.textContent = "";
-
         }
 
 
-        /* DISPLAY PLACES */
+        if (period.key === "night") {
 
-        displaySuggestions(
-            temperature,
-            weather
-        );
+            recommended = [
+                "temple",
+                "girivalam"
+            ];
 
+            avoid.push(
+                "parvathamalai",
+                "skandashramam",
+                "virupaksha",
+                "javadu",
+                "viewpoint"
+            );
+        }
+
+
+        if (weather.type === "rainy") {
+
+            recommended = [
+                "temple",
+                "ramana",
+                "seshadri",
+                "yogi"
+            ];
+
+            avoid.push(
+                "girivalam",
+                "parvathamalai",
+                "skandashramam",
+                "virupaksha",
+                "viewpoint",
+                "javadu"
+            );
+
+            message =
+                "Rainy weather. Prefer covered temples and ashrams.";
+
+            precaution =
+                "Carry an umbrella and wear non-slip footwear.";
+
+        } else if (weather.type === "storm") {
+
+            recommended = [
+                "temple",
+                "ramana",
+                "seshadri",
+                "yogi"
+            ];
+
+            avoid = [
+                "girivalam",
+                "parvathamalai",
+                "skandashramam",
+                "virupaksha",
+                "viewpoint",
+                "javadu",
+                "sathanur"
+            ];
+
+            message =
+                "Thunderstorm alert. Stay indoors until the storm stops.";
+
+            precaution =
+                "Avoid open areas and hill routes.";
+
+        } else {
+
+            precaution =
+                temperature >= 34
+                    ? "Drink water regularly and rest in shaded areas."
+                    : "Carry drinking water and wear comfortable footwear.";
+        }
+
+
+        recommended =
+            [...new Set(recommended)];
+
+        avoid =
+            [...new Set(avoid)];
+
+        recommended =
+            recommended.filter(function (key) {
+                return !avoid.includes(key);
+            });
+
+
+        if (recommended.length === 0) {
+            recommended = [
+                "temple",
+                "ramana"
+            ];
+        }
+
+
+        return {
+            recommended: recommended,
+            avoid: avoid,
+            message: message,
+            precaution: precaution
+        };
     }
 
-    catch (error) {
 
-        console.error(
-            "Weather error:",
-            error
-        );
+    /* =========================================
+       WEATHER CARD BACK
+    ========================================= */
 
+    function updateWeatherBack(
+        temperature,
+        weather,
+        period,
+        suggestions
+    ) {
 
-        weatherIcon.textContent =
-            "⚠️";
+        const bestPlaces =
+            suggestions.recommended.slice(0, 2);
 
+        const avoidPlaces =
+            suggestions.avoid.slice(0, 2);
 
-        weatherTemperature.textContent =
-            "--°C";
+        weatherBackTitle.textContent =
+            `${weather.icon} ${weather.name} Weather`;
 
+        weatherBackSummary.textContent =
+            `${temperature}°C • ${period.name}`;
 
-        weatherCondition.textContent =
-            "Weather unavailable";
+        weatherBackSuggestions.innerHTML = `
 
+            <div class="simple-suggestion-section">
 
-        if (weatherExtra) {
+                <div class="simple-suggestion-title">
+                    Best Places Now
+                </div>
 
-            weatherExtra.textContent = "";
+                ${bestPlaces.map(function (key) {
+                    return `
+                        <div class="simple-suggestion-text">
+                            ${places[key].name}
+                        </div>
+                    `;
+                }).join("")}
 
-        }
+            </div>
 
+            <div class="simple-suggestion-section">
 
-        suggestionIcon.textContent =
-            "⚠️";
+                <div class="simple-avoid-title">
+                    ✕ Avoid Now
+                </div>
 
+                ${
+                    avoidPlaces.length > 0
+                        ? avoidPlaces.map(function (key) {
+                            return `
+                                <div class="simple-suggestion-text">
+                                    ${places[key].name}
+                                </div>
+                            `;
+                        }).join("")
+                        : `
+                            <div class="simple-suggestion-text">
+                                No major restrictions
+                            </div>
+                        `
+                }
 
-        weatherSuggestion.innerHTML = `
+            </div>
 
-            <h3>
-                Unable to load live weather
-            </h3>
+            <div class="simple-precaution">
+                <strong>Precaution:</strong>
+                ${suggestions.precaution}
+            </div>
 
-            <p>
-                Check your internet connection,
-                save script.js and refresh the page.
-            </p>
+            <div class="simple-best-time">
+                <strong>Priority:</strong>
+                ${suggestions.recommended
+                    .slice(0, 3)
+                    .map(function (key) {
+                        return places[key].name;
+                    })
+                    .join(" → ")}
+            </div>
         `;
+    }
+              
+    /* =========================================
+       LOAD WEATHER
+    ========================================= */
 
+    async function loadWeather() {
+
+        try {
+
+            const response =
+                await fetch(weatherUrl);
+
+            if (!response.ok) {
+                throw new Error(
+                    "Weather request failed"
+                );
+            }
+
+            const data =
+                await response.json();
+
+            const temperature =
+                Math.round(
+                    Number(
+                        data.current.temperature_2m
+                    )
+                );
+
+            const weatherCode =
+                Number(
+                    data.current.weather_code
+                );
+
+            const rainAmount =
+                Number(
+                    data.current.rain ||
+                    data.current.precipitation ||
+                    0
+                );
+
+            const weather =
+                getWeatherDetails(
+                    weatherCode,
+                    rainAmount
+                );
+
+            const indiaTime =
+                getIndiaTime();
+
+            const period =
+                getPeriod(indiaTime.hour);
+
+            const suggestions =
+                getSuggestions(
+                    temperature,
+                    weather,
+                    period
+                );
+
+
+            weatherIcon.textContent =
+                weather.icon;
+
+            weatherTemperature.textContent =
+                `${temperature}°C`;
+
+            weatherCondition.textContent =
+                weather.name;
+
+
+            updateWeatherBack(
+                temperature,
+                weather,
+                period,
+                suggestions
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Weather error:",
+                error
+            );
+
+            weatherIcon.textContent =
+                "⚠️";
+
+            weatherTemperature.textContent =
+                "--°C";
+
+            weatherCondition.textContent =
+                "Weather unavailable";
+
+            weatherBackTitle.textContent =
+                "Suggestions unavailable";
+
+            weatherBackSummary.textContent =
+                "Check your internet connection.";
+
+            weatherBackSuggestions.innerHTML =
+                "";
+
+            
+        }
     }
 
-}
+
+    /* =========================================
+       TEMPLE STATUS
+    ========================================= */
+
+    function updateTempleStatus() {
+
+        const indiaTime =
+            getIndiaTime();
+
+        const currentMinutes =
+            indiaTime.totalMinutes;
+
+        const morningStart =
+            (5 * 60) + 30;
+
+        const morningEnd =
+            (12 * 60) + 30;
+
+        const eveningStart =
+            (15 * 60) + 30;
+
+        const eveningEnd =
+            (21 * 60) + 30;
 
 
-/* LOAD WEATHER IMMEDIATELY */
+        if (
+            currentMinutes >= morningStart &&
+            currentMinutes < morningEnd
+        ) {
 
-loadWeather();
+            templeCurrentStatus.textContent =
+                "Open for Morning Darshan";
+
+            templeCurrentStatus.className =
+                "temple-status-open";
+
+        } else if (
+            currentMinutes >= morningEnd &&
+            currentMinutes < eveningStart
+        ) {
+
+            templeCurrentStatus.textContent =
+                "Afternoon Break";
+
+            templeCurrentStatus.className =
+                "temple-status-closed";
+
+        } else if (
+            currentMinutes >= eveningStart &&
+            currentMinutes < eveningEnd
+        ) {
+
+            templeCurrentStatus.textContent =
+                "Open for Evening Darshan";
+
+            templeCurrentStatus.className =
+                "temple-status-open";
+
+        } else {
+
+            templeCurrentStatus.textContent =
+                "Currently Closed";
+
+            templeCurrentStatus.className =
+                "temple-status-closed";
+        }
+    }
 
 
-/* UPDATE EVERY 15 MINUTES */
+    /* =========================================
+       FLIP CARD CLICKS
+    ========================================= */
 
-setInterval(
-    loadWeather,
-    15 * 60 * 1000
-);
+    if (mainWeatherCard) {
+
+        mainWeatherCard.addEventListener(
+            "click",
+            function () {
+
+                mainWeatherCard.classList.toggle(
+                    "flipped"
+                );
+            }
+        );
+    }
+
+
+    if (templeStatusCard) {
+
+        templeStatusCard.addEventListener(
+            "click",
+            function () {
+
+                templeStatusCard.classList.toggle(
+                    "flipped"
+                );
+            }
+        );
+    }
+
+
+    if (girivalamCard) {
+
+        girivalamCard.addEventListener(
+            "click",
+            function () {
+
+                girivalamCard.classList.toggle(
+                    "flipped"
+                );
+            }
+        );
+    }
+
+
+    if (emergencyCard) {
+
+        emergencyCard.addEventListener(
+            "click",
+            function () {
+
+                emergencyCard.classList.toggle(
+                    "flipped"
+                );
+            }
+        );
+    }
+
+
+    /* =========================================
+       START
+    ========================================= */
+
+    loadWeather();
+
+    updateTempleStatus();
+
+
+    setInterval(
+        loadWeather,
+        15 * 60 * 1000
+    );
+
+
+    setInterval(
+        updateTempleStatus,
+        60 * 1000
+    );
+
+});
