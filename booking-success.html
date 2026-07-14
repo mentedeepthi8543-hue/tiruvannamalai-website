@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Booking Confirmed | Tiruvannamalai Guide
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/booking-success.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="success-header">
+
+        <div class="header-container">
+
+            <a
+                href="index.html"
+                class="brand"
+            >
+                🛕 Tiruvannamalai Guide
+            </a>
+
+            <div class="header-status">
+                Secure Digital Ticket
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         PAGE CONTENT
+    ========================================== -->
+
+    <main class="success-main">
+
+        <section class="success-heading">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <p class="success-label">
+                BOOKING SUCCESSFUL
+            </p>
+
+            <h1>
+                Your Temple Ticket Is Ready
+            </h1>
+
+            <p>
+                Save the QR code and show the digital ticket
+                at the verification point.
+            </p>
+
+        </section>
+
+
+        <!-- NO BOOKING MESSAGE -->
+
+        <section
+            class="no-booking-card"
+            id="noBookingCard"
+            hidden
+        >
+
+            <div class="no-booking-icon">
+                ⚠️
+            </div>
+
+            <h2>
+                No booking was found
+            </h2>
+
+            <p>
+                Please complete the temple booking form before
+                opening this page.
+            </p>
+
+            <a
+                href="temple-booking.html"
+                class="main-action-button"
+            >
+                Create Booking
+            </a>
+
+        </section>
+
+
+        <!-- TICKET AREA -->
+
+        <section
+            class="ticket-wrapper"
+            id="ticketWrapper"
+            hidden
+        >
+
+            <article
+                class="digital-ticket"
+                id="digitalTicket"
+            >
+
+                <div class="ticket-top">
+
+                    <div class="ticket-brand">
+
+                        <div class="ticket-logo">
+                            🛕
+                        </div>
+
+                        <div>
+
+                            <p>
+                                SMART SPIRITUAL NAVIGATION
+                            </p>
+
+                            <h2>
+                                Arunachaleswarar Temple
+                            </h2>
+
+                            <span>
+                                Tiruvannamalai, Tamil Nadu
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="valid-badge">
+                        VALID
+                    </div>
+
+                </div>
+
+
+                <div class="ticket-divider"></div>
+
+
+                <div class="ticket-body">
+
+                    <div class="ticket-details">
+
+
+                        <div class="booking-id-box">
+
+                            <span>
+                                Booking ID
+                            </span>
+
+                            <strong id="ticketBookingId">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-grid">
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Pilgrim Name
+                                </span>
+
+                                <strong id="ticketFullName">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Visit Date
+                                </span>
+
+                                <strong id="ticketVisitDate">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Time Slot
+                                </span>
+
+                                <strong id="ticketTimeSlot">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Number of Persons
+                                </span>
+
+                                <strong id="ticketPersons">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Darshan Type
+                                </span>
+
+                                <strong id="ticketDarshanType">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Pooja Type
+                                </span>
+
+                                <strong id="ticketPoojaType">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Age / Gender
+                                </span>
+
+                                <strong id="ticketAgeGender">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Phone
+                                </span>
+
+                                <strong id="ticketPhone">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    ID Proof
+                                </span>
+
+                                <strong id="ticketIdProof">
+                                    —
+                                </strong>
+
+                            </div>
+
+
+                            <div class="detail-item">
+
+                                <span>
+                                    Entry Status
+                                </span>
+
+                                <strong
+                                    class="entry-status"
+                                    id="ticketEntryStatus"
+                                >
+                                    Not Used
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="qr-section">
+
+                        <div
+                            class="qr-box"
+                            id="qrcode"
+                        ></div>
+
+                        <p>
+                            Scan to verify ticket
+                        </p>
+
+                        <span id="qrBookingId">
+                            —
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ticket-divider"></div>
+
+
+                <div class="ticket-footer">
+
+                    <div>
+
+                        <strong>
+                            Important
+                        </strong>
+
+                        <p>
+                            Carry the original ID proof and arrive
+                            at least 20 minutes before the selected slot.
+                        </p>
+
+                    </div>
+
+                    <div class="demo-label">
+                        ACADEMIC DEMO
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="ticket-actions">
+
+                <button
+                    type="button"
+                    class="action-button download-button"
+                    id="downloadTicketButton"
+                >
+                    ⬇ Download Ticket
+                </button>
+
+                <button
+                    type="button"
+                    class="action-button"
+                    id="saveQrButton"
+                >
+                    ▣ Save QR Image
+                </button>
+
+                <button
+                    type="button"
+                    class="action-button"
+                    id="printTicketButton"
+                >
+                    🖨 Print Ticket
+                </button>
+
+                <a
+                    href="temple-booking.html"
+                    class="action-button outline-action"
+                >
+                    ＋ Book Another
+                </a>
+
+                <a
+                    href="index.html"
+                    class="action-button outline-action"
+                >
+                    ← Back to Home
+                </a>
+
+            </div>
+
+
+            <div class="ticket-note">
+
+                <strong>
+                    Note:
+                </strong>
+
+                This is an academic demonstration ticket.
+                It is not an official temple reservation.
+                Payment functionality can be added later.
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- QR CODE LIBRARY -->
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script src="js/booking-success.js"></script>
+
+</body>
+
+</html>

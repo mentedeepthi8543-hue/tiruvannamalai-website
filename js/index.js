@@ -869,3 +869,158 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 });
+/* =====================================================
+   HOME PHOTO ALBUM AUTOMATIC SLIDERS
+===================================================== */
+
+const homeAlbumImages = {
+
+    temple: [
+        "images/photogallery/at1.jpg",
+        "images/photogallery/at2.jpg",
+        "images/photogallery/at3.jpg",
+        "images/photogallery/at4.jpg",
+        "images/photogallery/at5.jpg",
+        "images/photogallery/at6.jpg"
+    ],
+
+    girivalam: [
+        "images/photogallery/g1.jpg",
+        "images/photogallery/g2.jpg",
+        "images/photogallery/g3.jpg",
+        "images/photogallery/g4.jpg",
+        "images/photogallery/g5.jpg",
+        "images/photogallery/g6.jpg",
+        "images/photogallery/g7.jpg",
+        "images/photogallery/g8.jpg",
+        "images/photogallery/g9.jpg"
+    ],
+
+    meditation: [
+        "images/photogallery/ma1.jpg",
+        "images/photogallery/ma2.jpg",
+        "images/photogallery/ma3.jpg",
+        "images/photogallery/ma4.jpg",
+        "images/photogallery/ma5.jpg",
+        "images/photogallery/ma6.jpg",
+        "images/photogallery/ma7.jpg",
+        "images/photogallery/ma8.jpg",
+        "images/photogallery/ma9.jpg",
+        "images/photogallery/ma10.jpg"
+    ],
+
+    trekking: [
+        "images/photogallery/t1.jpg",
+        "images/photogallery/t2.jpg",
+        "images/photogallery/t3.jpg",
+        "images/photogallery/t4.jpg",
+        "images/photogallery/t5.jpg",
+        "images/photogallery/t6.jpg",
+        "images/photogallery/t7.jpg",
+        "images/photogallery/t8.jpg",
+        "images/photogallery/t9.jpg",
+        "images/photogallery/t10.jpg",
+        "images/photogallery/t11.jpg",
+        "images/photogallery/t12.jpg",
+        "images/photogallery/t13.jpg"
+    ],
+
+    other: [
+        "images/photogallery/o1.jpg",
+        "images/photogallery/o2.jpg",
+        "images/photogallery/o3.jpg"
+    ]
+
+};
+
+
+const homeAlbumIds = {
+
+    temple: "homeTempleImage",
+    girivalam: "homeGirivalamImage",
+    meditation: "homeMeditationImage",
+    trekking: "homeTrekkingImage",
+    other: "homeOtherImage"
+
+};
+
+
+const homeAlbumIndexes = {
+
+    temple: 0,
+    girivalam: 0,
+    meditation: 0,
+    trekking: 0,
+    other: 0
+
+};
+
+
+function changeHomeAlbumPhoto(albumName) {
+
+    const imageElement =
+        document.getElementById(
+            homeAlbumIds[albumName]
+        );
+
+    const images =
+        homeAlbumImages[albumName];
+
+    if (!imageElement || !images || !images.length) {
+        return;
+    }
+
+    homeAlbumIndexes[albumName] += 1;
+
+    if (
+        homeAlbumIndexes[albumName] >=
+        images.length
+    ) {
+        homeAlbumIndexes[albumName] = 0;
+    }
+
+    imageElement.classList.add(
+        "image-changing"
+    );
+
+    window.setTimeout(function () {
+
+        imageElement.src =
+            images[
+                homeAlbumIndexes[albumName]
+            ];
+
+        imageElement.classList.remove(
+            "image-changing"
+        );
+
+    }, 250);
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        window.setInterval(function () {
+            changeHomeAlbumPhoto("temple");
+        }, 3000);
+
+        window.setInterval(function () {
+            changeHomeAlbumPhoto("girivalam");
+        }, 3400);
+
+        window.setInterval(function () {
+            changeHomeAlbumPhoto("meditation");
+        }, 3800);
+
+        window.setInterval(function () {
+            changeHomeAlbumPhoto("trekking");
+        }, 4200);
+
+        window.setInterval(function () {
+            changeHomeAlbumPhoto("other");
+        }, 4600);
+
+    }
+);

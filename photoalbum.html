@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Photo Album | Tiruvannamalai Guide</title>
+
+    <link
+        rel="stylesheet"
+        href="css/photoalbum.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="main-header">
+
+        <div class="header-container">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🛕</span>
+                Tiruvannamalai Guide
+            </a>
+
+            <nav class="navbar">
+
+                <a href="index.html">Home</a>
+
+                <a href="temple-details.html">
+                    Temple
+                </a>
+
+                <a href="girivalam-details.html">
+                    Girivalam
+                </a>
+
+                <a href="photoalbum.html" class="active">
+                    Photos
+                </a>
+
+                <a href="hotels.html">
+                    Hotels & Dining
+                </a>
+
+            </nav>
+
+            <a href="index.html" class="back-button">
+                ← Back
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         PAGE HEADING
+    ========================================== -->
+
+    <main>
+
+        <section class="album-heading">
+
+            <p class="small-heading">
+                PHOTO ALBUM
+            </p>
+
+            <h1>
+                Sacred Tiruvannamalai
+            </h1>
+
+            <p class="heading-description">
+                Explore the temple, Girivalam route, peaceful
+                ashrams, Arunachala trekking paths and nature.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================
+             ALBUM CARDS
+        ====================================== -->
+
+        <section class="album-section">
+
+            <div class="album-grid">
+
+
+                <!-- TEMPLE ALBUM -->
+
+                <article
+                    class="album-card"
+                    onclick="openAlbum('temple')"
+                >
+
+                 <div
+    class="album-cover album-slider"
+    data-album-slider="temple"
+>
+
+    <img
+        class="album-slide-image"
+        src="images/photogallery/at1.jpg"
+        alt="Arunachaleswarar Temple"
+    >
+
+    <button
+        type="button"
+        class="cover-arrow cover-prev"
+        onclick="event.stopPropagation(); moveCoverSlide('temple', -1)"
+        aria-label="Previous temple photo"
+    >
+        ❮
+    </button>
+
+    <button
+        type="button"
+        class="cover-arrow cover-next"
+        onclick="event.stopPropagation(); moveCoverSlide('temple', 1)"
+        aria-label="Next temple photo"
+    >
+        ❯
+    </button>
+
+    <div class="cover-dots"></div>
+
+    <div class="photo-count">
+        6 Photos
+    </div>
+
+</div>   
+
+                    <div class="album-information">
+
+                        <div class="album-icon">
+                            🛕
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Arunachaleswarar Temple
+                            </h2>
+
+                            <p>
+                                Gopurams, temple architecture and
+                                sacred views.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="open-album-button"
+                    >
+                        Open Album
+                        <span>→</span>
+                    </button>
+
+                </article>
+
+
+                <!-- GIRIVALAM ALBUM -->
+
+                <article
+                    class="album-card"
+                    onclick="openAlbum('girivalam')"
+                >
+
+                    <div
+    class="album-cover album-slider"
+    data-album-slider="girivalam"
+>
+
+    <img
+        class="album-slide-image"
+        src="images/photogallery/g1.jpg"
+        alt="Girivalam"
+    >
+
+    <button
+        type="button"
+        class="cover-arrow cover-prev"
+        onclick="event.stopPropagation(); moveCoverSlide('girivalam', -1)"
+        aria-label="Previous Girivalam photo"
+    >
+        ❮
+    </button>
+
+    <button
+        type="button"
+        class="cover-arrow cover-next"
+        onclick="event.stopPropagation(); moveCoverSlide('girivalam', 1)"
+        aria-label="Next Girivalam photo"
+    >
+        ❯
+    </button>
+
+    <div class="cover-dots"></div>
+
+    <div class="photo-count">
+        9 Photos
+    </div>
+
+</div>
+
+                    <div class="album-information">
+
+                        <div class="album-icon">
+                            🚶
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Girivalam
+                            </h2>
+
+                            <p>
+                                Sacred route, devotees, maps and
+                                spiritual landmarks.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="open-album-button"
+                    >
+                        Open Album
+                        <span>→</span>
+                    </button>
+
+                </article>
+
+
+                <!-- MEDITATION ALBUM -->
+
+                <article
+                    class="album-card"
+                    onclick="openAlbum('meditation')"
+                >
+
+                    <div
+    class="album-cover album-slider"
+    data-album-slider="meditation"
+>
+
+    <img
+        class="album-slide-image"
+        src="images/photogallery/ma1.jpg"
+        alt="Meditation and Ashrams"
+    >
+
+    <button
+        type="button"
+        class="cover-arrow cover-prev"
+        onclick="event.stopPropagation(); moveCoverSlide('meditation', -1)"
+        aria-label="Previous meditation photo"
+    >
+        ❮
+    </button>
+
+    <button
+        type="button"
+        class="cover-arrow cover-next"
+        onclick="event.stopPropagation(); moveCoverSlide('meditation', 1)"
+        aria-label="Next meditation photo"
+    >
+        ❯
+    </button>
+
+    <div class="cover-dots"></div>
+
+    <div class="photo-count">
+        10 Photos
+    </div>
+
+</div>
+
+                    <div class="album-information">
+
+                        <div class="album-icon">
+                            🧘
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Meditation & Ashrams
+                            </h2>
+
+                            <p>
+                                Ramana Ashram and peaceful spiritual
+                                meditation centres.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="open-album-button"
+                    >
+                        Open Album
+                        <span>→</span>
+                    </button>
+
+                </article>
+
+
+                <!-- TREKKING ALBUM -->
+
+                <article
+                    class="album-card"
+                    onclick="openAlbum('trekking')"
+                >
+
+                    <div
+    class="album-cover album-slider"
+    data-album-slider="trekking"
+>
+
+    <img
+        class="album-slide-image"
+        src="images/photogallery/t1.jpg"
+        alt="Trekking and Nature"
+    >
+
+    <button
+        type="button"
+        class="cover-arrow cover-prev"
+        onclick="event.stopPropagation(); moveCoverSlide('trekking', -1)"
+        aria-label="Previous trekking photo"
+    >
+        ❮
+    </button>
+
+    <button
+        type="button"
+        class="cover-arrow cover-next"
+        onclick="event.stopPropagation(); moveCoverSlide('trekking', 1)"
+        aria-label="Next trekking photo"
+    >
+        ❯
+    </button>
+
+    <div class="cover-dots"></div>
+
+    <div class="photo-count">
+        13 Photos
+    </div>
+
+</div>
+
+                    <div class="album-information">
+
+                        <div class="album-icon">
+                            🥾
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Trekking & Nature
+                            </h2>
+
+                            <p>
+                                Skandashramam, Virupaksha Cave,
+                                hills and trekking paths.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="open-album-button"
+                    >
+                        Open Album
+                        <span>→</span>
+                    </button>
+
+                </article>
+
+
+                <!-- FESTIVAL ALBUM -->
+
+            <!-- OTHER PLACES ALBUM -->
+
+<article
+    class="album-card"
+    onclick="openAlbum('other')"
+>
+
+    <div
+        class="album-cover album-slider"
+        data-album-slider="other"
+    >
+
+        <img
+            class="album-slide-image"
+            src="images/photogallery/o1.jpg"
+            alt="Other Places in Tiruvannamalai"
+        >
+
+        <button
+            type="button"
+            class="cover-arrow cover-prev"
+            onclick="event.stopPropagation(); moveCoverSlide('other', -1)"
+            aria-label="Previous other-place photo"
+        >
+            ❮
+        </button>
+
+        <button
+            type="button"
+            class="cover-arrow cover-next"
+            onclick="event.stopPropagation(); moveCoverSlide('other', 1)"
+            aria-label="Next other-place photo"
+        >
+            ❯
+        </button>
+
+        <div class="cover-dots"></div>
+
+        <div class="photo-count">
+            3 Photos
+        </div>
+
+    </div>
+
+    <div class="album-information">
+
+        <div class="album-icon">
+            📍
+        </div>
+
+        <div>
+
+            <h2>
+                Other Places
+            </h2>
+
+            <p>
+                Nearby attractions, dams, landmarks and scenic places.
+            </p>
+
+        </div>
+
+    </div>
+
+    <button
+        type="button"
+        class="open-album-button"
+    >
+        Open Album
+        <span>→</span>
+    </button>
+
+</article>  
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         ALBUM POPUP
+    ========================================== -->
+
+    <div
+        class="album-modal"
+        id="albumModal"
+        aria-hidden="true"
+    >
+
+        <div class="modal-background" onclick="closeAlbum()"></div>
+
+        <div class="modal-container">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p class="modal-label">
+                        PHOTO COLLECTION
+                    </p>
+
+                    <h2 id="modalTitle">
+                        Album
+                    </h2>
+
+                    <p id="modalDescription">
+                        Explore the gallery.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="close-button"
+                    onclick="closeAlbum()"
+                    aria-label="Close album"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div
+                class="photo-grid"
+                id="photoGrid"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         FULL IMAGE VIEW
+    ========================================== -->
+
+    <div
+        class="lightbox"
+        id="lightbox"
+        aria-hidden="true"
+    >
+
+        <div
+            class="lightbox-background"
+            onclick="closeLightbox()"
+        ></div>
+
+        <button
+            type="button"
+            class="lightbox-close"
+            onclick="closeLightbox()"
+        >
+            ×
+        </button>
+
+        <button
+            type="button"
+            class="lightbox-arrow previous-arrow"
+            onclick="changePhoto(-1)"
+        >
+            ❮
+        </button>
+
+        <div class="lightbox-content">
+
+            <img
+                id="lightboxImage"
+                src=""
+                alt="Gallery photograph"
+            >
+
+            <p id="lightboxCaption"></p>
+
+        </div>
+
+        <button
+            type="button"
+            class="lightbox-arrow next-arrow"
+            onclick="changePhoto(1)"
+        >
+            ❯
+        </button>
+
+    </div>
+
+
+    <script src="js/photoalbum.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Temple Booking | Tiruvannamalai Guide
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/temple-booking.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="booking-header">
+
+        <div class="header-container">
+
+            <a
+                href="index.html"
+                class="brand"
+            >
+                🛕 Tiruvannamalai Guide
+            </a>
+
+            <nav class="booking-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="temple-details.html">
+                    Temple
+                </a>
+
+                <a href="girivalam-details.html">
+                    Girivalam
+                </a>
+
+                <a href="photoalbum.html">
+                    Photos
+                </a>
+
+            </nav>
+
+            <a
+                href="index.html"
+                class="back-button"
+            >
+                ← Back
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section class="booking-hero">
+
+        <div class="hero-content">
+
+            <p class="hero-label">
+                ONLINE TEMPLE SERVICE
+            </p>
+
+            <h1>
+                Arunachaleswarar Temple Booking
+            </h1>
+
+            <p>
+                Enter your visit and pilgrim details to generate
+                a unique digital temple ticket with QR code.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         BOOKING FORM
+    ========================================== -->
+
+    <main class="booking-main">
+
+        <div class="booking-layout">
+
+
+            <!-- FORM SIDE -->
+
+            <section class="booking-form-card">
+
+                <div class="form-heading">
+
+                    <span class="form-step">
+                        STEP 1
+                    </span>
+
+                    <h2>
+                        Booking Details
+                    </h2>
+
+                    <p>
+                        Fill in all required information carefully.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="templeBookingForm"
+                    novalidate
+                >
+
+
+                    <!-- SERVICE DETAILS -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <div class="section-icon">
+                                🛕
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Temple Service
+                                </h3>
+
+                                <p>
+                                    Select your darshan and pooja details.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label for="darshanType">
+                                    Darshan Type
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="darshanType"
+                                    name="darshanType"
+                                    required
+                                >
+                                    <option value="">
+                                        Select Darshan Type
+                                    </option>
+
+                                    <option value="General Darshan">
+                                        General Darshan
+                                    </option>
+
+                                    <option value="Special Darshan">
+                                        Special Darshan
+                                    </option>
+
+                                    <option value="Quick Darshan">
+                                        Quick Darshan
+                                    </option>
+
+                                    <option value="Senior Citizen Darshan">
+                                        Senior Citizen Darshan
+                                    </option>
+                                </select>
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="poojaType">
+                                    Pooja Type
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="poojaType"
+                                    name="poojaType"
+                                    required
+                                >
+                                    <option value="">
+                                        Select Pooja Type
+                                    </option>
+
+                                    <option value="No Pooja">
+                                        No Pooja
+                                    </option>
+
+                                    <option value="Archana">
+                                        Archana
+                                    </option>
+
+                                    <option value="Abhishekam">
+                                        Abhishekam
+                                    </option>
+
+                                    <option value="Special Pooja">
+                                        Special Pooja
+                                    </option>
+
+                                    <option value="Deepa Aradhana">
+                                        Deepa Aradhana
+                                    </option>
+                                </select>
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="visitDate">
+                                    Visit Date
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="visitDate"
+                                    name="visitDate"
+                                    required
+                                >
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="timeSlot">
+                                    Visit Time Slot
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="timeSlot"
+                                    name="timeSlot"
+                                    required
+                                >
+                                    <option value="">
+                                        Select Time Slot
+                                    </option>
+
+                                    <option value="5:30 AM - 6:30 AM">
+                                        5:30 AM – 6:30 AM
+                                    </option>
+
+                                    <option value="6:30 AM - 7:30 AM">
+                                        6:30 AM – 7:30 AM
+                                    </option>
+
+                                    <option value="7:30 AM - 8:30 AM">
+                                        7:30 AM – 8:30 AM
+                                    </option>
+
+                                    <option value="8:30 AM - 9:30 AM">
+                                        8:30 AM – 9:30 AM
+                                    </option>
+
+                                    <option value="9:30 AM - 10:30 AM">
+                                        9:30 AM – 10:30 AM
+                                    </option>
+
+                                    <option value="10:30 AM - 11:30 AM">
+                                        10:30 AM – 11:30 AM
+                                    </option>
+
+                                    <option value="3:30 PM - 4:30 PM">
+                                        3:30 PM – 4:30 PM
+                                    </option>
+
+                                    <option value="4:30 PM - 5:30 PM">
+                                        4:30 PM – 5:30 PM
+                                    </option>
+
+                                    <option value="5:30 PM - 6:30 PM">
+                                        5:30 PM – 6:30 PM
+                                    </option>
+
+                                    <option value="6:30 PM - 7:30 PM">
+                                        6:30 PM – 7:30 PM
+                                    </option>
+
+                                    <option value="7:30 PM - 8:30 PM">
+                                        7:30 PM – 8:30 PM
+                                    </option>
+                                </select>
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group full-width">
+
+                                <label for="numberOfPersons">
+                                    Number of Persons
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="numberOfPersons"
+                                    name="numberOfPersons"
+                                    min="1"
+                                    max="10"
+                                    value="1"
+                                    required
+                                >
+
+                                <small class="field-hint">
+                                    Maximum 10 persons per booking.
+                                </small>
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PILGRIM DETAILS -->
+
+                    <div class="form-section">
+
+                        <div class="section-heading">
+
+                            <div class="section-icon">
+                                👤
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Primary Pilgrim Details
+                                </h3>
+
+                                <p>
+                                    Enter the details of the person making the booking.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group full-width">
+
+                                <label for="fullName">
+                                    Full Name
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="fullName"
+                                    name="fullName"
+                                    placeholder="Enter pilgrim full name"
+                                    minlength="3"
+                                    maxlength="60"
+                                    autocomplete="name"
+                                    required
+                                >
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="age">
+                                    Age
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="age"
+                                    name="age"
+                                    min="1"
+                                    max="120"
+                                    placeholder="Enter age"
+                                    required
+                                >
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="gender">
+                                    Gender
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="gender"
+                                    name="gender"
+                                    required
+                                >
+                                    <option value="">
+                                        Select Gender
+                                    </option>
+
+                                    <option value="Female">
+                                        Female
+                                    </option>
+
+                                    <option value="Male">
+                                        Male
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                    <option value="Prefer not to say">
+                                        Prefer not to say
+                                    </option>
+                                </select>
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="phone">
+                                    Phone Number
+                                    <span>*</span>
+                                </label>
+
+                                <div class="phone-input">
+
+                                    <span>
+                                        +91
+                                    </span>
+
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        placeholder="10-digit phone number"
+                                        maxlength="10"
+                                        inputmode="numeric"
+                                        autocomplete="tel"
+                                        required
+                                    >
+
+                                </div>
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="email">
+                                    Email Address
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Enter email address"
+                                    autocomplete="email"
+                                    required
+                                >
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="idProofType">
+                                    ID Proof Type
+                                    <span>*</span>
+                                </label>
+
+                                <select
+                                    id="idProofType"
+                                    name="idProofType"
+                                    required
+                                >
+                                    <option value="">
+                                        Select ID Proof
+                                    </option>
+
+                                    <option value="Aadhaar Card">
+                                        Aadhaar Card
+                                    </option>
+
+                                    <option value="Voter ID">
+                                        Voter ID
+                                    </option>
+
+                                    <option value="Driving Licence">
+                                        Driving Licence
+                                    </option>
+
+                                    <option value="Passport">
+                                        Passport
+                                    </option>
+
+                                    <option value="PAN Card">
+                                        PAN Card
+                                    </option>
+                                </select>
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="idNumber">
+                                    ID Proof Number
+                                    <span>*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="idNumber"
+                                    name="idNumber"
+                                    placeholder="Enter ID number"
+                                    minlength="4"
+                                    maxlength="20"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AGREEMENT -->
+
+                    <div class="agreement-box">
+
+                        <label class="checkbox-label">
+
+                            <input
+                                type="checkbox"
+                                id="termsAccepted"
+                                required
+                            >
+
+                            <span>
+                                I confirm that the information entered above is
+                                correct. I understand that this is currently an
+                                academic demonstration booking system.
+                            </span>
+
+                        </label>
+
+                        <small
+                            class="error-message"
+                            id="termsError"
+                        ></small>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Review Booking
+                        <span>→</span>
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- INFORMATION SIDE -->
+
+            <aside class="booking-information">
+
+                <div class="info-card important-card">
+
+                    <div class="info-icon">
+                        ℹ️
+                    </div>
+
+                    <h3>
+                        Important Information
+                    </h3>
+
+                    <ul>
+                        <li>
+                            Carry the original ID proof entered during booking.
+                        </li>
+
+                        <li>
+                            Arrive at least 20 minutes before your time slot.
+                        </li>
+
+                        <li>
+                            Each booking receives a unique QR code.
+                        </li>
+
+                        <li>
+                            The QR ticket must be shown at the verification point.
+                        </li>
+
+                        <li>
+                            Payment is not enabled in this demo version.
+                        </li>
+                    </ul>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-icon">
+                        🕐
+                    </div>
+
+                    <h3>
+                        Temple Timings
+                    </h3>
+
+                    <div class="timing-row">
+
+                        <span>
+                            Morning Darshan
+                        </span>
+
+                        <strong>
+                            5:30 AM – 12:30 PM
+                        </strong>
+
+                    </div>
+
+                    <div class="timing-row">
+
+                        <span>
+                            Evening Darshan
+                        </span>
+
+                        <strong>
+                            3:30 PM – 9:30 PM
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card demo-card">
+
+                    <div class="info-icon">
+                        🎓
+                    </div>
+
+                    <h3>
+                        Academic Demo
+                    </h3>
+
+                    <p>
+                        This booking system demonstrates QR-ticket generation.
+                        It does not create an official temple reservation.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         BOOKING SUMMARY MODAL
+    ========================================== -->
+
+    <div
+        class="summary-modal"
+        id="summaryModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="summary-backdrop"
+            id="summaryBackdrop"
+        ></div>
+
+        <div class="summary-container">
+
+            <div class="summary-header">
+
+                <div>
+
+                    <p class="summary-label">
+                        STEP 2
+                    </p>
+
+                    <h2>
+                        Confirm Booking Details
+                    </h2>
+
+                    <p>
+                        Review your details before generating the ticket.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="summary-close"
+                    id="closeSummaryButton"
+                    aria-label="Close booking summary"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div
+                class="summary-content"
+                id="summaryContent"
+            ></div>
+
+
+            <div class="summary-notice">
+
+                <span>
+                    🔐
+                </span>
+
+                <p>
+                    Your booking ID and QR code will be generated only
+                    after you confirm these details.
+                </p>
+
+            </div>
+
+
+            <div class="summary-actions">
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    id="editBookingButton"
+                >
+                    ← Edit Details
+                </button>
+
+                <button
+                    type="button"
+                    class="confirm-button"
+                    id="confirmBookingButton"
+                >
+                    Confirm & Generate Ticket
+                    <span>✓</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/temple-booking.js"></script>
+
+</body>
+
+</html>
