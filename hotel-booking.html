@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Hotel Booking | Tiruvannamalai Guide</title>
+
+    <link
+        rel="stylesheet"
+        href="css/hotel-booking.css"
+    >
+</head>
+
+<body>
+
+    <header class="booking-header">
+
+        <div class="header-container">
+
+            <a
+                href="index.html"
+                class="brand"
+            >
+                🛕 Tiruvannamalai Guide
+            </a>
+
+            <a
+                href="hotels.html"
+                class="back-button"
+            >
+                ← Hotels
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main class="booking-main">
+
+        <!-- FORM -->
+
+        <section
+            class="booking-panel"
+            id="bookingPanel"
+        >
+
+            <div class="booking-heading">
+
+                <span>
+                    HOTEL RESERVATION
+                </span>
+
+                <h1>
+                    Book Your Stay
+                </h1>
+
+                <p>
+                    Select your dates, room type and guest details.
+                </p>
+
+            </div>
+
+
+            <div class="selected-hotel-card">
+
+                <img
+                    id="selectedHotelImage"
+                    src="images/card_images/hotels.jpg"
+                    alt="Selected hotel"
+                >
+
+                <div>
+
+                    <span>
+                        SELECTED HOTEL
+                    </span>
+
+                    <h2 id="selectedHotelName">
+                        Hotel
+                    </h2>
+
+                    <p id="selectedHotelLocation">
+                        Tiruvannamalai
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                id="hotelBookingForm"
+                novalidate
+            >
+
+                <div class="form-section">
+
+                    <h2>
+                        🏨 Stay Details
+                    </h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="checkInDate">
+                                Check-in Date *
+                            </label>
+
+                            <input
+                                type="date"
+                                id="checkInDate"
+                                required
+                            >
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="checkOutDate">
+                                Check-out Date *
+                            </label>
+
+                            <input
+                                type="date"
+                                id="checkOutDate"
+                                required
+                            >
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="roomType">
+                                Room Type *
+                            </label>
+
+                            <select
+                                id="roomType"
+                                required
+                            >
+                                <option value="">
+                                    Select Room Type
+                                </option>
+
+                                <option value="Standard Room">
+                                    Standard Room
+                                </option>
+
+                                <option value="Deluxe Room">
+                                    Deluxe Room
+                                </option>
+
+                                <option value="Family Room">
+                                    Family Room
+                                </option>
+
+                                <option value="Suite">
+                                    Suite
+                                </option>
+                            </select>
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="numberOfRooms">
+                                Number of Rooms *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="numberOfRooms"
+                                min="1"
+                                max="5"
+                                value="1"
+                                required
+                            >
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="numberOfGuests">
+                                Number of Guests *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="numberOfGuests"
+                                min="1"
+                                max="15"
+                                value="1"
+                                required
+                            >
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="arrivalTime">
+                                Expected Arrival Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="arrivalTime"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <h2>
+                        👤 Guest Information
+                    </h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+
+                            <label for="guestName">
+                                Full Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="guestName"
+                                placeholder="Enter guest full name"
+                                required
+                            >
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="guestPhone">
+                                Phone Number *
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="guestPhone"
+                                maxlength="10"
+                                placeholder="10-digit phone number"
+                                required
+                            >
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="guestEmail">
+                                Email Address *
+                            </label>
+
+                            <input
+                                type="email"
+                                id="guestEmail"
+                                placeholder="Enter email address"
+                                required
+                            >
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="idProofType">
+                                ID Proof Type *
+                            </label>
+
+                            <select
+                                id="idProofType"
+                                required
+                            >
+                                <option value="">
+                                    Select ID Proof
+                                </option>
+
+                                <option value="Aadhaar Card">
+                                    Aadhaar Card
+                                </option>
+
+                                <option value="Voter ID">
+                                    Voter ID
+                                </option>
+
+                                <option value="Driving Licence">
+                                    Driving Licence
+                                </option>
+
+                                <option value="Passport">
+                                    Passport
+                                </option>
+                            </select>
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="idProofNumber">
+                                ID Proof Number *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="idProofNumber"
+                                placeholder="Enter ID number"
+                                required
+                            >
+
+                            <small class="error"></small>
+
+                        </div>
+
+
+                        <div class="form-group full-width">
+
+                            <label for="specialRequest">
+                                Special Requests
+                            </label>
+
+                            <textarea
+                                id="specialRequest"
+                                rows="4"
+                                placeholder="Extra bed, accessibility support, early arrival..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <label class="agreement">
+
+                    <input
+                        type="checkbox"
+                        id="bookingAgreement"
+                    >
+
+                    <span>
+                        I confirm that the entered information is correct.
+                        This is currently an academic demonstration booking.
+                    </span>
+
+                </label>
+
+                <small
+                    class="agreement-error"
+                    id="agreementError"
+                ></small>
+
+
+                <button
+                    type="submit"
+                    class="review-button"
+                >
+                    Review Booking
+                    <span>→</span>
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- SUCCESS TICKET -->
+
+        <section
+            class="hotel-success"
+            id="hotelSuccess"
+            hidden
+        >
+
+            <div class="success-heading">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <span>
+                    BOOKING CONFIRMED
+                </span>
+
+                <h1>
+                    Your Hotel Reservation Is Ready
+                </h1>
+
+                <p>
+                    Save the QR code and booking receipt.
+                </p>
+
+            </div>
+
+
+            <article
+                class="hotel-ticket"
+                id="hotelTicket"
+            >
+
+                <div class="ticket-header">
+
+                    <div>
+
+                        <span>
+                            TIRUVANNAMALAI HOTEL BOOKING
+                        </span>
+
+                        <h2 id="ticketHotelName">
+                            Hotel
+                        </h2>
+
+                    </div>
+
+                    <strong>
+                        CONFIRMED
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-body">
+
+                    <div class="ticket-information">
+
+                        <div class="booking-id">
+
+                            <span>
+                                Booking ID
+                            </span>
+
+                            <strong id="hotelBookingId">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="ticket-grid">
+
+                            <div>
+                                <span>Guest Name</span>
+                                <strong id="ticketGuestName">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Phone</span>
+                                <strong id="ticketPhone">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Check-in</span>
+                                <strong id="ticketCheckIn">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Check-out</span>
+                                <strong id="ticketCheckOut">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Room Type</span>
+                                <strong id="ticketRoomType">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Rooms</span>
+                                <strong id="ticketRooms">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Guests</span>
+                                <strong id="ticketGuests">—</strong>
+                            </div>
+
+                            <div>
+                                <span>Status</span>
+                                <strong class="status-valid">Confirmed</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="qr-area">
+
+                        <div id="hotelQrCode"></div>
+
+                        <p>
+                            Scan Booking QR
+                        </p>
+
+                        <span id="qrBookingReference">
+                            —
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ticket-footer">
+
+                    <p>
+                        Carry the original ID proof during hotel check-in.
+                    </p>
+
+                    <strong>
+                        ACADEMIC DEMO
+                    </strong>
+
+                </div>
+
+            </article>
+
+
+            <div class="success-actions">
+
+                <button
+                    type="button"
+                    id="downloadHotelTicket"
+                >
+                    ⬇ Download Receipt
+                </button>
+
+                <button
+                    type="button"
+                    id="saveHotelQr"
+                >
+                    ▣ Save QR
+                </button>
+
+                <button
+                    type="button"
+                    id="printHotelTicket"
+                >
+                    🖨 Print
+                </button>
+
+                <a href="hotels.html">
+                    ← Hotels
+                </a>
+
+                <a href="hotel-booking.html">
+                    ＋ Book Another
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- SUMMARY MODAL -->
+
+    <div
+        class="summary-modal"
+        id="summaryModal"
+    >
+
+        <div
+            class="summary-backdrop"
+            id="summaryBackdrop"
+        ></div>
+
+        <div class="summary-card">
+
+            <button
+                type="button"
+                class="summary-close"
+                id="closeSummary"
+            >
+                ×
+            </button>
+
+            <span>
+                REVIEW BOOKING
+            </span>
+
+            <h2>
+                Confirm Your Details
+            </h2>
+
+            <div
+                class="summary-grid"
+                id="summaryGrid"
+            ></div>
+
+            <div class="summary-buttons">
+
+                <button
+                    type="button"
+                    id="editBooking"
+                >
+                    ← Edit Details
+                </button>
+
+                <button
+                    type="button"
+                    id="confirmHotelBooking"
+                >
+                    Confirm Booking
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script src="js/hotel-booking.js"></script>
+
+</body>
+
+</html>
