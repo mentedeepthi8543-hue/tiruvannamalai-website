@@ -1,37 +1,29 @@
 {
+  "name": "tiruvannamalai-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
-    "cors": "^2.8.6",
+    "cors": "^2.8.5",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "jsonwebtoken": "^9.0.3",
-    "mongodb": "^7.5.0",
+    "mongodb": "^7.0.0",
     "mongoose": "^8.24.1",
     "nodemailer": "^9.0.3",
     "otp-generator": "^4.0.1",
     "qrcode": "^1.5.4",
     "twilio": "^6.0.2"
-  },
-  "name": "tiruvannamalai-website",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
-=======
-    "dotevn": "^0.0.1-security",
-    "express": "^5.2.1",
-    "mongoose": "^9.7.4",
-    "qrcode": "^1.5.4"
   }
->>>>>>> 55b7002a7e7fdfd771646d90a474987f51a45133
 }
