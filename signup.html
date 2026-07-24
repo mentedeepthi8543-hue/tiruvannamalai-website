@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Signup - Tiruvannamalai Guide</title>
+
+<link rel="stylesheet" href="css/auth.css">
+
+</head>
+
+<body>
+
+<div class="overlay">
+
+<div class="auth-box">
+
+    <form id="signupForm">
+
+    <h2>Sign Up</h2>
+
+    <!-- Name + Phone -->
+     
+     <input
+type="text"
+id="name"
+placeholder="Full Name"
+pattern="^[A-Za-z]+(?: [A-Za-z]+)*$"
+autocomplete="name"
+required>
+
+<div class="phone-box">
+
+    <span class="country-code">+91</span>
+
+    <input
+    type="tel"
+    id="phone"
+    placeholder="Enter Mobile Number"
+    maxlength="10"
+    pattern="[6-9][0-9]{9}"
+    autocomplete="tel"
+    required>
+
+</div>
+
+    <!-- Email -->
+    <input
+        type="email"
+        id="email"
+        placeholder="example@gmail.com"
+        autocomplete="email"
+        required>
+
+    <!-- Passwords -->
+    <div class="row">
+
+        <div class="password-box">
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required>
+
+            <span class="eye"
+                onclick="togglePassword()">
+                👁️
+            </span>
+
+        </div>
+
+        <div class="password-box">
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                required>
+
+            <span class="eye"
+                onclick="toggleConfirmPassword()">
+                👁️
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- OTP Options -->
+
+    <h4 class="otp-title">Choose OTP Method</h4>
+
+    <div id="otpOptions" class="otp-options">
+
+        <label class="otp-card">
+
+            <input
+                type="radio"
+                name="otpMethod"
+                value="email"
+                checked>
+
+            📧 Email OTP
+
+        </label>
+
+        <label class="otp-card">
+
+            <input
+                type="radio"
+                name="otpMethod"
+                value="sms">
+
+            📱 SMS OTP
+
+        </label>
+
+    </div>
+
+    <button
+        type="button"
+        id="sendOtpBtn"
+        class="full-btn">
+
+        Send OTP
+
+    </button>
+
+    <!-- OTP Box -->
+
+    <div id="otpBox" style="display:none;">
+
+        <input
+            type="text"
+            id="otp"
+            placeholder="Enter OTP"
+            maxlength="6">
+
+        <button
+            type="button"
+            id="verifyOtpBtn"
+            class="full-btn">
+
+            Verify OTP
+
+        </button>
+
+    </div>
+
+    <p id="otpMessage"></p>
+
+    <p id="signupMessage"></p>
+
+    <p class="login-text">
+
+        Already have an account?
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </p>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="js/auth.js"></script>
+
+</body>
+
+</html>

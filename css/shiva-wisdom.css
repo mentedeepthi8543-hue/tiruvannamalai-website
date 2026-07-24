@@ -1,0 +1,508 @@
+.navbar {
+    background: #08271f;
+    padding: 16px 0;
+}
+
+.nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.brand {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #e5a52c;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border: 3px solid rgba(255, 255, 255, 0.45);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.back-button:hover {
+    border-color: #e5a52c;
+    background: #e5a52c;
+    color: #08271f;
+}
+/* =========================================
+   BASIC PAGE
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #f5efe3;
+    color: #183b32;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.wisdom-hero {
+    position: relative;
+    min-height: 540px;
+    display: flex;
+    align-items: center;
+    background:
+        url("../images/shivachants/m.jpg")
+        center 32% / cover no-repeat;
+    overflow: hidden;
+}
+
+.wisdom-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 35, 29, 0.94) 0%,
+            rgba(8, 35, 29, 0.76) 45%,
+            rgba(8, 35, 29, 0.20) 100%
+        );
+}
+
+.wisdom-hero-content {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+}
+
+.hero-small-title {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #f4a340;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.wisdom-hero h1 {
+    max-width: 700px;
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1;
+}
+
+.wisdom-hero h1 span {
+    display: block;
+    color: #f4a340;
+}
+
+.wisdom-hero p {
+    max-width: 620px;
+    margin: 24px 0 32px;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.wisdom-hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 0 28px;
+    border-radius: 8px;
+    background: #dc6818;
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.wisdom-hero-button:hover {
+    background: #b94c08;
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   TODAY QUOTE
+========================================= */
+
+.today-wisdom {
+    padding: 70px 20px;
+    background: #f5efe3;
+}
+
+.today-card {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 54px 65px;
+    border: 1px solid rgba(24, 59, 50, 0.12);
+    border-radius: 22px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 22px 55px rgba(52, 38, 20, 0.12);
+}
+
+.today-symbol {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #183b32;
+    color: #f4a340;
+    font-size: 32px;
+}
+
+.today-card > span {
+    display: block;
+    color: #dc6818;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.today-card blockquote {
+    max-width: 760px;
+    margin: 28px auto;
+    color: #173e35;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 4vw, 45px);
+    line-height: 1.35;
+}
+
+.today-card p {
+    color: #8b7357;
+    font-weight: 700;
+}
+
+.today-card button {
+    margin-top: 16px;
+    padding: 14px 24px;
+    border: 0;
+    border-radius: 7px;
+    background: #dc6818;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.today-card button:hover {
+    background: #183b32;
+}
+
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.wisdom-section {
+    padding: 80px 20px 100px;
+    background: #fbf8f1;
+}
+
+.section-heading {
+    max-width: 760px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.section-heading span {
+    color: #dc6818;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.section-heading h2 {
+    margin: 15px 0;
+    color: #173e35;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(34px, 5vw, 55px);
+}
+
+.section-heading p {
+    margin: 0;
+    color: #68736f;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   QUOTE CARDS
+========================================= */
+
+.wisdom-grid {
+    columns: 3;
+    column-gap: 28px;
+}
+
+.wisdom-card {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 28px;
+    padding: 34px 32px 28px;
+    border: 1px solid #e8dfd1;
+    background: #fffdf8;
+    box-shadow: 0 12px 32px rgba(38, 29, 16, 0.10);
+    break-inside: avoid;
+    overflow: hidden;
+    transition: 0.35s ease;
+}
+
+.wisdom-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: #dc6818;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: 0.35s ease;
+}
+
+.wisdom-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 20px 45px rgba(38, 29, 16, 0.16);
+}
+
+.wisdom-card:hover::before {
+    transform: scaleY(1);
+}
+
+.quote-symbol {
+    color: #ded4c0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 75px;
+    line-height: 0.7;
+}
+
+.wisdom-card blockquote {
+    margin: 20px 0 35px;
+    color: #173e35;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px;
+    line-height: 1.55;
+    text-align: center;
+}
+
+.quote-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid #eee5d8;
+}
+
+.quote-footer span {
+    color: #967557;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.share-quote {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: #f1e8d9;
+    color: #173e35;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.share-quote:hover {
+    background: #dc6818;
+    color: #ffffff;
+}
+
+
+/* Different card heights */
+
+.wisdom-card:nth-child(3n + 1) {
+    padding-top: 45px;
+    padding-bottom: 38px;
+}
+
+.wisdom-card:nth-child(4n) blockquote {
+    font-size: 27px;
+}
+
+
+/* =========================================
+   FINAL MESSAGE
+========================================= */
+
+.wisdom-message {
+    padding: 90px 20px;
+    background: #14352d;
+}
+
+.message-card {
+    max-width: 850px;
+    margin: auto;
+    text-align: center;
+    color: #ffffff;
+}
+
+.message-card > span {
+    display: block;
+    color: #f4a340;
+    font-size: 58px;
+}
+
+.message-card h2 {
+    margin: 10px 0 15px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 50px;
+}
+
+.message-card p {
+    max-width: 680px;
+    margin: 0 auto 28px;
+    color: rgba(255, 255, 255, 0.80);
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.message-card a {
+    display: inline-flex;
+    padding: 15px 25px;
+    border-radius: 7px;
+    background: #dc6818;
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   COPY MESSAGE
+========================================= */
+
+.copy-message {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 1000;
+    padding: 15px 22px;
+    border-radius: 7px;
+    background: #173e35;
+    color: #ffffff;
+    font-weight: 700;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(25px);
+    transition: 0.3s ease;
+}
+
+.copy-message.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.wisdom-footer {
+    padding: 28px 20px;
+    background: #0c261f;
+    color: rgba(255, 255, 255, 0.78);
+    text-align: center;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .wisdom-grid {
+        columns: 2;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .wisdom-hero {
+        min-height: 500px;
+        background-position: 65% center;
+    }
+
+    .wisdom-overlay {
+        background: rgba(8, 35, 29, 0.82);
+    }
+
+    .wisdom-hero h1 {
+        font-size: 48px;
+    }
+
+    .wisdom-hero p {
+        font-size: 16px;
+    }
+
+    .today-card {
+        padding: 40px 22px;
+    }
+
+    .wisdom-grid {
+        columns: 1;
+    }
+
+    .wisdom-card blockquote {
+        font-size: 22px;
+    }
+
+    .message-card h2 {
+        font-size: 38px;
+    }
+
+}

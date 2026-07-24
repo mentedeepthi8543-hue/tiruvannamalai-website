@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Hotel Details | Tiruvannamalai Guide</title>
+
+    <link
+        rel="stylesheet"
+        href="css/hotel-details.css"
+    >
+</head>
+
+<body>
+
+    <header class="hotel-header">
+
+        <div class="header-container">
+
+            <a
+                href="index.html"
+                class="brand"
+            >
+                🛕 Tiruvannamalai Guide
+            </a>
+
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="hotels.html">Hotels</a>
+                <a href="photoalbum.html">Photos</a>
+            </nav>
+
+            <a
+                href="hotels.html"
+                class="back-button"
+            >
+                ← Back
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HOTEL HERO -->
+
+        <section class="hotel-hero">
+
+            <img
+                id="heroHotelImage"
+                src="images/card_images/hotels.jpg"
+                alt="Hotel in Tiruvannamalai"
+            >
+
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+
+                <span id="hotelCategory">
+                    Tiruvannamalai Stay
+                </span>
+
+                <h1 id="hotelName">
+                    Hotel Details
+                </h1>
+
+                <p id="hotelShortDescription">
+                    Comfortable accommodation for pilgrims and families.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        id="heroBookButton"
+                        href="hotel-booking.html"
+                        class="primary-button"
+                    >
+                        Book Room
+                    </a>
+
+                    <a
+                        id="heroMapButton"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="secondary-button"
+                    >
+                        View Location
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HOTEL DETAILS -->
+
+        <section class="details-section">
+
+            <div class="details-container">
+
+                <div class="main-information">
+
+                    <div class="content-card">
+
+                        <span class="section-label">
+                            ABOUT THE HOTEL
+                        </span>
+
+                        <h2 id="aboutHeading">
+                            Comfortable Stay in Tiruvannamalai
+                        </h2>
+
+                        <p id="hotelDescription">
+                            Loading hotel information...
+                        </p>
+
+                    </div>
+
+
+                    <!-- ROOM TYPES -->
+
+                    <div class="content-card">
+
+                        <span class="section-label">
+                            AVAILABLE ROOMS
+                        </span>
+
+                        <h2>
+                            Room Types
+                        </h2>
+
+                        <div
+                            class="room-grid"
+                            id="roomGrid"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- GALLERY -->
+
+                    <div class="content-card">
+
+                        <span class="section-label">
+                            HOTEL GALLERY
+                        </span>
+
+                        <h2>
+                            Photos
+                        </h2>
+
+                        <div class="gallery-slider">
+
+                            <button
+                                type="button"
+                                class="gallery-arrow gallery-prev"
+                                id="galleryPrevious"
+                            >
+                                ❮
+                            </button>
+
+                            <img
+                                id="galleryImage"
+                                src="images/card_images/hotels.jpg"
+                                alt="Hotel gallery"
+                            >
+
+                            <button
+                                type="button"
+                                class="gallery-arrow gallery-next"
+                                id="galleryNext"
+                            >
+                                ❯
+                            </button>
+
+                            <div
+                                class="gallery-counter"
+                                id="galleryCounter"
+                            >
+                                1 / 1
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NEARBY PLACES -->
+
+                    <div class="content-card">
+
+                        <span class="section-label">
+                            NEARBY PLACES
+                        </span>
+
+                        <h2>
+                            Important Locations
+                        </h2>
+
+                        <div
+                            class="nearby-grid"
+                            id="nearbyGrid"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SIDEBAR -->
+
+                <aside class="hotel-sidebar">
+
+                    <div class="sidebar-card">
+
+                        <h3>
+                            Hotel Information
+                        </h3>
+
+                        <div class="information-row">
+                            <span>📍 Location</span>
+                            <strong id="hotelLocation">—</strong>
+                        </div>
+
+                        <div class="information-row">
+                            <span>⏰ Check-in</span>
+                            <strong id="checkInTime">12:00 PM</strong>
+                        </div>
+
+                        <div class="information-row">
+                            <span>⏰ Check-out</span>
+                            <strong id="checkOutTime">11:00 AM</strong>
+                        </div>
+
+                        <div class="information-row">
+                            <span>🏨 Category</span>
+                            <strong id="sidebarCategory">—</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="sidebar-card">
+
+                        <h3>
+                            Amenities
+                        </h3>
+
+                        <div
+                            class="amenities-list"
+                            id="amenitiesList"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="sidebar-card booking-card">
+
+                        <span>
+                            READY TO STAY?
+                        </span>
+
+                        <h3>
+                            Reserve Your Room
+                        </h3>
+
+                        <p>
+                            Select your dates, room type and guest details.
+                        </p>
+
+                        <a
+                            id="sidebarBookButton"
+                            href="hotel-booking.html"
+                            class="sidebar-book-button"
+                        >
+                            Book Room Now
+                        </a>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FULL IMAGE POPUP -->
+
+    <div
+        class="image-popup"
+        id="imagePopup"
+        aria-hidden="true"
+    >
+
+        <button
+            type="button"
+            id="closeImagePopup"
+            class="popup-close"
+        >
+            ×
+        </button>
+
+        <img
+            id="popupImage"
+            src=""
+            alt="Hotel full view"
+        >
+
+    </div>
+
+
+    <script src="js/hotel-details.js"></script>
+
+</body>
+
+</html>

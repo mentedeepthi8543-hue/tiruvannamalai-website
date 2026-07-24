@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Arunachaleswarar Temple Details</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/temple-details.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         TOP NAVIGATION
+    ========================================== -->
+
+    <header class="top-bar">
+
+        <div class="top-bar-inner">
+
+            <div class="top-title">
+                🛕 Arunachaleswarar Temple
+            </div>
+
+            <div class="top-actions">
+
+                <a
+                    href="index.html#services"
+                    class="top-back-btn"
+                >
+                    ← Back to Home
+                </a>
+
+                <select
+                    class="language"
+                    id="languageSelector"
+                >
+                    <option value="en">English</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="ta">தமிழ்</option>
+                </select>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- =========================================
+         PAGE HEADING
+    ========================================== -->
+
+    <div class="page-heading">
+
+        <span>
+            Complete Temple Guide
+        </span>
+
+        <h1>
+            Arunachaleswarar Temple
+        </h1>
+
+        <p>
+            Explore temple history, darshan information, timings,
+            architecture, facilities, visitor guidelines, festivals
+            and the spiritual importance of the sacred
+            Arunachaleswarar Temple in Tiruvannamalai.
+        </p>
+
+    </div>
+
+    <!-- =========================================
+         MAIN TEMPLE DETAILS CARD
+    ========================================== -->
+
+    <main class="details-card">
+
+        <!-- =====================================
+             TEMPLE IMAGE WITH 360 BUTTON
+        ====================================== -->
+
+        <div class="temple-image-wrapper">
+
+            <img
+                src="images/card_images/temple.jpg"
+                alt="Arunachaleswarar Temple"
+                class="temple-main-image"
+            >
+
+            <button
+                type="button"
+                class="temple-360-btn"
+                id="open360Button"
+            >
+                🔄 360° View
+            </button>
+
+        </div>
+
+        <!-- =====================================
+             360 DEGREE POPUP
+        ====================================== -->
+
+        <div
+            class="panorama-modal"
+            id="panoramaModal"
+            aria-hidden="true"
+        >
+
+            <div class="panorama-modal-content">
+
+                <div class="panorama-header">
+
+                    <h2>
+                        🔄 Arunachaleswarar Temple 360° View
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="panorama-close-btn"
+                        id="close360Button"
+                        aria-label="Close 360 degree view"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+                <iframe
+                    id="templeStreetView"
+                    class="street-view-frame"
+                    src=""
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Arunachaleswarar Temple 360 degree Street View"
+                ></iframe>
+
+                <p class="panorama-help">
+                    Click and drag inside the view to look around.
+                    Use the controls to move and zoom.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="content">
+
+            <!-- =================================
+                 ABOUT TEMPLE
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    📖 About Arunachaleswarar Temple
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple, also known as Annamalaiyar
+                    Temple, is one of the most important temples dedicated
+                    to Lord Shiva. It is located at the foot of the sacred
+                    Arunachala Hill in Tiruvannamalai, Tamil Nadu.
+                </p>
+
+                <p>
+                    Lord Shiva is worshipped here as Arunachaleswarar or
+                    Annamalaiyar, while Goddess Parvati is worshipped as
+                    Unnamulai Amman. The temple and Arunachala Hill are
+                    deeply connected, and devotees consider the hill itself
+                    to be a divine manifestation of Lord Shiva.
+                </p>
+
+                <p>
+                    The temple is an important centre for Shaiva worship,
+                    pilgrimage, meditation and Girivalam. Devotees from
+                    different parts of India and other countries visit
+                    Tiruvannamalai throughout the year.
+                </p>
+
+                <p>
+                    The temple complex contains grand entrance towers,
+                    mandapams, shrines, sacred tanks, stone corridors,
+                    carved pillars and large courtyards used for daily
+                    worship and major festival processions.
+                </p>
+
+                <div class="highlight-box">
+
+                    <p>
+                        <strong>Presiding Deity:</strong>
+                        Lord Arunachaleswarar
+                    </p>
+
+                    <p>
+                        <strong>Goddess:</strong>
+                        Unnamulai Amman
+                    </p>
+
+                    <p>
+                        <strong>Sacred Element:</strong>
+                        Fire or Agni
+                    </p>
+
+                    <p>
+                        <strong>Important Pilgrimage:</strong>
+                        Girivalam around Arunachala Hill
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        Tiruvannamalai, Tamil Nadu
+                    </p>
+
+                </div>
+
+            </section>
+                        <!-- =================================
+                 TEMPLE TIMINGS
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    ⏰ Temple Timings
+                </h2>
+
+                <p>
+                    The temple generally remains open from early morning
+                    until night, with an afternoon interval. During
+                    weekends, Pournami, Karthigai Deepam and other major
+                    festival days, devotees should arrive early because
+                    the queues can become very long.
+                </p>
+
+                <ul class="info-list">
+
+                    <li>
+
+                        <i class="fa-solid fa-door-open"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Temple Opening Time:
+                            </span>
+
+                            5:30 AM
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-sun"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Morning Darshan:
+                            </span>
+
+                            5:30 AM – 12:30 PM
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-pause"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Afternoon Interval:
+                            </span>
+
+                            12:30 PM – 3:30 PM
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-moon"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Evening Darshan:
+                            </span>
+
+                            3:30 PM – 9:30 PM
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-door-closed"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Temple Closing Time:
+                            </span>
+
+                            9:30 PM
+                        </div>
+
+                    </li>
+
+                </ul>
+
+                <div class="warning-box">
+
+                    <p>
+                        Temple timings may change during special pujas,
+                        important festivals, maintenance work or crowd
+                        management arrangements. Visitors travelling from
+                        a long distance should confirm the current timing
+                        before starting their journey.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 DARSHAN INFORMATION
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🎫 Darshan Information
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple welcomes thousands of devotees.
+                    Darshan is managed through designated queues to ensure
+                    safe and orderly movement inside the temple.
+                </p>
+
+                <p>
+                    Waiting time depends on the day, crowd level, festival
+                    schedule and special rituals. Weekdays are usually less
+                    crowded than weekends, Pournami days, Karthigai Deepam
+                    and Mahashivaratri.
+                </p>
+
+                <ul class="info-list">
+
+                    <li>
+
+                        <i class="fa-solid fa-user-group"></i>
+
+                        <div>
+                            <span class="label-text">
+                                General Darshan:
+                            </span>
+
+                            Available through the regular queue, subject to
+                            temple arrangements.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-ticket"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Special Darshan:
+                            </span>
+
+                            Special-entry facilities may be available through
+                            authorised temple counters or the official
+                            booking system.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-wheelchair"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Visitor Assistance:
+                            </span>
+
+                            Senior citizens and differently-abled devotees
+                            may approach temple staff for available help.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        <div>
+                            <span class="label-text">
+                                Recommended Arrival:
+                            </span>
+
+                            Arrive early in the morning or before the evening
+                            crowd increases.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-shoe-prints"></i>
+
+                        <div>
+                            Footwear must be removed before entering the
+                            designated temple areas.
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-people-arrows"></i>
+
+                        <div>
+                            Follow the queue system and the instructions
+                            given by temple staff and security personnel.
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </section>
+
+            <!-- =================================
+                 DRESS CODE
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    👕 Temple Dress Code
+                </h2>
+
+                <p>
+                    Devotees should wear clean, respectful and modest
+                    clothing suitable for a place of worship. Traditional
+                    Indian clothing is preferred because it reflects the
+                    sacred atmosphere of the temple.
+                </p>
+
+                <div class="information-grid">
+
+                    <div class="information-item">
+
+                        <h3>
+                            Recommended for Men
+                        </h3>
+
+                        <p>
+                            Dhoti, veshti, kurta, full-length trousers,
+                            simple shirts or other clean and modest clothing.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Recommended for Women
+                        </h3>
+
+                        <p>
+                            Saree, salwar kameez, churidar, kurta with
+                            full-length bottoms or other modest traditional
+                            clothing.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Clothing to Avoid
+                        </h3>
+
+                        <p>
+                            Avoid shorts, very short clothing, sleeveless
+                            or revealing outfits, beachwear and clothing
+                            with disrespectful words or images.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            Footwear
+                        </h3>
+
+                        <p>
+                            Shoes and slippers should be deposited at the
+                            authorised footwear stand before entering the
+                            temple.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+                        <!-- =================================
+                 TEMPLE FACILITIES
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🏛 Temple Facilities
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple provides various facilities to
+                    make the pilgrimage comfortable for devotees.
+                </p>
+
+                <div class="facility-grid">
+
+                    <div class="facility-item">
+
+                        <i class="fa-solid fa-shoe-prints"></i>
+
+                        <h3>
+                            Footwear Counter
+                        </h3>
+
+                        <p>
+                            Safe footwear deposit facilities are available
+                            near the temple entrance.
+                        </p>
+
+                    </div>
+
+                    <div class="facility-item">
+
+                        <i class="fa-solid fa-droplet"></i>
+
+                        <h3>
+                            Drinking Water
+                        </h3>
+
+                        <p>
+                            Drinking water points are available inside and
+                            around the temple premises.
+                        </p>
+
+                    </div>
+
+                    <div class="facility-item">
+
+                        <i class="fa-solid fa-restroom"></i>
+
+                        <h3>
+                            Restrooms
+                        </h3>
+
+                        <p>
+                            Public restroom facilities are available for
+                            pilgrims.
+                        </p>
+
+                    </div>
+
+                    <div class="facility-item">
+
+                        <i class="fa-solid fa-square-parking"></i>
+
+                        <h3>
+                            Parking
+                        </h3>
+
+                        <p>
+                            Dedicated parking areas are available near the
+                            temple complex.
+                        </p>
+
+                    </div>
+
+                    <div class="facility-item">
+
+                        <i class="fa-solid fa-wheelchair"></i>
+
+                        <h3>
+                            Senior Citizen Support
+                        </h3>
+
+                        <p>
+                            Assistance may be available for elderly and
+                            differently-abled devotees.
+                        </p>
+
+                    </div>
+
+                    <div class="facility-item">
+
+                        <i class="fa-solid fa-kit-medical"></i>
+
+                        <h3>
+                            Medical Help
+                        </h3>
+
+                        <p>
+                            Emergency medical assistance is available during
+                            major festivals and crowded occasions.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 BEST TIME TO VISIT
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🌤 Best Time to Visit
+                </h2>
+
+                <div class="time-grid">
+
+                    <div class="time-card">
+
+                        <div class="time-icon">
+                            🌄
+                        </div>
+
+                        <h3>
+                            Morning
+                        </h3>
+
+                        <strong>
+                            5:30 AM – 8:30 AM
+                        </strong>
+
+                        <p>
+                            Pleasant weather, shorter queues and peaceful
+                            darshan.
+                        </p>
+
+                    </div>
+
+                    <div class="time-card">
+
+                        <div class="time-icon">
+                            🌇
+                        </div>
+
+                        <h3>
+                            Evening
+                        </h3>
+
+                        <strong>
+                            4:30 PM – 7:30 PM
+                        </strong>
+
+                        <p>
+                            Comfortable climate with beautiful temple
+                            lighting.
+                        </p>
+
+                    </div>
+
+                    <div class="time-card">
+
+                        <div class="time-icon">
+                            🌕
+                        </div>
+
+                        <h3>
+                            Festival Days
+                        </h3>
+
+                        <strong>
+                            Early Arrival
+                        </strong>
+
+                        <p>
+                            Arrive several hours early during Pournami and
+                            Karthigai Deepam.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 TEMPLE LOCATION
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    📍 Temple Location
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple is located in the heart of
+                    Tiruvannamalai town at the foothills of the sacred
+                    Arunachala Hill.
+                </p>
+
+                <iframe
+                    class="temple-map"
+                    src="https://www.google.com/maps?q=Arunachaleswarar+Temple+Tiruvannamalai&output=embed"
+                    loading="lazy"
+                    allowfullscreen
+                    title="Arunachaleswarar Temple Map"
+                ></iframe>
+
+                <a
+                    class="map-btn"
+                    href="https://www.google.com/maps/search/?api=1&query=Arunachaleswarar+Temple+Tiruvannamalai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    📍 Open in Google Maps
+                </a>
+
+            </section>
+
+            <!-- =================================
+                 NEARBY SPIRITUAL PLACES
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🛕 Nearby Spiritual Places
+                </h2>
+
+                <div class="nearby-grid">
+
+                    <div class="nearby-card">
+
+                        <h3>
+                            Ramana Ashram
+                        </h3>
+
+                        <p>
+                            A peaceful meditation centre established in
+                            memory of Sri Ramana Maharshi.
+                        </p>
+
+                        <a
+                            href="sacred-places.html"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                    <div class="nearby-card">
+
+                        <h3>
+                            Virupaksha Cave
+                        </h3>
+
+                        <p>
+                            A sacred cave where Sri Ramana Maharshi spent
+                            several years in meditation.
+                        </p>
+
+                        <a
+                            href="sacred-places.html"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+                        <!-- =================================
+                 IMPORTANT FESTIVALS
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    🎉 Major Festivals
+                </h2>
+
+                <p>
+                    Arunachaleswarar Temple celebrates several important
+                    Hindu festivals every year. During these occasions,
+                    thousands of devotees visit the temple from different
+                    parts of India and abroad.
+                </p>
+
+                <div class="information-grid">
+
+                    <div class="information-item">
+
+                        <h3>
+                            🔥 Karthigai Deepam
+                        </h3>
+
+                        <p>
+                            The most famous festival of Tiruvannamalai.
+                            A huge sacred lamp is lit on the summit of
+                            Arunachala Hill, symbolising Lord Shiva as
+                            the infinite column of fire.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            🌕 Pournami Girivalam
+                        </h3>
+
+                        <p>
+                            Every Full Moon day, lakhs of devotees perform
+                            the sacred 14 KM Girivalam around Arunachala
+                            Hill seeking divine blessings.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            🕉 Mahashivaratri
+                        </h3>
+
+                        <p>
+                            Special abhishekams, bhajans, cultural
+                            programmes and night-long worship are
+                            conducted for Lord Shiva.
+                        </p>
+
+                    </div>
+
+                    <div class="information-item">
+
+                        <h3>
+                            🎊 Other Festivals
+                        </h3>
+
+                        <p>
+                            Monthly Pradosham, Navaratri, Vinayaka
+                            Chaturthi, Tamil New Year, Panguni Uthiram
+                            and many other temple festivals are also
+                            celebrated.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =================================
+                 VISITOR GUIDELINES
+            ================================== -->
+
+            <section class="section">
+
+                <h2>
+                    📜 Visitor Guidelines
+                </h2>
+
+                <ul class="info-list">
+
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <div>Dress modestly while entering the temple.</div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <div>Maintain silence inside the temple premises.</div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <div>Follow the queue system for darshan.</div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <div>Keep the temple surroundings clean.</div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <div>Photography may be restricted in certain areas.</div>
+                    </li>
+
+                    <li>
+                        <i class="fa-solid fa-check"></i>
+                        <div>Follow the instructions given by temple authorities.</div>
+                    </li>
+
+                </ul>
+
+            </section>
+
+            <a
+                href="index.html#services"
+                class="bottom-back-btn"
+            >
+                ⬅ Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+    <script src="js/common.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/temple-details.js"></script>
+
+</body>
+
+</html>
