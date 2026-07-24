@@ -111,6 +111,7 @@ section{
     max-width:700px;
     margin:10px auto;
     color:var(--muted);
+<<<<<<< HEAD
 }
 /* Login Button */
 
@@ -128,4 +129,6 @@ section{
 
 .login-btn:hover{
     background:#b84600;
+=======
+>>>>>>> 55b7002a7e7fdfd771646d90a474987f51a45133
 }

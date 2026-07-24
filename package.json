@@ -1,5 +1,6 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
@@ -26,4 +27,11 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs"
+=======
+    "dotevn": "^0.0.1-security",
+    "express": "^5.2.1",
+    "mongoose": "^9.7.4",
+    "qrcode": "^1.5.4"
+  }
+>>>>>>> 55b7002a7e7fdfd771646d90a474987f51a45133
 }
