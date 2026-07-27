@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Edit Profile</title>
+
+<link rel="stylesheet" href="css/common.css">
+
+</head>
+
+
+<body>
+
+
+<div class="profile-card">
+
+
+<h1>Edit Profile</h1>
+
+
+<input 
+type="text"
+id="editName"
+placeholder="Enter Name">
+
+
+<input
+type="email"
+id="editEmail"
+placeholder="Enter Email">
+
+
+<button onclick="saveProfile()">
+Save Changes
+</button>
+
+
+<br><br>
+
+</div>
+
+
+
+<script>
+
+
+const user =
+JSON.parse(localStorage.getItem("user"));
+
+
+
+if(user){
+
+document.getElementById("editName").value =
+user.name;
+
+
+document.getElementById("editEmail").value =
+user.email;
+
+
+}
+
+
+
+function saveProfile(){
+
+
+let updatedUser = {
+
+name:
+document.getElementById("editName").value,
+
+
+email:
+document.getElementById("editEmail").value
+
+};
+
+
+
+localStorage.setItem(
+"user",
+JSON.stringify(updatedUser)
+);
+
+
+localStorage.setItem(
+"username",
+updatedUser.name
+);
+
+
+
+alert("Profile Updated Successfully");
+
+
+window.location.href="index.html";
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -556,34 +556,20 @@ signupData
 
 if(signupData.success){
 
+    alert("Account Created Successfully");
 
+    localStorage.setItem("loggedIn", "true");
 
-alert(
-"Account Created Successfully"
-);
+    localStorage.setItem("username",
+        document.getElementById("name").value.trim()
+    );
 
+    localStorage.setItem("user", JSON.stringify({
+        name: document.getElementById("name").value.trim(),
+        email: document.getElementById("email").value.trim()
+    }));
 
-
-localStorage.setItem(
-"userName",
-document.getElementById("name")
-.value.trim()
-);
-
-
-
-localStorage.setItem(
-"userEmail",
-document.getElementById("email")
-.value.trim()
-);
-
-
-
-window.location.href=
-"index.html";
-
-
+    window.location.href = "index.html";
 
 }
 
@@ -694,31 +680,15 @@ await response.json();
 
 console.log(data);
 
-
-
 if(data.success){
 
+    alert("Login Successful");
 
-alert("Login Successful");
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("username", data.user.name);
+    localStorage.setItem("user", JSON.stringify(data.user));
 
-
-
-localStorage.setItem(
-"userName",
-data.user.name
-);
-
-
-
-localStorage.setItem(
-"userEmail",
-data.user.email
-);
-
-
-
-window.location.href="index.html";
-
+    window.location.href = "index.html";
 
 }
 

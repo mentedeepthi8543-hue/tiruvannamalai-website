@@ -102,9 +102,43 @@
                 </option>
             </select>
             
-            <a href="login.html" class="login-btn">
-    👤 Login / Register
+         <div class="user-menu">
+
+    <!-- Show before login -->
+    <!-- Login Button -->
+<div id="guestMenu">
+    <a href="login.html" class="login-btn">
+        👤 Login / Register
+    </a>
+</div>
+
+<!-- User Button -->
+
+    <div class="profile" id="profileArea" style="display:none;">
+
+    <button id="profileBtn" class="profile-btn">
+        👤 <span id="userName">User</span> ▼
+    </button>
+
+    <div id="dropdownMenu" class="dropdown-menu">
+
+        <a href="profile.html">View Profile</a>
+
+        <a href="edit-profile.html">Edit Profile</a>
+        <a href="change-password.html">
+    Change Password
 </a>
+
+        <a href="#" id="logoutBtn">Logout</a>
+
+    </div>
+
+</div>
+
+    
+           
+
+</div>   
 
         </div>
 
@@ -1059,12 +1093,13 @@ Experience Sacred Tiruvannamalai
 
                 <div class="divine-card-image">
 
-                    <img
-                        <img src="images/divine/Jyotirlingas.jpg"
-                        alt="Twelve Jyotirlingas of Lord Shiva">
-                    >
+    <img
+        src="images/divine/Jyotirlingas.jpg"
+        alt="Twelve Jyotirlingas of Lord Shiva"
+    >
 
-                </div>
+</div>
+        
 
                 <div class="divine-card-content">
 
@@ -2134,11 +2169,11 @@ Thousands of pilgrims walk around Arunachala Hill seeking blessings and spiritua
     </footer>
 
     <script src="js/common.js"></script>
-    <script src="js/translations.js"></script>
     <script src="js/index.js"></script>
     <script src="js/temple_events.js"></script>
     <script src="js/event_display.js"></script>
     <script src="js/translations.js"></script>
+    <script src="js/profile.js"></script>
 
 </body>
 

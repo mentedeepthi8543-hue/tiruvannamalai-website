@@ -1024,3 +1024,23 @@ document.addEventListener(
 
     }
 );
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (user) {
+    document.getElementById("guestMenu").style.display = "none";
+    document.getElementById("profileMenu").style.display = "block";
+    document.getElementById("userName").innerText = user.name;
+}
+
+document.getElementById("profileBtn")?.addEventListener("click", () => {
+    const menu = document.getElementById("dropdownMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+});
+
+document.getElementById("logoutBtn")?.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    localStorage.removeItem("user");
+
+    window.location.href = "index.html";
+});
