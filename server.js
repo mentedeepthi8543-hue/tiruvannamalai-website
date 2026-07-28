@@ -1,10 +1,12 @@
 require("dotenv").config();
 
 const express = require("express");
+
 const mongoose = require("mongoose");
 const path = require("path");
 const nodemailer = require("nodemailer");
 const otpGenerator = require("otp-generator");
+const twilio = require("twilio");
 
 const User = require("./models/User");
 
@@ -35,6 +37,10 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
+const client = twilio(
+    process.env.TWILIO_ACCOUNT_SID,
+    process.env.TWILIO_AUTH_TOKEN
+);
 
 // ===============================
 // OTP Store
@@ -60,6 +66,17 @@ app.get("/signup", (req, res) => {
 app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "login.html"));
 });
+
+// railway
+app.get("/railway", (req, res) => {
+    res.sendFile(path.join(__dirname, "rs.html"));
+});
+
+//busstand
+app.get("/busstand", (req, res) => {
+    res.sendFile(path.join(__dirname, "busstand.html"));
+});
+
 
 // ===============================
 // SEND OTP
@@ -517,10 +534,64 @@ message:err.message
 });
 
 // ===============================
+// SEND PHONE OTP
+// ===============================
+
+app.post("/send-phone-otp", async(req,res)=>{
+
+try{
+
+const {phone}=req.body;
+
+
+const otp = otpGenerator.generate(6,{
+    upperCaseAlphabets:false,
+    lowerCaseAlphabets:false,
+    specialChars:false
+});
+
+
+otpStore[phone]=otp;
+
+
+await client.messages.create({
+
+body:`Your Tiruvannamalai Guide OTP is ${otp}`,
+
+from:process.env.TWILIO_PHONE_NUMBER,
+
+to:phone
+
+});
+
+
+res.json({
+success:true,
+message:"OTP sent to mobile"
+});
+
+
+}
+
+catch(err){
+
+console.log("TWILIO ERROR:",err);
+
+res.json({
+success:false,
+message:err.message
+});
+
+}
+
+});
+
+// ===============================
 // SERVER
 // ===============================
 
 const PORT = process.env.PORT || 5000;
+console.log("Server file loaded");
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

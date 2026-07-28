@@ -315,34 +315,41 @@ document.getElementById("email")
 
 try{
 
+const email = document.getElementById("email").value.trim();
 
-const response =
-await fetch("/send-otp",{
+const phone = "+91" + document.getElementById("phone").value.trim();
 
+const otpMethod = document.querySelector(
+    'input[name="otpMethod"]:checked'
+).value;
 
-method:"POST",
+let response;
 
+if (otpMethod === "email") {
 
-headers:{
+    response = await fetch("/send-otp", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email
+        })
+    });
 
+} else {
 
-"Content-Type":
-"application/json"
+    response = await fetch("/send-phone-otp", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            phone: phone
+        })
+    });
 
-
-},
-
-
-body:JSON.stringify({
-
-email
-
-})
-
-
-});
-
-
+}
 
 const data =
 await response.json();
@@ -405,12 +412,7 @@ verifyOtpBtn.addEventListener(
 "click",
 async()=>{
 
-
-const email =
-document.getElementById("email")
-.value.trim();
-
-
+const email = document.getElementById("email").value.trim();
 
 const otp =
 document.getElementById("otp")
