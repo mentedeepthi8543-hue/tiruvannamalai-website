@@ -280,118 +280,78 @@ document.addEventListener(
 "DOMContentLoaded",
 ()=>{
 
-
-
 // ===============================
 // SEND OTP
 // ===============================
 
+const sendOtpBtn = document.getElementById("sendOtpBtn");
 
-const sendOtpBtn =
-document.getElementById("sendOtpBtn");
+if (sendOtpBtn) {
 
+    sendOtpBtn.addEventListener("click", async () => {
 
+        validatePhone();
+        validateEmail();
+        validateStrongPassword();
+        validatePassword();
 
-if(sendOtpBtn){
+        const email = document.getElementById("email").value.trim();
+        const phone = "+91" + document.getElementById("phone").value.trim();
 
+        const otpMethod = document.querySelector(
+            'input[name="otpMethod"]:checked'
+        ).value;
 
-sendOtpBtn.addEventListener(
-"click",
-async()=>{
+        try {
 
+            let response;
 
-validatePhone();
-validateEmail();
-validateStrongPassword();
-validatePassword();
+            if (otpMethod === "email") {
 
+                response = await fetch("/send-otp", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email
+                    })
+                });
 
+            } else {
 
-const email =
-document.getElementById("email")
-.value.trim();
+                response = await fetch("/send-phone-otp", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        phone: phone
+                    })
+                });
 
+            }
 
+            const data = await response.json();
 
-try{
+            alert(data.message);
 
-const email = document.getElementById("email").value.trim();
+            if (data.success) {
 
-const phone = "+91" + document.getElementById("phone").value.trim();
+                document.getElementById("otpBox").style.display = "block";
 
-const otpMethod = document.querySelector(
-    'input[name="otpMethod"]:checked'
-).value;
+            }
 
-let response;
+        } catch (err) {
 
-if (otpMethod === "email") {
+            console.log(err);
+            alert("OTP sending failed");
 
-    response = await fetch("/send-otp", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: email
-        })
+        }
+
     });
 
-} else {
-
-    response = await fetch("/send-phone-otp", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            phone: phone
-        })
-    });
-
 }
-
-const data =
-await response.json();
-
-
-
-alert(data.message);
-
-
-
-if(data.success){
-
-
-document.getElementById("otpBox")
-.style.display="block";
-
-
-}
-
-
-
-}
-
-catch(error){
-
-
-console.log(error);
-
-alert(
-"OTP sending failed"
-);
-
-
-}
-
-
-});
-
-
-}
-
-
 
 
 // ===============================
@@ -414,9 +374,13 @@ async()=>{
 
 const email = document.getElementById("email").value.trim();
 
-const otp =
-document.getElementById("otp")
-.value.trim();
+const phone = "+91" + document.getElementById("phone").value.trim();
+
+const otp =document.getElementById("otp").value.trim();
+
+const otpMethod = document.querySelector(
+    'input[name="otpMethod"]:checked'
+).value;
 
 
 
@@ -436,35 +400,27 @@ return;
 try{
 
 
-
 // VERIFY OTP
 
 const response =
 await fetch("/verify-otp",{
 
-
 method:"POST",
 
-
 headers:{
-
-
-"Content-Type":
-"application/json"
-
+"Content-Type":"application/json"
 },
-
 
 body:JSON.stringify({
 
 email,
-otp
+phone,
+otp,
+otpMethod
 
 })
 
-
 });
-
 
 
 const data =
@@ -684,13 +640,34 @@ console.log(data);
 
 if(data.success){
 
-    alert("Login Successful");
+    alert(data.message);
 
     localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("username", data.user.name);
-    localStorage.setItem("user", JSON.stringify(data.user));
 
-    window.location.href = "index.html";
+
+    // ADMIN LOGIN
+    if(data.role === "admin"){
+
+        localStorage.setItem("role","admin");
+
+        window.location.href = "admin.html";
+
+}
+
+
+    // USER LOGIN
+    else{
+
+        localStorage.setItem("username", data.user.name);
+
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        localStorage.setItem("role","user");
+
+        window.location.href = "dashboard.html";
+
+    }
+
 
 }
 

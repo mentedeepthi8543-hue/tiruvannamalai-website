@@ -9,6 +9,9 @@ const otpGenerator = require("otp-generator");
 const twilio = require("twilio");
 
 const User = require("./models/User");
+const Temple = require("./models/Temple");
+
+const { appendFile } = require("fs");
 
 const app = express();
 
@@ -78,6 +81,14 @@ app.get("/busstand", (req, res) => {
 });
 
 
+// ADMIN DASHBOARD  
+app.get("/admin.html",(req,res)=>{
+    res.sendFile(path.join(__dirname,"admin.html"));
+});
+
+
+
+
 // ===============================
 // SEND OTP
 // ===============================
@@ -134,31 +145,38 @@ app.post("/send-otp", async (req, res) => {
 // VERIFY OTP
 // ===============================
 
+// ===============================
+// VERIFY OTP
+// ===============================
+
 app.post("/verify-otp", (req, res) => {
-  const { email, otp } = req.body;
 
-  if (!otpStore[email]) {
-    return res.json({
-      success: false,
-      message: "OTP expired.",
+    console.log("VERIFY REQUEST:", req.body);
+    console.log("OTP STORE:", otpStore);
+
+    const { email, otp } = req.body;
+
+
+    if (otpStore[email] === otp) {
+
+        delete otpStore[email];
+
+        return res.json({
+            success: true,
+            message: "OTP Verified Successfully"
+        });
+
+    }
+
+
+    res.json({
+        success: false,
+        message: "Invalid OTP"
     });
-  }
 
-  if (otpStore[email] == otp) {
-    delete otpStore[email];
-
-    return res.json({
-      success: true,
-      message: "OTP Verified Successfully",
-    });
-  }
-
-  res.json({
-    success: false,
-    message: "Invalid OTP",
-  });
 });
 
+    
 // ===============================
 // SIGNUP
 // ===============================
@@ -243,7 +261,7 @@ message:err.message
 });
 
 // ===============================
-// LOGIN
+// LOGIN (USER + ADMIN)
 // ===============================
 
 app.post("/login", async (req,res)=>{
@@ -253,8 +271,27 @@ try{
 const {email,password}=req.body;
 
 
+// ADMIN LOGIN
+
+if(email === "admin@tiruvannamalai.com" && password === "Admin@123"){
+
+return res.json({
+
+success:true,
+
+message:"Admin Login Successful",
+
+role:"admin"
+
+});
+
+}
+
+
+// NORMAL USER LOGIN
+
 const user = await User.findOne({
-email: email
+email:email
 });
 
 
@@ -292,6 +329,8 @@ success:true,
 
 message:"Login Successful",
 
+role:"user",
+
 user:{
 name:user.name,
 email:user.email
@@ -304,9 +343,7 @@ email:user.email
 
 catch(err){
 
-console.log("LOGIN ERROR");
-console.log(err);
-
+console.log("LOGIN ERROR:",err);
 
 res.json({
 
@@ -316,10 +353,12 @@ message:err.message
 
 });
 
-
 }
 
+
 });
+
+
   
 // ===============================
 // FORGOT PASSWORD SEND OTP
@@ -583,6 +622,88 @@ message:err.message
 });
 
 }
+
+});
+
+// ===============================
+// ADMIN LOGIN
+// ===============================
+
+app.post("/admin-login", (req, res) => {
+
+    const { username, password } = req.body;
+
+    if (username === "admin" && password === "Admin@123") {
+
+        return res.json({
+            success: true,
+            message: "Admin Login Successful"
+        });
+
+    }
+
+    res.json({
+        success: false,
+        message: "Invalid Username or Password"
+    });
+
+});
+
+app.get("/users", async (req, res) => {
+
+    try {
+
+        const users = await User.find();
+
+        res.json(users);
+
+    } catch (err) {
+
+        res.status(500).json({ message: err.message });
+
+    }
+
+});
+
+app.delete("/delete-user/:id", async (req, res) => {
+
+    try {
+
+        await User.findByIdAndDelete(req.params.id);
+
+        res.json({
+            message: "User deleted successfully"
+        });
+
+    } catch (err) {
+
+        res.status(500).json({ message: err.message });
+
+    }
+
+});
+
+
+// ===============================
+// TEMPLE MANAGEMENT
+// ===============================
+
+app.get("/temples", async(req,res)=>{
+
+    try{
+
+        const temples = await Temple.find();
+
+        res.json(temples);
+
+    }
+    catch(err){
+
+        res.status(500).json({
+            message:err.message
+        });
+
+    }
 
 });
 
